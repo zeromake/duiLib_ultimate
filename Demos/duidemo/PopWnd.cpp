@@ -45,7 +45,7 @@ void CPopWnd::OnClick( TNotifyUI &msg )
 		return; 
 	}
 	else if( msg.pSender == m_pMinBtn ) { 
-		//CMsgWnd::MessageBox(m_hWnd, NULL, _T("子子窗口"));
+		//CMsgWnd::MessageBox(m_hWnd, NULL, _T("瀛愬瓙绐楀彛"));
 		SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0); return; }
 	else if( msg.pSender == m_pMaxBtn ) { 
 		SendMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0); return; }
@@ -85,7 +85,7 @@ void CPopWnd::Notify( TNotifyUI &msg )
 
 LRESULT CPopWnd::OnSysCommand( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
-	// 有时会在收到WM_NCDESTROY后收到wParam为SC_CLOSE的WM_SYSCOMMAND
+	// 鏈夋椂浼氬湪鏀跺埌WM_NCDESTROY鍚庢敹鍒皐Param涓篠C_CLOSE鐨刉M_SYSCOMMAND
 	if( wParam == SC_CLOSE ) {
 		::PostQuitMessage(0L);
 		bHandled = TRUE;

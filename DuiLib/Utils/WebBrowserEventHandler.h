@@ -29,9 +29,9 @@ namespace DuiLib
 			/* [in] */ IDispatch __RPC_FAR *pdispReserved)
 		{
 			//return E_NOTIMPL;
-			//返回 E_NOTIMPL 正常弹出系统右键菜单
+			//杩斿洖 E_NOTIMPL 姝ｅ父寮瑰嚭绯荤粺鍙抽敭鑿滃崟
 			return S_OK;
-			//返回S_OK 则可屏蔽系统右键菜单
+			//杩斿洖S_OK 鍒欏彲灞忚斀绯荤粺鍙抽敭鑿滃崟
 		}
 
 		virtual HRESULT STDMETHODCALLTYPE GetHostInfo(CWebBrowserUI* pWeb, 

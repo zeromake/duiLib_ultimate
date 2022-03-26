@@ -17,5 +17,5 @@ public:
 
 private:
 	CDuiString		m_strXMLPath;
-	CStdStringPtrMap m_MenuCheckInfo; //╠ё╢Ф╡к╣╔╣д╣╔я║╦╢я║пео╒
+	CStdStringPtrMap m_MenuCheckInfo; //Д©²Е╜≤Х▐°Е█∙Г └Е█∙И─┴Е╓█И─┴Д©║Ф│╞
 };

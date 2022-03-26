@@ -3,93 +3,93 @@
 
 #define ANIMATIONNUM	85
 
-// ¶¯»­µÄÄÚ²¿ÖÖÀàÇø·Ö£¬Ë³Ðò²»ÄÜµ÷Õû
+// åŠ¨ç”»çš„å†…éƒ¨ç§ç±»åŒºåˆ†ï¼Œé¡ºåºä¸èƒ½è°ƒæ•´
 //enum AnimationEffect
 //{
-//	EFFECT_FLIPLEFT = 2,					//	Ïò×ó·­×ª
-//	EFFECT_FLIPRIGHT,						//	ÏòÓÒ·­×ª
-//	EFFECT_FLIPBOTTOM,						//	ÏòÏÂ·­×ª
-//	EFFECT_FLIPUP = 5,						//	ÏòÉÏ·­×ª
-//	EFFECT_MOSAIC,							//	ÂíÈü¿Ë
-//	EFFECT_SLIDELEFT,						//	Ïò×ó»¬¶¯
-//	EFFECT_SLIDERIGHT,						//	ÏòÓÒ»¬¶¯
-//	EFFECT_SLIDEUP,							//	ÏòÉÏ»¬¶¯
-//	EFFECT_SLIDEBOTTOM = 10,				//	ÏòÏÂ»¬¶¯
-//	EFFECT_BANDSLIDEH,						//	Ë®Æ½´ø×´»¬¶¯
-//	EFFECT_BANDSLIDEV,						//	´¹Ö±´ø×´»¬¶¯
-//	EFFECT_BLINDSH,							//	Ë®Æ½°ÙÒ¶
-//	EFFECT_BLINDSV ,						//	´¹Ö±°ÙÒ¶
-//	EFFECT_SEPCIALBLINDSH= 15, 				//  ²»µÈ¸ßË®Æ½°ÙÒ¶
-//	EFFECT_SEPCIALBLINDSV,					//  ²»µÈ¿í´¹Ö±°ÙÒ¶
-//	EFFECT_SCANLEFT,						//	Ïò×óÉ¨Ãè
-//	EFFECT_SCANRIGHT,						//	ÏòÓÒÉ¨Ãè
-//	EFFECT_SCANUP,							//	ÏòÉÏÉ¨Ãè
-//	EFFECT_SCANBOTTOM = 20,					//	ÏòÏÂÉ¨Ãè
-//	EFFECT_INERTIASLIDELEFT,				//  Ïò×ó¹ßÐÔ»¬¶¯
-//  EFFECT_INERTIASLIDERIGHT,				//  ÏòÓÒ¹ßÐÔ»¬¶¯
-//	EFFECT_INERTIASLIDEUP,					//  ÏòÉÏ¹ßÐÔ»¬¶¯
-//	EFFECT_INERTIASLIDEBOTTOM,				//  ÏòÏÂ¹ßÐÔ»¬¶¯
-//	EFFECT_FADE = 25,						//	µ­³ö/µ­Èë
-//	EFFECT_ZOOM,							//	·Å´ó
-//	EFFECT_SHRINK,							//	ËõÐ¡
-//	EFFECT_SWING,							//	°Ú³ö/°ÚÈë
-//	EFFECT_FUNNEL,							//	Â©¶·
-//	EFFECT_NOISE = 30,						//	ÔëÉù
-//	EFFECT_CUBELEFT,						//	×óÁ¢·½Ìå
-//	EFFECT_CUBERIGHT,						//	ÓÒÁ¢·½Ìå
-//	EFFECT_CUBEUP,							//	ÉÏÁ¢·½Ìå
-//	EFFECT_CUBEBOTTOM ,						//	ÏÂÁ¢·½Ìå
-//	EFFECT_GRADUALERASELEFT = 35,			//	Ïò×ó½¥±ä²Á³ý
-//	EFFECT_GRADUALERASERIGHT,				//	ÏòÓÒ½¥±ä²Á³ý
-//	EFFECT_GRADUALERASEUP,					//	ÏòÉÏ½¥±ä²Á³ý
-//	EFFECT_GRADUALERASEBOTTOM,				//	ÏòÏÂ½¥±ä²Á³ý
-//	EFFECT_PUSHLEFT ,						//	Ïò×óÍÆ¼·
-//	EFFECT_PUSHRIGHT = 40,					//	ÏòÓÒÍÆ¼·
-//	EFFECT_PUSHUP,							//	ÏòÉÏÍÆ¼·
-//	EFFECT_PUSHBOTTOM,						//	ÏòÏÂÍÆ¼·
-//	EFFECT_DISSOLVE,						//  ÈÜ½â
-//	EFFECT_CURTAIN,							//  Ä»
-//	EFFECT_TRIANGULARPRISMRIGHT = 45,		//  ÓÒÈýÀâÖù
-//	EFFECT_TRIANGULARPRISMLEFT,				//  ×óÈýÀâÖù
-//	EFFECT_TRIANGULARPRISMUP,				//  ÉÏÈýÀâÖù
-//	EFFECT_TRIANGULARPRISMBOTTOM,			//  ÏÂÈýÀâÖù
-//	EFFECT_CUBEINSIDELEFT ,					//  ×óÄÚÁ¢·½Ìå
-//	EFFECT_CUBEINSIDERIGHT = 50,			//  ÓÒÄÚÁ¢·½Ìå
-//	EFFECT_CUBEINSIDEUP,					//  ÉÏÄÚÁ¢·½Ìå
-//	EFFECT_CUBEINSIDEBOTTOM,				//  ÏÂÄÚÁ¢·½Ìå
-//	EFFECT_SPATIALMOTIONLEFT,				//  ¿Õ¼ä×óÒÆ	
-//	EFFECT_SPATIALMOTIONRIGHT,				//  ¿Õ¼äÓÒÒÆ
-//	EFFECT_SPATIALMOTIONUP= 55,				//  ¿Õ¼äÉÏÒÆ
-//	EFFECT_SPATIALMOTIONBOTTOM,				//  ¿Õ¼äÏÂÒÆ
-//	EFFECT_PATCHRANDOMFLIP,					//  ·Ö¿é·­×ª
-//	EFFECT_SPATIALROTATELEFT,				//  ¿Õ¼äÏò×óÐý×ª
-//	EFFECT_SPATIALROTATERIGHT ,				//  ¿Õ¼äÏòÓÒÐý×ª
-//	EFFECT_SPATIALROTATEUP = 60,			//  ¿Õ¼äÏòÉÏÐý×ª
-//	EFFECT_SPATIALROTATEBOTTOM,				//  ¿Õ¼äÏòÏÂÐý×ª
-//	EFFECT_DOOR,							//  ¿ª/¹ØÃÅ
-//	EFFECT_WHIRLPOOL,						//	äöÎÐ
-//	EFFECT_SCATTER,							//	´òÉ¢
-//	EFFECT_COLORDADE= 65 ,					//	ÍÊÉ«
-//	EFFECT_DAMPSLIDE_BOTTOMLEFT,			//  ×óÏÂ½Ç×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDE_BOTTOMRIGHT,			//  ÓÒÏÂ½Ç×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDE_TOPLEFT,				//  ×óÉÏ½Ç×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDE_TOPRIGHT,				//  ÓÒÉÏ½Ç×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDELEFT = 70,				//	Ïò×ó×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDERIGHT,					//	ÏòÓÒ×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDEUP,						//	ÏòÉÏ×èÄá»¬¶¯
-//	EFFECT_DAMPSLIDEBOTTOM,					//	ÏòÏÂ×èÄá»¬¶¯
-//	EFFECT_CLOCKWIPE,						//	»·ÐÎ²Á³ý
-//	EFFECT_PINWHEEL = 75,					//	·ç³µ
-//	EFFECT_PAGEPEEL,						//	¾íÒ³
-//	EFFECT_GAUSSBLUR,						//	Ä£ºýµ­Èë/³ö
-//	EFFECT_WAVE,							//	²¨ÀË»¯
-//	EFFECT_ZOOMBLUR ,						//	ÍÏÎ²
-//  EFFECT_FOLDV = 80,						//  ´¹Ö±ÕÛµþ
-//	EFFECT_FOLDH,							//	Ë®Æ½ÕÛµþ
-//	EFFECT_STACKLEFT,						//	Ïò×ó¶Ñ»ý
-//	EFFECT_STACKRIGHT,						//	ÏòÓÒ¶Ñ»ý
-//	EFFECT_STACKUP,							//	ÏòÉÏ¶Ñ»ý
-//	EFFECT_STACKBOTTOM = 85,				//	ÏòÏÂ¶Ñ»ý
+//	EFFECT_FLIPLEFT = 2,					//	å‘å·¦ç¿»è½¬
+//	EFFECT_FLIPRIGHT,						//	å‘å³ç¿»è½¬
+//	EFFECT_FLIPBOTTOM,						//	å‘ä¸‹ç¿»è½¬
+//	EFFECT_FLIPUP = 5,						//	å‘ä¸Šç¿»è½¬
+//	EFFECT_MOSAIC,							//	é©¬èµ›å…‹
+//	EFFECT_SLIDELEFT,						//	å‘å·¦æ»‘åŠ¨
+//	EFFECT_SLIDERIGHT,						//	å‘å³æ»‘åŠ¨
+//	EFFECT_SLIDEUP,							//	å‘ä¸Šæ»‘åŠ¨
+//	EFFECT_SLIDEBOTTOM = 10,				//	å‘ä¸‹æ»‘åŠ¨
+//	EFFECT_BANDSLIDEH,						//	æ°´å¹³å¸¦çŠ¶æ»‘åŠ¨
+//	EFFECT_BANDSLIDEV,						//	åž‚ç›´å¸¦çŠ¶æ»‘åŠ¨
+//	EFFECT_BLINDSH,							//	æ°´å¹³ç™¾å¶
+//	EFFECT_BLINDSV ,						//	åž‚ç›´ç™¾å¶
+//	EFFECT_SEPCIALBLINDSH= 15, 				//  ä¸ç­‰é«˜æ°´å¹³ç™¾å¶
+//	EFFECT_SEPCIALBLINDSV,					//  ä¸ç­‰å®½åž‚ç›´ç™¾å¶
+//	EFFECT_SCANLEFT,						//	å‘å·¦æ‰«æ
+//	EFFECT_SCANRIGHT,						//	å‘å³æ‰«æ
+//	EFFECT_SCANUP,							//	å‘ä¸Šæ‰«æ
+//	EFFECT_SCANBOTTOM = 20,					//	å‘ä¸‹æ‰«æ
+//	EFFECT_INERTIASLIDELEFT,				//  å‘å·¦æƒ¯æ€§æ»‘åŠ¨
+//  EFFECT_INERTIASLIDERIGHT,				//  å‘å³æƒ¯æ€§æ»‘åŠ¨
+//	EFFECT_INERTIASLIDEUP,					//  å‘ä¸Šæƒ¯æ€§æ»‘åŠ¨
+//	EFFECT_INERTIASLIDEBOTTOM,				//  å‘ä¸‹æƒ¯æ€§æ»‘åŠ¨
+//	EFFECT_FADE = 25,						//	æ·¡å‡º/æ·¡å…¥
+//	EFFECT_ZOOM,							//	æ”¾å¤§
+//	EFFECT_SHRINK,							//	ç¼©å°
+//	EFFECT_SWING,							//	æ‘†å‡º/æ‘†å…¥
+//	EFFECT_FUNNEL,							//	æ¼æ–—
+//	EFFECT_NOISE = 30,						//	å™ªå£°
+//	EFFECT_CUBELEFT,						//	å·¦ç«‹æ–¹ä½“
+//	EFFECT_CUBERIGHT,						//	å³ç«‹æ–¹ä½“
+//	EFFECT_CUBEUP,							//	ä¸Šç«‹æ–¹ä½“
+//	EFFECT_CUBEBOTTOM ,						//	ä¸‹ç«‹æ–¹ä½“
+//	EFFECT_GRADUALERASELEFT = 35,			//	å‘å·¦æ¸å˜æ“¦é™¤
+//	EFFECT_GRADUALERASERIGHT,				//	å‘å³æ¸å˜æ“¦é™¤
+//	EFFECT_GRADUALERASEUP,					//	å‘ä¸Šæ¸å˜æ“¦é™¤
+//	EFFECT_GRADUALERASEBOTTOM,				//	å‘ä¸‹æ¸å˜æ“¦é™¤
+//	EFFECT_PUSHLEFT ,						//	å‘å·¦æŽ¨æŒ¤
+//	EFFECT_PUSHRIGHT = 40,					//	å‘å³æŽ¨æŒ¤
+//	EFFECT_PUSHUP,							//	å‘ä¸ŠæŽ¨æŒ¤
+//	EFFECT_PUSHBOTTOM,						//	å‘ä¸‹æŽ¨æŒ¤
+//	EFFECT_DISSOLVE,						//  æº¶è§£
+//	EFFECT_CURTAIN,							//  å¹•
+//	EFFECT_TRIANGULARPRISMRIGHT = 45,		//  å³ä¸‰æ£±æŸ±
+//	EFFECT_TRIANGULARPRISMLEFT,				//  å·¦ä¸‰æ£±æŸ±
+//	EFFECT_TRIANGULARPRISMUP,				//  ä¸Šä¸‰æ£±æŸ±
+//	EFFECT_TRIANGULARPRISMBOTTOM,			//  ä¸‹ä¸‰æ£±æŸ±
+//	EFFECT_CUBEINSIDELEFT ,					//  å·¦å†…ç«‹æ–¹ä½“
+//	EFFECT_CUBEINSIDERIGHT = 50,			//  å³å†…ç«‹æ–¹ä½“
+//	EFFECT_CUBEINSIDEUP,					//  ä¸Šå†…ç«‹æ–¹ä½“
+//	EFFECT_CUBEINSIDEBOTTOM,				//  ä¸‹å†…ç«‹æ–¹ä½“
+//	EFFECT_SPATIALMOTIONLEFT,				//  ç©ºé—´å·¦ç§»	
+//	EFFECT_SPATIALMOTIONRIGHT,				//  ç©ºé—´å³ç§»
+//	EFFECT_SPATIALMOTIONUP= 55,				//  ç©ºé—´ä¸Šç§»
+//	EFFECT_SPATIALMOTIONBOTTOM,				//  ç©ºé—´ä¸‹ç§»
+//	EFFECT_PATCHRANDOMFLIP,					//  åˆ†å—ç¿»è½¬
+//	EFFECT_SPATIALROTATELEFT,				//  ç©ºé—´å‘å·¦æ—‹è½¬
+//	EFFECT_SPATIALROTATERIGHT ,				//  ç©ºé—´å‘å³æ—‹è½¬
+//	EFFECT_SPATIALROTATEUP = 60,			//  ç©ºé—´å‘ä¸Šæ—‹è½¬
+//	EFFECT_SPATIALROTATEBOTTOM,				//  ç©ºé—´å‘ä¸‹æ—‹è½¬
+//	EFFECT_DOOR,							//  å¼€/å…³é—¨
+//	EFFECT_WHIRLPOOL,						//	æ¼©æ¶¡
+//	EFFECT_SCATTER,							//	æ‰“æ•£
+//	EFFECT_COLORDADE= 65 ,					//	è¤ªè‰²
+//	EFFECT_DAMPSLIDE_BOTTOMLEFT,			//  å·¦ä¸‹è§’é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDE_BOTTOMRIGHT,			//  å³ä¸‹è§’é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDE_TOPLEFT,				//  å·¦ä¸Šè§’é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDE_TOPRIGHT,				//  å³ä¸Šè§’é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDELEFT = 70,				//	å‘å·¦é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDERIGHT,					//	å‘å³é˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDEUP,						//	å‘ä¸Šé˜»å°¼æ»‘åŠ¨
+//	EFFECT_DAMPSLIDEBOTTOM,					//	å‘ä¸‹é˜»å°¼æ»‘åŠ¨
+//	EFFECT_CLOCKWIPE,						//	çŽ¯å½¢æ“¦é™¤
+//	EFFECT_PINWHEEL = 75,					//	é£Žè½¦
+//	EFFECT_PAGEPEEL,						//	å·é¡µ
+//	EFFECT_GAUSSBLUR,						//	æ¨¡ç³Šæ·¡å…¥/å‡º
+//	EFFECT_WAVE,							//	æ³¢æµªåŒ–
+//	EFFECT_ZOOMBLUR ,						//	æ‹–å°¾
+//  EFFECT_FOLDV = 80,						//  åž‚ç›´æŠ˜å 
+//	EFFECT_FOLDH,							//	æ°´å¹³æŠ˜å 
+//	EFFECT_STACKLEFT,						//	å‘å·¦å †ç§¯
+//	EFFECT_STACKRIGHT,						//	å‘å³å †ç§¯
+//	EFFECT_STACKUP,							//	å‘ä¸Šå †ç§¯
+//	EFFECT_STACKBOTTOM = 85,				//	å‘ä¸‹å †ç§¯
 //};
 
 class CWndEffect : public IUIEffect
@@ -103,29 +103,29 @@ public:
 	BOOL DependAnimation(WPARAM effectKey);
 	BOOL ClearAllAnimation();
 	BOOL Animation(IUIEffectCallBack *iDrawEffect,DWORD frameSpin);
-	// ³õÊ¼»¯Ö§³ÖµÄ¶¯»­
+	// åˆå§‹åŒ–æ”¯æŒçš„åŠ¨ç”»
 	static DWORD InitSurportAnimationType(const char *& strAnimationType);
 private:
-	// ¼ÆËã¶¯»­¹ý³Ì
+	// è®¡ç®—åŠ¨ç”»è¿‡ç¨‹
 	void ComputeAnimation(IUIEffectCallBack *iDrawEffect,DWORD timeElapse);
-	// ÇåÀíÖ´ÐÐ½áÊøµÄ¶¯»­
+	// æ¸…ç†æ‰§è¡Œç»“æŸçš„åŠ¨ç”»
 	void CleanFinishedAnimation(IUIEffectCallBack *iDrawEffect);
 private:
-	std::vector<InternalAnimationParam>				m_animationContainer;				// ¶¯»­²ÎÊýÈÝÆ÷
-	std::vector<InternalAnimationParam>::iterator	m_itAnimation;						// Ã¶¾ÙÆ÷
-	static const char *								m_animation;						// ¶¯»­Ãû³Æ£¬ÒÔ\0·Ö¸î,\0\0½áÊø
+	std::vector<InternalAnimationParam>				m_animationContainer;				// åŠ¨ç”»å‚æ•°å®¹å™¨
+	std::vector<InternalAnimationParam>::iterator	m_itAnimation;						// æžšä¸¾å™¨
+	static const char *								m_animation;						// åŠ¨ç”»åç§°ï¼Œä»¥\0åˆ†å‰²,\0\0ç»“æŸ
 	ULONG_PTR m_gdiplusToken;															// gdiplus 
 };
  
-// ËùÓÐÖ§³ÖµÄ¶¯»­
-const char* CWndEffect::m_animation =  "Ïò×ó·­×ª\0ÏòÓÒ·­×ª\0ÏòÏÂ·­×ª\0ÏòÉÏ·­×ª\0ÂíÈü¿Ë\0Ïò×ó»¬¶¯\0ÏòÓÒ»¬¶¯\0ÏòÉÏ»¬¶¯\0ÏòÏÂ»¬¶¯\0Ë®Æ½´ø×´»¬¶¯\0´¹Ö±´ø×´»¬¶¯\0Ë®Æ½°ÙÒ¶\0´¹Ö±°ÙÒ¶\0²»µÈ¸ßË®Æ½°ÙÒ¶\0²»µÈ¿í´¹Ö±°ÙÒ¶\0Ïò×ó²Á³ý\0ÏòÓÒ²Á³ý\0ÏòÉÏ²Á³ý\0ÏòÏÂ²Á³ý\0Ïò×ó¹ßÐÔ»¬¶¯\0ÏòÓÒ¹ßÐÔ»¬¶¯\0ÏòÉÏ¹ßÐÔ»¬¶¯\0ÏòÏÂ¹ßÐÔ»¬¶¯\0µ­³ö/µ­Èë\0·Å´ó\0ËõÐ¡\0°Ú³ö/°ÚÈë\0Â©¶·\0ÔëÉù\0×óÁ¢·½Ìå\0ÓÒÁ¢·½Ìå\0ÉÏÁ¢·½Ìå\0ÏÂÁ¢·½Ìå\0Ïò×ó½¥±ä²Á³ý\0ÏòÓÒ½¥±ä²Á³ý\0ÏòÉÏ½¥±ä²Á³ý\0ÏòÏÂ½¥±ä²Á³ý\0Ïò×óÍÆ¼·\0ÏòÓÒÍÆ¼·\0ÏòÉÏÍÆ¼·\0ÏòÏÂÍÆ¼·\0ÈÜ½â\0Ä»\0ÓÒÈýÀâÖù\0×óÈýÀâÖù\0ÉÏÈýÀâÖù\0ÏÂÈýÀâÖù\0×óÄÚÁ¢·½Ìå\0ÓÒÄÚÁ¢·½Ìå\0ÉÏÄÚÁ¢·½Ìå\0ÏÂÄÚÁ¢·½Ìå\0¿Õ¼ä×óÒÆ\0¿Õ¼äÓÒÒÆ\0¿Õ¼äÉÏÒÆ\0¿Õ¼äÏÂÒÆ\0·Ö¿é·­×ª\0¿Õ¼äÏò×óÐý×ª\0¿Õ¼äÏòÓÒÐý×ª\0¿Õ¼äÏòÉÏÐý×ª\0¿Õ¼äÏòÏÂÐý×ª\0¿ª/¹ØÃÅ\0äöÎÐ\0´òÉ¢\0ÍÊÉ«\0×óÏÂ½Ç×èÄá»¬¶¯\0ÓÒÏÂ½Ç×èÄá»¬¶¯\0×óÉÏ½Ç×èÄá»¬¶¯\0ÓÒÉÏ½Ç×èÄá»¬¶¯\0Ïò×ó×èÄá»¬¶¯\0ÏòÓÒ×èÄá»¬¶¯\0ÏòÉÏ×èÄá»¬¶¯\0ÏòÏÂ×èÄá»¬¶¯\0»·ÐÎ²Á³ý\0·ç³µ\0¾íÒ³\0Ä£ºýµ­Èë/³ö\0Ë®²¨\0ÍÏÎ²\0´¹Ö±ÕÛµþ\0Ë®Æ½ÕÛµþ\0\0";
+// æ‰€æœ‰æ”¯æŒçš„åŠ¨ç”»
+const char* CWndEffect::m_animation =  "å‘å·¦ç¿»è½¬\0å‘å³ç¿»è½¬\0å‘ä¸‹ç¿»è½¬\0å‘ä¸Šç¿»è½¬\0é©¬èµ›å…‹\0å‘å·¦æ»‘åŠ¨\0å‘å³æ»‘åŠ¨\0å‘ä¸Šæ»‘åŠ¨\0å‘ä¸‹æ»‘åŠ¨\0æ°´å¹³å¸¦çŠ¶æ»‘åŠ¨\0åž‚ç›´å¸¦çŠ¶æ»‘åŠ¨\0æ°´å¹³ç™¾å¶\0åž‚ç›´ç™¾å¶\0ä¸ç­‰é«˜æ°´å¹³ç™¾å¶\0ä¸ç­‰å®½åž‚ç›´ç™¾å¶\0å‘å·¦æ“¦é™¤\0å‘å³æ“¦é™¤\0å‘ä¸Šæ“¦é™¤\0å‘ä¸‹æ“¦é™¤\0å‘å·¦æƒ¯æ€§æ»‘åŠ¨\0å‘å³æƒ¯æ€§æ»‘åŠ¨\0å‘ä¸Šæƒ¯æ€§æ»‘åŠ¨\0å‘ä¸‹æƒ¯æ€§æ»‘åŠ¨\0æ·¡å‡º/æ·¡å…¥\0æ”¾å¤§\0ç¼©å°\0æ‘†å‡º/æ‘†å…¥\0æ¼æ–—\0å™ªå£°\0å·¦ç«‹æ–¹ä½“\0å³ç«‹æ–¹ä½“\0ä¸Šç«‹æ–¹ä½“\0ä¸‹ç«‹æ–¹ä½“\0å‘å·¦æ¸å˜æ“¦é™¤\0å‘å³æ¸å˜æ“¦é™¤\0å‘ä¸Šæ¸å˜æ“¦é™¤\0å‘ä¸‹æ¸å˜æ“¦é™¤\0å‘å·¦æŽ¨æŒ¤\0å‘å³æŽ¨æŒ¤\0å‘ä¸ŠæŽ¨æŒ¤\0å‘ä¸‹æŽ¨æŒ¤\0æº¶è§£\0å¹•\0å³ä¸‰æ£±æŸ±\0å·¦ä¸‰æ£±æŸ±\0ä¸Šä¸‰æ£±æŸ±\0ä¸‹ä¸‰æ£±æŸ±\0å·¦å†…ç«‹æ–¹ä½“\0å³å†…ç«‹æ–¹ä½“\0ä¸Šå†…ç«‹æ–¹ä½“\0ä¸‹å†…ç«‹æ–¹ä½“\0ç©ºé—´å·¦ç§»\0ç©ºé—´å³ç§»\0ç©ºé—´ä¸Šç§»\0ç©ºé—´ä¸‹ç§»\0åˆ†å—ç¿»è½¬\0ç©ºé—´å‘å·¦æ—‹è½¬\0ç©ºé—´å‘å³æ—‹è½¬\0ç©ºé—´å‘ä¸Šæ—‹è½¬\0ç©ºé—´å‘ä¸‹æ—‹è½¬\0å¼€/å…³é—¨\0æ¼©æ¶¡\0æ‰“æ•£\0è¤ªè‰²\0å·¦ä¸‹è§’é˜»å°¼æ»‘åŠ¨\0å³ä¸‹è§’é˜»å°¼æ»‘åŠ¨\0å·¦ä¸Šè§’é˜»å°¼æ»‘åŠ¨\0å³ä¸Šè§’é˜»å°¼æ»‘åŠ¨\0å‘å·¦é˜»å°¼æ»‘åŠ¨\0å‘å³é˜»å°¼æ»‘åŠ¨\0å‘ä¸Šé˜»å°¼æ»‘åŠ¨\0å‘ä¸‹é˜»å°¼æ»‘åŠ¨\0çŽ¯å½¢æ“¦é™¤\0é£Žè½¦\0å·é¡µ\0æ¨¡ç³Šæ·¡å…¥/å‡º\0æ°´æ³¢\0æ‹–å°¾\0åž‚ç›´æŠ˜å \0æ°´å¹³æŠ˜å \0\0";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class CAlphaBlendImpl : public IImageProcess
 {
-	// alpha »ìºÏ
+	// alpha æ··åˆ
 	BOOL AlphaBlend(BYTE *desData, int desStride, int desLeft, int desTop, int desWidth, int desHeight, BYTE *srcData, int srcStride, int srcLeft, int srcTop, int srcWidth, int srcHeight, BYTE sourceAlpha = 255, int interpolationMode = 0);
-	// Í¼Æ¬Ëõ·Å
+	// å›¾ç‰‡ç¼©æ”¾
 	BOOL ImageScale(BYTE *DataDes, int desWidth, int desHeight, BYTE *DataSrc, int srcStride, int srcLeft, int srcTop, int srcWidth, int srcHeight, int interpolationMode = 0);
 };

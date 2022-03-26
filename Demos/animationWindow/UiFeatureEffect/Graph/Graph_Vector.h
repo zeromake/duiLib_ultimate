@@ -7,11 +7,11 @@ namespace Graph
 	class Vector 
 	{
 	public:
-		// w == 1 µã£¬  ÓĞÆ½ÒÆ
-		// w == 0 ÏòÁ¿£¬Ã»ÓĞÆ½ÒÆ
+		// w == 1 ç‚¹ï¼Œ  æœ‰å¹³ç§»
+		// w == 0 å‘é‡ï¼Œæ²¡æœ‰å¹³ç§»
 		__declspec(align(16)) real m_vector[4];
 
-		// ¹¹Ôìº¯Êı
+		// æ„é€ å‡½æ•°
 
 		inline Vector::Vector()
 		{
@@ -36,7 +36,7 @@ namespace Graph
 			m_vector[3]=_w;
 		}
 
-		// ÉèÖÃÏòÁ¿
+		// è®¾ç½®å‘é‡
 		inline void Vector::SetVector(const real* v)
 		{
 			m_vector[0]=v[0];
@@ -53,7 +53,7 @@ namespace Graph
 			m_vector[3]=_w;
 		}
 
-		// ¼õ·¨
+		// å‡æ³•
 		inline void Vector::Difference(const Vector* pSrc, const Vector* pDest)
 		{
 			m_vector[0]=pDest->m_vector[0] - pSrc->m_vector[0];
@@ -62,7 +62,7 @@ namespace Graph
 			m_vector[3]=1.0f;			
 		}
 
-		// ·´ÏòÁ¿
+		// åå‘é‡
 		inline void Vector::Inverse()
 		{
 			m_vector[0]=-m_vector[0];
@@ -71,13 +71,13 @@ namespace Graph
 			m_vector[3]=1.0f;
 		}
 
-		// ÊÇ·ñµ¥Î»ÏòÁ¿
+		// æ˜¯å¦å•ä½å‘é‡
 		inline bool Vector::IsNormalized()
 		{
 			return D_Equal(m_vector[0]*m_vector[0]+m_vector[1]*m_vector[1]+m_vector[2]*m_vector[2], 1.0f);
 		}
 
-		// ÔËËã·ûÖØÔØ
+		// è¿ç®—ç¬¦é‡è½½
 		inline void Vector::operator += (Vector& v)
 		{
 			m_vector[0]+=v.m_vector[0];
@@ -148,13 +148,13 @@ namespace Graph
 				((m_vector[2]-v.m_vector[2])<dConst_MinPrecision && (m_vector[2]-v.m_vector[2])>-dConst_MinPrecision))? false:true);
 		}
 
-		// ÏòÁ¿³¤¶ÈµÄÆ½·½
+		// å‘é‡é•¿åº¦çš„å¹³æ–¹
 		real Vector::GetLengthSq() 
 		{
 			return m_vector[0]*m_vector[0] + m_vector[1]*m_vector[1] + m_vector[2]*m_vector[2];
 		}
 
-		// ÏòÁ¿³¤¶È
+		// å‘é‡é•¿åº¦
 		float Vector::GetLength()
 		{
 			float f;
@@ -181,7 +181,7 @@ namespace Graph
 			}
 
 		}
-		// µ¥Î»»¯ÏòÁ¿
+		// å•ä½åŒ–å‘é‡
 		void Vector::Normalize()
 		{
 			_asm
@@ -208,7 +208,7 @@ namespace Graph
 
 		}
 
-		// Í¨¹ıÁ½ÏòÁ¿Çó²æ³Ë,½á¹û±£´æÔÚ¸ÃÏòÁ¿ÖĞ
+		// é€šè¿‡ä¸¤å‘é‡æ±‚å‰ä¹˜,ç»“æœä¿å­˜åœ¨è¯¥å‘é‡ä¸­
 		void Vector::Cross(const Vector* pU, const Vector* pV)
 		{
 			_asm
@@ -239,7 +239,7 @@ namespace Graph
 
 		}
 
-		// ÇóÁ½ÏòÁ¿¼Ğ½Ç
+		// æ±‚ä¸¤å‘é‡å¤¹è§’
 		real Vector::AngleWith(Vector& v)
 		{
 			return (real)acosf((*this * v)/(this->GetLength()*v.GetLength()*2.0f));

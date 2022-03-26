@@ -512,7 +512,7 @@ WKE_API jsValue WKE_CALL jsEmptyArray(jsExecState es);
 
 
 
-//cexer JS¶ÔÏó¡¢º¯Êı°ó¶¨Ö§³Ö
+//cexer JSå¯¹è±¡ã€å‡½æ•°ç»‘å®šæ”¯æŒ
 typedef jsValue (WKE_CALL *jsGetPropertyCallback)(jsExecState es, jsValue object, const char* propertyName);
 typedef bool (WKE_CALL *jsSetPropertyCallback)(jsExecState es, jsValue object, const char* propertyName, jsValue value);
 typedef jsValue (WKE_CALL *jsCallAsFunctionCallback)(jsExecState es, jsValue object, jsValue* args, int argCount);

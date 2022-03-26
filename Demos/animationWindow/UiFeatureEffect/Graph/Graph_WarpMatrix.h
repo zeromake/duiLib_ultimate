@@ -48,7 +48,7 @@ namespace Graph
 		}
 
 	public:
-		// ÅĞ¶ÏÊÇ·ñÊÇÍ¹ËÄ±ßĞÎ
+		// åˆ¤æ–­æ˜¯å¦æ˜¯å‡¸å››è¾¹å½¢
 		bool IsConvexRect()const
 		{
 			CdLine line12(topLeft, topRight);
@@ -70,7 +70,7 @@ namespace Graph
 			return true;
 		}
 		
-		// ÅĞ¶ÏÊÇ·ñÊÇ°¼ËÄ±ßĞÎ
+		// åˆ¤æ–­æ˜¯å¦æ˜¯å‡¹å››è¾¹å½¢
 		bool IsSunkenRect()const
 		{
 			CdLine line12(topLeft, topRight);
@@ -318,7 +318,7 @@ namespace Graph
 		
 	public:
 		
-		// ³õÊ¼»¯Å¤Çú»·¾³£¬½«Ò»¸ö¾ØĞÎ¿òÓ³Éäµ½Ò»¸öÍ¹ËÄ±ßĞÎÖĞ
+		// åˆå§‹åŒ–æ‰­æ›²ç¯å¢ƒï¼Œå°†ä¸€ä¸ªçŸ©å½¢æ¡†æ˜ å°„åˆ°ä¸€ä¸ªå‡¸å››è¾¹å½¢ä¸­
 
 		bool InitMatrix(const WarpRect& _warpRect, const CdRect& _rectSrc)
 		{
@@ -651,7 +651,7 @@ namespace Graph
 			}
 		}
 	 
-		//º¯Êı½éÉÜ£ºÇóÄæ¾ØÕó£¨¸ßË¹¡ªÔ¼µ±·¨£© 
+		//å‡½æ•°ä»‹ç»ï¼šæ±‚é€†çŸ©é˜µï¼ˆé«˜æ–¯â€•çº¦å½“æ³•ï¼‰ 
 		BOOL InverseMatrix(const int &row)
 		{
 			real *m=new real[row*row];
@@ -663,8 +663,8 @@ namespace Graph
 			for (k=0;k<row;k++)
 			{
 				real max=0;
-				//È«Ñ¡Ö÷Ôª
-				//Ñ°ÕÒ×î´óÔªËØ
+				//å…¨é€‰ä¸»å…ƒ
+				//å¯»æ‰¾æœ€å¤§å…ƒç´ 
 				for (i=k;i<row;i++)
 				{
 					for (j=k;j<row;j++)
@@ -683,7 +683,7 @@ namespace Graph
 					return FALSE;
 				}
 
-				//ĞĞ½»»»
+				//è¡Œäº¤æ¢
 				if (is[k]!=k)
 				{
 					for (i=0;i<row;i++)
@@ -692,7 +692,7 @@ namespace Graph
 					}
 				}
 
-				//ÁĞ½»»»
+				//åˆ—äº¤æ¢
 				if (js[k]!=k)
 				{
 					for (i=0;i<row;i++)
@@ -735,7 +735,7 @@ namespace Graph
 			}
 
 			int r;
-			//»Ö¸´
+			//æ¢å¤
 			for (r=row-1;r>=0;r--)
 			{
 				if (js[r]!=r)

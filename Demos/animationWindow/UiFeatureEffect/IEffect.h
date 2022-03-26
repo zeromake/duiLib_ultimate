@@ -4,21 +4,21 @@
 class IEffect;
 struct InternalAnimationParam
 {
-	AnimationParam  param;				// ½Ó¿Ú¶¨ÒåµÄ¶¯»­²ÎÊı
-	BYTE*			bmpDataCopy;		// Íâ²¿¶¯»­Í¼Æ¬×ÊÔ´±¸·İ
-	DWORD			frameNow;			// µ±Ç°ÔËĞĞÖ¡
-	BOOL			bLastFrame;			// ÊÇ·ñÊÇ×îºóÒ»Ö¡
-	IEffect*		pEffect;			// Ö¸ÏòÌØĞ§º¯Êı½Ó¿ÚÖ¸Õë
+	AnimationParam  param;				// æ¥å£å®šä¹‰çš„åŠ¨ç”»å‚æ•°
+	BYTE*			bmpDataCopy;		// å¤–éƒ¨åŠ¨ç”»å›¾ç‰‡èµ„æºå¤‡ä»½
+	DWORD			frameNow;			// å½“å‰è¿è¡Œå¸§
+	BOOL			bLastFrame;			// æ˜¯å¦æ˜¯æœ€åä¸€å¸§
+	IEffect*		pEffect;			// æŒ‡å‘ç‰¹æ•ˆå‡½æ•°æ¥å£æŒ‡é’ˆ
 };
 
-//ÌØĞ§½Ó¿Ú
+//ç‰¹æ•ˆæ¥å£
 class IEffect
 {
 public:
-	// ¼ÆËãÒ»Ö¡
+	// è®¡ç®—ä¸€å¸§
 	virtual void ComputeOneFrame(InternalAnimationParam *internalParam) = 0;
-	// ³õÊ¼»¯ÌØĞ§²ÎÊı
+	// åˆå§‹åŒ–ç‰¹æ•ˆå‚æ•°
 	virtual void InitEffectParam(InternalAnimationParam *internalParam) = 0;
-	// ÇåÀíÌØĞ§²ÎÊı
+	// æ¸…ç†ç‰¹æ•ˆå‚æ•°
 	virtual void ReleaseEffectParam() = 0;
 };

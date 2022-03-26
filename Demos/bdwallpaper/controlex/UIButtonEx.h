@@ -21,15 +21,15 @@ namespace DuiLib
 	public:
 		virtual void PaintStatusImage(HDC hDC)
 		{
-			// øÿº˛Œª÷√
+			// Êéß‰ª∂‰ΩçÁΩÆ
 			RECT rcItem = m_rcItem;
-			// ªÊ÷∆±⁄÷ΩÕº∆¨
+			// ÁªòÂà∂Â£ÅÁ∫∏ÂõæÁâá
 			CRenderEngine::DrawImageString(hDC, m_pManager, rcItem, m_rcPaint, PrepareImage(), NULL);
-			// ªÊ÷∆◊¥Ã¨
+			// ÁªòÂà∂Áä∂ÊÄÅ
 			CButtonUI::PaintStatusImage(hDC);
 			if(m_uButtonState & UISTATE_HOT)
 			{
-				// π§æﬂ¿∏Œª÷√
+				// Â∑•ÂÖ∑Ê†è‰ΩçÁΩÆ
 				RECT rcToolBar = rcItem;
 				RECT rcFav = rcItem;
 				RECT rcSet = rcItem;
@@ -38,7 +38,7 @@ namespace DuiLib
 				rcFav.right = rcFav.left + 94;
 				rcSet.top = rcSet.bottom - 25;
 				rcSet.left = rcSet.right - 94;
-				// π§æﬂ¿∏ªÊ÷∆
+				// Â∑•ÂÖ∑Ê†èÁªòÂà∂
 				CRenderEngine::DrawImageString(hDC, m_pManager, rcToolBar, m_rcPaint, m_sWPToolbarImage, NULL);
 				CRenderEngine::DrawImageString(hDC, m_pManager, rcFav, m_rcPaint, m_sWPFavImage, NULL);
 				CRenderEngine::DrawImageString(hDC, m_pManager, rcSet, m_rcPaint, m_sWPSetImage, NULL);
@@ -50,7 +50,7 @@ namespace DuiLib
 			if( event.Type == UIEVENT_BUTTONUP )
 			{
 				if( (m_uButtonState & UISTATE_CAPTURED) != 0 ) {
-					// π§æﬂ¿∏Œª÷√
+					// Â∑•ÂÖ∑Ê†è‰ΩçÁΩÆ
 					RECT rcFav = m_rcItem;
 					RECT rcSet = m_rcItem;
 					rcFav.top = rcFav.bottom - 25;

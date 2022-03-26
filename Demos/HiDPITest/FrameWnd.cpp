@@ -72,19 +72,19 @@ void CFrameWnd::Notify( TNotifyUI& msg )
 			point.y -= 5;
 			CMenuWnd* pMenu = CMenuWnd::CreateMenu(NULL, _T("menutest.xml"), point, &m_pm, &m_MenuCheckInfo, eMenuAlignment_Bottom);
 
-			// ÏÈ»ñÈ¡µ½¸ùÏî£¬È»ºó¾Í¿ÉÒÔÊ¹ÓÃrootMenu²åµ½µ½²Ëµ¥ÄÚµÄÈÎÒâ×Ó²Ëµ¥Ïî£¬È»ºó×öÌí¼ÓÉ¾³ı²Ù×÷
+			// å…ˆè·å–åˆ°æ ¹é¡¹ï¼Œç„¶åå°±å¯ä»¥ä½¿ç”¨rootMenuæ’åˆ°åˆ°èœå•å†…çš„ä»»æ„å­èœå•é¡¹ï¼Œç„¶ååšæ·»åŠ åˆ é™¤æ“ä½œ
 			CMenuUI* rootMenu = pMenu->GetMenuUI();
 			if (rootMenu != NULL)
 			{
 				CMenuElementUI* pNew = new CMenuElementUI;
 				pNew->SetName(_T("Menu_Dynamic"));
-				pNew->SetText(_T("¶¯Ì¬Ò»¼¶²Ëµ¥"));
+				pNew->SetText(_T("åŠ¨æ€ä¸€çº§èœå•"));
 				pNew->SetShowExplandIcon(true);
 				pNew->SetIcon(_T("WebSit.png"));
 				pNew->SetIconSize(16,16);
 
 				CMenuElementUI* pSubNew = new CMenuElementUI;
-				pSubNew->SetText(_T("¶¯Ì¬¶ş¼¶²Ëµ¥"));
+				pSubNew->SetText(_T("åŠ¨æ€äºŒçº§èœå•"));
 				pSubNew->SetName(_T("Menu_Dynamic"));
 				pSubNew->SetIcon(_T("Virus.png"));
 				pSubNew->SetIconSize(16,16);
@@ -94,11 +94,11 @@ void CFrameWnd::Notify( TNotifyUI& msg )
 
 				CMenuElementUI* pNew2 = new CMenuElementUI;
 				pNew2->SetName(_T("Menu_Dynamic"));
-				pNew2->SetText(_T("¶¯Ì¬Ò»¼¶²Ëµ¥2"));
+				pNew2->SetText(_T("åŠ¨æ€ä¸€çº§èœå•2"));
 				rootMenu->AddAt(pNew2,2);
 			}
 
-			// ¶¯Ì¬Ìí¼ÓºóÖØĞÂÉèÖÃ²Ëµ¥µÄ´óĞ¡
+			// åŠ¨æ€æ·»åŠ åé‡æ–°è®¾ç½®èœå•çš„å¤§å°
 			pMenu->ResizeMenu();
 		}
 		else if (msg.pSender->GetName() == _T("DPI96") )
@@ -148,31 +148,31 @@ LRESULT CFrameWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 		{
 			if (bChecked)
 			{
-				MessageBox(m_hWnd, L"ÄãÑ¡ÖĞMenu_Test1", L"", 0);
+				MessageBox(m_hWnd, L"ä½ é€‰ä¸­Menu_Test1", L"", 0);
 			} 
 			else
 			{
-				MessageBox(m_hWnd, L"ÄãÈ¡ÏûMenu_Test1", L"", 0);
+				MessageBox(m_hWnd, L"ä½ å–æ¶ˆMenu_Test1", L"", 0);
 			}			 
 		}
 		else if ( strMenuName == _T("Menu_Test2")) 
 		{
-			MessageBox(m_hWnd, L"Äãµ¥»÷ÁËMenu_Test2", L"", 0);		 
+			MessageBox(m_hWnd, L"ä½ å•å‡»äº†Menu_Test2", L"", 0);		 
 		}
 		else if ( strMenuName == _T("Menu_Test3")) 
 		{
 			if (bChecked)
 			{
-				MessageBox(m_hWnd, L"ÄãÑ¡ÖĞMenu_Test3", L"", 0);
+				MessageBox(m_hWnd, L"ä½ é€‰ä¸­Menu_Test3", L"", 0);
 			} 
 			else
 			{
-				MessageBox(m_hWnd, L"ÄãÈ¡ÏûMenu_Test3", L"", 0);
+				MessageBox(m_hWnd, L"ä½ å–æ¶ˆMenu_Test3", L"", 0);
 			}			 
 		}
 		else if ( strMenuName == _T("Menu_Dynamic")) 
 		{
-			MessageBox(m_hWnd, L"Äãµ¥»÷ÁË¶¯Ì¬Ìí¼Ó²Ëµ¥", L"", 0);		 
+			MessageBox(m_hWnd, L"ä½ å•å‡»äº†åŠ¨æ€æ·»åŠ èœå•", L"", 0);		 
 		}
 	}
 

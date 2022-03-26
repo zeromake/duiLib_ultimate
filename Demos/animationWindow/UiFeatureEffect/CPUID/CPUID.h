@@ -8,8 +8,8 @@ private:
 	DWORD m_ecx;
 	DWORD m_edx;
 
-	char m_cVID[13];	//ÖÆÔìÉÌĞÅÏ¢
-	char m_cBrand[49];	//ÉÌ±ê
+	char m_cVID[13];	//åˆ¶é€ å•†ä¿¡æ¯
+	char m_cBrand[49];	//å•†æ ‡
 public:
 	void Executecpuid(DWORD veax)
 	{
@@ -27,7 +27,7 @@ public:
 		}
 	}
 
-	//»ñµÃCPUµÄÖÆÔìÉÌĞÅÏ¢(Vender ID)
+	//è·å¾—CPUçš„åˆ¶é€ å•†ä¿¡æ¯(Vender ID)
 	const char* GetVID()
 	{
 	
@@ -41,10 +41,10 @@ public:
 		return m_cVID; 
 	}
 
-	//»ñµÃCPUÉÌ±êĞÅÏ¢(Brand)
+	//è·å¾—CPUå•†æ ‡ä¿¡æ¯(Brand)
 	const char* GetBrand()
 	{
-		const DWORD BRANDID = 0x80000002; // ´Ó0x80000002¿ªÊ¼£¬µ½0x80000004½áÊø
+		const DWORD BRANDID = 0x80000002; // ä»0x80000002å¼€å§‹ï¼Œåˆ°0x80000004ç»“æŸ
 
 		memset(m_cBrand, 0, 49);
 		for(DWORD i = 0; i < 3; i++)
@@ -56,28 +56,28 @@ public:
 		return m_cBrand;
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³Öhyper-threading
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒhyper-threading
 	int IsHyperThreading() 
 	{
 		Executecpuid(1);
 		return (m_edx&(1 << 28)) != 0 ? 1 : 0; 
 	}
 
-	// ÅĞ¶ÏÊÇ·ñÖ§³Öspeed step
+	// åˆ¤æ–­æ˜¯å¦æ”¯æŒspeed step
 	int IsEST() 
 	{
 		Executecpuid(1);
 		return (m_ecx&(1 << 7)) != 0 ? 1 : 0; 
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖMMX
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒMMX
 	int IsMMX()
 	{
 		Executecpuid(1);
 		return (m_edx & (1 << 23)) != 0 ? 1 : 0; 
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖSSE
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒSSE
 	int IsSSE()  
 	{ 
 		Executecpuid(1);
@@ -85,28 +85,28 @@ public:
 	
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖSSE2   
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒSSE2   
 	int IsSSE2()   
 	{
 		Executecpuid(1);  
 		return (m_edx & (1 << 26)) != 0 ? 1 : 0;  
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖSSE3    
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒSSE3    
 	int IsSSE3()   
 	{
 		Executecpuid(1);
 		return (m_ecx) != 0 ? 1 : 0;
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖSSE4.1  
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒSSE4.1  
 	int IsSSE4_1()    
 	{ 
 		Executecpuid(1);
 		return (m_ecx&(1 << 19)) != 0 ? 1 : 0; 
 	}
 
-	//ÅĞ¶ÏÊÇ·ñÖ§³ÖSSE4.2 
+	//åˆ¤æ–­æ˜¯å¦æ”¯æŒSSE4.2 
 	int IsSSE4_2()  
 	{ 
 		Executecpuid(1); 

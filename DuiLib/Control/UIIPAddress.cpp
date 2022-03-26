@@ -60,7 +60,7 @@ namespace DuiLib
 		{
 			INITCOMMONCONTROLSEX   CommCtrl;
 			CommCtrl.dwSize=sizeof(CommCtrl);
-			CommCtrl.dwICC=ICC_INTERNET_CLASSES;//Ö¸¶¨Class
+			CommCtrl.dwICC=ICC_INTERNET_CLASSES;//æŒ‡å®šClass
 			if(InitCommonControlsEx(&CommCtrl))
 			{
 				RECT rcPos = CalPos();

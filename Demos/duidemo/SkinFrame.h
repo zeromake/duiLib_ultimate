@@ -34,7 +34,7 @@ public:
 	void Notify(TNotifyUI& msg)
 	{
 		if( msg.sType == _T("click") ) {
-			// 按钮消息
+			// 鎸夐挳娑堟伅
 			OnLClick(msg.pSender);
 		}
 	}
@@ -71,7 +71,7 @@ public:
 
 	LRESULT OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 	{
-		// ICONS 图标加载
+		// ICONS 鍥炬爣鍔犺浇
 		SetIcon(IDR_MAINFRAME);
 
 		LONG styleValue = ::GetWindowLong(*this, GWL_STYLE);

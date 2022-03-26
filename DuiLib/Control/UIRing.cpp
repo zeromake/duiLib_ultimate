@@ -56,7 +56,7 @@ namespace DuiLib
 			Gdiplus::Graphics graphics(hDC);
 			graphics.TranslateTransform(centerPos.X,centerPos.Y);
 			graphics.RotateTransform(m_fCurAngle);
-			graphics.TranslateTransform(-centerPos.X, -centerPos.Y);//还原源点
+			graphics.TranslateTransform(-centerPos.X, -centerPos.Y);//杩樺師婧愮偣
 			graphics.DrawImage(m_pBkimage,rcItem.left,rcItem.top,iWidth,iHeight);
 		}
 	}

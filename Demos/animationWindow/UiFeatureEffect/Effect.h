@@ -33,13 +33,13 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int		 m_nWidth;					// Í¼Æ¬¿í
-	int		 m_nHeight;					// Í¼Æ¬¸ß
-	int		 m_nMosaicW;				// ÂíÈü¿Ë¿í
-	int		 m_nMosaicH;				// ÂíÈü¿Ë¸ß
-	int		 m_nWidthCount;				// ÂíÈü¿ËºáÏò¸öÊı
-	int		 m_nHeightCount;			// ÂíÈü¿Ë×İÏò¸öÊı
-	int*	 m_pMosaicArray;			// Ã¿¸öÂíÈü¿ËÊÇ·ñÖ´ĞĞÍê
+	int		 m_nWidth;					// å›¾ç‰‡å®½
+	int		 m_nHeight;					// å›¾ç‰‡é«˜
+	int		 m_nMosaicW;				// é©¬èµ›å…‹å®½
+	int		 m_nMosaicH;				// é©¬èµ›å…‹é«˜
+	int		 m_nWidthCount;				// é©¬èµ›å…‹æ¨ªå‘ä¸ªæ•°
+	int		 m_nHeightCount;			// é©¬èµ›å…‹çºµå‘ä¸ªæ•°
+	int*	 m_pMosaicArray;			// æ¯ä¸ªé©¬èµ›å…‹æ˜¯å¦æ‰§è¡Œå®Œ
 };
 
 class CSlideEffect : public CEffect
@@ -52,7 +52,7 @@ public:
 protected:
 	void  CalculateFrame(int length);
 protected:
-	int		 m_step;					// Ã¿´Î»¬¶¯µÄ¾àÀë(speed)
+	int		 m_step;					// æ¯æ¬¡æ»‘åŠ¨çš„è·ç¦»(speed)
 };
 
 class CBandSlideEffect : public CSlideEffect
@@ -63,8 +63,8 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int		m_bandNum;					// ´ø×´¸öÊı
-	int		m_bandSize;					// ´ø×´µÄ¿í»òÕß¸ß
+	int		m_bandNum;					// å¸¦çŠ¶ä¸ªæ•°
+	int		m_bandSize;					// å¸¦çŠ¶çš„å®½æˆ–è€…é«˜
 };
 
 class CBlindsEffect : public CEffect
@@ -75,8 +75,8 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 protected:
-	int		m_bandNum;					// °ÙÒ¶¸öÊı
-	int		m_bandSize;					// °ÙÒ¶µÄ¿í»òÕß¸ß
+	int		m_bandNum;					// ç™¾å¶ä¸ªæ•°
+	int		m_bandSize;					// ç™¾å¶çš„å®½æˆ–è€…é«˜
 };
 
 class CSepcialBlindsEffect : public CBlindsEffect
@@ -89,8 +89,8 @@ public:
 private:
 	void CalculateFrame(int length);
 private:
-	vector<int> m_specialBandSize;		// °ÙÒ¶µÄ¿í»òÕß¸ß
-	int			m_nowSumRowCol;			// µ±Ç°¼ÆËãÆğÊ¼ĞĞ»òÕßÁĞ
+	vector<int> m_specialBandSize;		// ç™¾å¶çš„å®½æˆ–è€…é«˜
+	int			m_nowSumRowCol;			// å½“å‰è®¡ç®—èµ·å§‹è¡Œæˆ–è€…åˆ—
 };
 
 class CScanEffect : public CEffect
@@ -103,7 +103,7 @@ public:
 protected:
 	void  CalculateFrame(int length);
 protected:
-	int		 m_step;					// Ã¿´ÎÉ¨ÃèµÄ¾àÀë(speed)
+	int		 m_step;					// æ¯æ¬¡æ‰«æçš„è·ç¦»(speed)
 };
 
 class CInertiaSlideEffect : public CSlideEffect
@@ -114,9 +114,9 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	Graph::real	m_tInertiaTime;			// ¹ßĞÔÔË¶¯µ±Ç°Ê±¼ä
-	void*	m_inertiaInstance;			// ¹ßĞÔ¸¨ÖúÀà
-	Graph::real	m_tInertiacoeffecient;	// ¹ßĞÔÔË¶¯ËÙÂÊµ÷½Ú²ÎÊı
+	Graph::real	m_tInertiaTime;			// æƒ¯æ€§è¿åŠ¨å½“å‰æ—¶é—´
+	void*	m_inertiaInstance;			// æƒ¯æ€§è¾…åŠ©ç±»
+	Graph::real	m_tInertiacoeffecient;	// æƒ¯æ€§è¿åŠ¨é€Ÿç‡è°ƒèŠ‚å‚æ•°
 };
 
 class CFadeEffect : public CEffect
@@ -136,7 +136,7 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	Graph::CdRect				m_rcNow;		// ±ä»»Íêµ±Ç°µÄ´óĞ¡
+	Graph::CdRect				m_rcNow;		// å˜æ¢å®Œå½“å‰çš„å¤§å°
 };
 
 class CShrinkEffect : public CEffect
@@ -147,7 +147,7 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	Graph::CdRect				m_rcNow;		// ±ä»»Íêµ±Ç°µÄ´óĞ¡
+	Graph::CdRect				m_rcNow;		// å˜æ¢å®Œå½“å‰çš„å¤§å°
 };
 
 class CSwingEffect : public CEffect
@@ -176,7 +176,7 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int							m_u;			// ·½²î
+	int							m_u;			// æ–¹å·®
 };
 
 class CCubeEffect : public CEffect
@@ -196,9 +196,9 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	Graph::real		m_alphaStep;			// alpha½¥±äÖµ
-	int				m_lastStart;			// ÉÏÒ»´Î½¥±äÆğÊ¼ĞĞ»òÕßÁĞ
-	int				m_lastEnd;				// ÉÏÒ»´Î½¥±ä½áÊøĞĞ»òÕßÁĞ
+	Graph::real		m_alphaStep;			// alphaæ¸å˜å€¼
+	int				m_lastStart;			// ä¸Šä¸€æ¬¡æ¸å˜èµ·å§‹è¡Œæˆ–è€…åˆ—
+	int				m_lastEnd;				// ä¸Šä¸€æ¬¡æ¸å˜ç»“æŸè¡Œæˆ–è€…åˆ—
 };
 
 class CPushEffect : public CEffect
@@ -218,9 +218,9 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	BYTE*			m_pDissolveArray;		// ±êÊ¾ÊÇ·ñÒÑ±»ÈÜ½â
-	int				m_size;					// ËùÓĞÏñËØÊıÁ¿
-	int				m_framePixel;			// Ã¿Ö¡ÈÜ½âµÄ¸öÊı
+	BYTE*			m_pDissolveArray;		// æ ‡ç¤ºæ˜¯å¦å·²è¢«æº¶è§£
+	int				m_size;					// æ‰€æœ‰åƒç´ æ•°é‡
+	int				m_framePixel;			// æ¯å¸§æº¶è§£çš„ä¸ªæ•°
 };
 
 class CCurtainEffect : public CEffect
@@ -258,8 +258,8 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int			m_xyOffset;						// x»òyÖá²½³¤
-	int			m_zOffset;						// zÖá²½³¤
+	int			m_xyOffset;						// xæˆ–yè½´æ­¥é•¿
+	int			m_zOffset;						// zè½´æ­¥é•¿
 };
 
 class CPatchFlipEffect : public CEffect
@@ -297,7 +297,7 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	CWater			*m_pWater;						// Ë®²¨Á£×ÓÏµÍ³
+	CWater			*m_pWater;						// æ°´æ³¢ç²’å­ç³»ç»Ÿ
 };
 
 class CScatterEffect : public CEffect
@@ -308,8 +308,8 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int				m_vx[4];						// Ë®Æ½ËÙ¶È
-	int				m_vy[4];						// ´¹Ö±ËÙ¶È
+	int				m_vx[4];						// æ°´å¹³é€Ÿåº¦
+	int				m_vy[4];						// å‚ç›´é€Ÿåº¦
 };
 
 class CColorFadeEffect : public CEffect
@@ -329,10 +329,10 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	Graph::real	m_tInertiaTime;			// ¹ßĞÔÔË¶¯µ±Ç°Ê±¼ä
-	void*		m_inertiaInstance;		// ¹ßĞÔ¸¨ÖúÀà
-	Graph::real	m_tInertiacoeffecient;	// ¹ßĞÔÔË¶¯ËÙÂÊµ÷½Ú²ÎÊı
-	Graph::real m_ratio;				// Í¼ÏñµÄ³¤¿í±È
+	Graph::real	m_tInertiaTime;			// æƒ¯æ€§è¿åŠ¨å½“å‰æ—¶é—´
+	void*		m_inertiaInstance;		// æƒ¯æ€§è¾…åŠ©ç±»
+	Graph::real	m_tInertiacoeffecient;	// æƒ¯æ€§è¿åŠ¨é€Ÿç‡è°ƒèŠ‚å‚æ•°
+	Graph::real m_ratio;				// å›¾åƒçš„é•¿å®½æ¯”
 };
 
 class CWhirlPoolEffect : public CEffect
@@ -353,8 +353,8 @@ public:
 	void ReleaseEffectParam();
 private:
 
-	Bitmap*		m_pBitmap;					// Êı¾İ
-	BYTE*		m_pBits;					// Êı¾İ
+	Bitmap*		m_pBitmap;					// æ•°æ®
+	BYTE*		m_pBits;					// æ•°æ®
 };
 
 class CPinWheelEffect : public CEffect
@@ -366,8 +366,8 @@ public:
 	void ReleaseEffectParam();
 private:
 
-	Bitmap*		m_pBitmap;					// Êı¾İ
-	BYTE*		m_pBits;					// Êı¾İ
+	Bitmap*		m_pBitmap;					// æ•°æ®
+	BYTE*		m_pBits;					// æ•°æ®
 };
 
 class CPagePeelEffect : public CEffect
@@ -379,10 +379,10 @@ public:
 	void ReleaseEffectParam();
 private:
 
-	Bitmap*		m_pBitmap;					// Êı¾İ
-	BYTE*		m_pBits;					// Êı¾İ
-	real		m_nK;						// ÏµÊı
-	BOOL		m_intersectTop;				// Óë¶¥²¿Ïà½»
+	Bitmap*		m_pBitmap;					// æ•°æ®
+	BYTE*		m_pBits;					// æ•°æ®
+	real		m_nK;						// ç³»æ•°
+	BOOL		m_intersectTop;				// ä¸é¡¶éƒ¨ç›¸äº¤
 };
 
 class CBlurEffect : public CEffect
@@ -413,9 +413,9 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int					m_foldNum;					// ÕÛµşĞ§¹ûµÄÕÛÊı
-	vector<CdRect>		m_foldRect;					// Ã¿¸öÕÛµÄRECT
-	vector<WarpRect>	m_warpRect;					// Å¤ÇúµÄrect
+	int					m_foldNum;					// æŠ˜å æ•ˆæœçš„æŠ˜æ•°
+	vector<CdRect>		m_foldRect;					// æ¯ä¸ªæŠ˜çš„RECT
+	vector<WarpRect>	m_warpRect;					// æ‰­æ›²çš„rect
 };
 
 class CStackEffect : public CEffect
@@ -426,16 +426,16 @@ public:
 	void InitEffectParam(InternalAnimationParam *internalParam);
 	void ReleaseEffectParam();
 private:
-	int				m_bandNum;					// ´ø×´µÄÌõÊı
-	int				m_bandSize;					// ´ø×´µÄ¿í»òÕß¸ß
-	vector<int>		m_bandFrameNum;				// Ã¿ÌõµÄÖ¡Êı
-	int				m_bandAnimating;			// µ±Ç°ÔË¶¯µÄ´ø×´ĞòºÅ
-	int				m_bandFrameSum;				// ÔÚµ±Ç°´ø×´Ç°ÃæµÄ´ø×´ÀÛ»ıÍê³ÉµÄÖ¡Êı
-	int				m_bandSubFrame;				// µ±Ç°´ø×´µÄÖ´ĞĞÖ¡Êı
+	int				m_bandNum;					// å¸¦çŠ¶çš„æ¡æ•°
+	int				m_bandSize;					// å¸¦çŠ¶çš„å®½æˆ–è€…é«˜
+	vector<int>		m_bandFrameNum;				// æ¯æ¡çš„å¸§æ•°
+	int				m_bandAnimating;			// å½“å‰è¿åŠ¨çš„å¸¦çŠ¶åºå·
+	int				m_bandFrameSum;				// åœ¨å½“å‰å¸¦çŠ¶å‰é¢çš„å¸¦çŠ¶ç´¯ç§¯å®Œæˆçš„å¸§æ•°
+	int				m_bandSubFrame;				// å½“å‰å¸¦çŠ¶çš„æ‰§è¡Œå¸§æ•°
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////
-//ÌØĞ§¹¤³§
+//ç‰¹æ•ˆå·¥å‚
 class CEffectFactory/* : public IFactory*/
 {
 public:

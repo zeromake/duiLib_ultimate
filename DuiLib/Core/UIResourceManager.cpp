@@ -57,7 +57,7 @@ namespace DuiLib {
 		LPCTSTR pstrValue = NULL;
 		LPTSTR pstr = NULL;
 
-		//加载图片资源
+		//鍔犺浇鍥剧墖璧勬簮
 		LPCTSTR pstrId = NULL;
 		LPCTSTR pstrPath = NULL;
 		for( CMarkupNode node = Root.GetChild() ; node.IsValid(); node = node.GetSibling() ) 
@@ -67,7 +67,7 @@ namespace DuiLib {
 			if(ChildNode.IsValid()) LoadResource(node);
 			else if ((_tcsicmp(pstrClass,_T("Image")) == 0) && node.HasAttributes())
 			{
-				//加载图片资源
+				//鍔犺浇鍥剧墖璧勬簮
 				nAttributes = node.GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
@@ -89,7 +89,7 @@ namespace DuiLib {
 				m_mImageHashMap.Insert(pstrId, (LPVOID)new CDuiString(pstrPath));
 			}
 			else if( _tcsicmp(pstrClass,_T("Xml")) == 0 && node.HasAttributes()) {
-				//加载XML配置文件
+				//鍔犺浇XML閰嶇疆鏂囦欢
 				nAttributes = node.GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
@@ -177,7 +177,7 @@ namespace DuiLib {
 		LPCTSTR pstrValue = NULL;
 		LPTSTR pstr = NULL;
 
-		//加载图片资源
+		//鍔犺浇鍥剧墖璧勬簮
 		LPCTSTR pstrId = NULL;
 		LPCTSTR pstrText = NULL;
 		for( CMarkupNode node = Root.GetChild() ; node.IsValid(); node = node.GetSibling() ) 
@@ -185,7 +185,7 @@ namespace DuiLib {
 			pstrClass = node.GetName();
 			if ((_tcsicmp(pstrClass,_T("Text")) == 0) && node.HasAttributes())
 			{
-				//加载图片资源
+				//鍔犺浇鍥剧墖璧勬簮
 				nAttributes = node.GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
@@ -236,7 +236,7 @@ namespace DuiLib {
 	void CResourceManager::ReloadText()
 	{
 		if(m_pQuerypInterface == NULL) return;
-		//重载文字描述
+		//閲嶈浇鏂囧瓧鎻忚堪
 		LPCTSTR lpstrId = NULL;
 		LPCTSTR lpstrText;
 		for( int i = 0; i < m_mTextResourceHashMap.GetSize(); i++ )

@@ -34,26 +34,26 @@ public:
 	CMainWnd();
 	~CMainWnd();
 
-public:// UI³õÊ¼»¯
+public:// UIåˆå§‹åŒ–
 	DuiLib::CDuiString GetSkinFile();
 	LPCTSTR GetWindowClassName() const;
 	UINT GetClassStyle() const;
 	void InitWindow();
 	void OnFinalMessage(HWND hWnd);
 
-public:// ½Ó¿Ú»Øµ÷
+public:// æ¥å£å›è°ƒ
 	CControlUI* CreateControl(LPCTSTR pstrClass);
 	virtual BOOL Receive(SkinChangedParam param);
 	LPCTSTR QueryControlText(LPCTSTR lpstrId, LPCTSTR lpstrType);
 
-public:// UIÍ¨ÖªÏûÏ¢
+public:// UIé€šçŸ¥æ¶ˆæ¯
 	void Notify(TNotifyUI& msg);
 	void OnLClick(CControlUI *pControl);
 
 	DUI_DECLARE_MESSAGE_MAP()
 	
 
-public:// ÏµÍ³ÏûÏ¢
+public:// ç³»ç»Ÿæ¶ˆæ¯
 	//LRESULT OnGetMinMaxInfo(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 	LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -63,7 +63,7 @@ public:// WebBrowser
 	virtual HRESULT STDMETHODCALLTYPE GetHostInfo(CWebBrowserUI* pWeb, DOCHOSTUIINFO __RPC_FAR *pInfo);
 	virtual HRESULT STDMETHODCALLTYPE ShowContextMenu(CWebBrowserUI* pWeb, DWORD dwID, POINT __RPC_FAR *ppt, IUnknown __RPC_FAR *pcmdtReserved, IDispatch __RPC_FAR *pdispReserved);
 
-private:// UI±äÁ¿
+private:// UIå˜é‡
 	CButtonUI* m_pCloseBtn;
 	CButtonUI* m_pMaxBtn;
 	CButtonUI* m_pRestoreBtn;

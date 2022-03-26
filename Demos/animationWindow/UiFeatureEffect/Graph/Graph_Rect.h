@@ -22,8 +22,8 @@ namespace Graph
 	template<class T, bool t_bFloat>
 	class CdRectT : public DRECTT<T>
 	{
-		//ÒòÎªÄ£°å²»Ö§³ÖÓÃ¸¡µãÊı×÷Îª²ÎÊı
-		//²»ÄÜ¶¨Òå³Étemplate<class T, double t_dValue> class CdRectT
+		//å› ä¸ºæ¨¡æ¿ä¸æ”¯æŒç”¨æµ®ç‚¹æ•°ä½œä¸ºå‚æ•°
+		//ä¸èƒ½å®šä¹‰æˆtemplate<class T, double t_dValue> class CdRectT
 		
 		typedef DRECTT<T> baseClass;
 		typedef CdRectT<T, t_bFloat> thisClass;
@@ -751,7 +751,7 @@ namespace Graph
 			AdjustRect();
 		}
 
-		// ÅĞ¶ÏÊÇ·ñÓërectÏà½»£¬Ö»ÒªrectÊÇnormalµÄ¾ÍĞĞ£¬ÎŞËùÎ½empty
+		// åˆ¤æ–­æ˜¯å¦ä¸rectç›¸äº¤ï¼Œåªè¦rectæ˜¯normalçš„å°±è¡Œï¼Œæ— æ‰€è°“empty
 		bool IntersectRectExt(const thisClass& rect)const
 		{
 			if (!IsRectNormal() || !rect.IsRectNormal())

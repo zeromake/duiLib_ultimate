@@ -2,18 +2,18 @@
 
 #include "targetver.h"
 
-#define WIN32_LEAN_AND_MEAN             //  ´Ó Windows Í·ÎÄ¼şÖĞÅÅ³ı¼«ÉÙÊ¹ÓÃµÄĞÅÏ¢
-// Windows Í·ÎÄ¼ş:
+#define WIN32_LEAN_AND_MEAN             //  ä» Windows å¤´æ–‡ä»¶ä¸­æ’é™¤æå°‘ä½¿ç”¨çš„ä¿¡æ¯
+// Windows å¤´æ–‡ä»¶:
 #include <windows.h>
 
-// C ÔËĞĞÊ±Í·ÎÄ¼ş
+// C è¿è¡Œæ—¶å¤´æ–‡ä»¶
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
 
 
-// TODO: ÔÚ´Ë´¦ÒıÓÃ³ÌĞòĞèÒªµÄÆäËûÍ·ÎÄ¼ş
+// TODO: åœ¨æ­¤å¤„å¼•ç”¨ç¨‹åºéœ€è¦çš„å…¶ä»–å¤´æ–‡ä»¶
 #include "..\..\DuiLib\UIlib.h"
 using namespace DuiLib;
 

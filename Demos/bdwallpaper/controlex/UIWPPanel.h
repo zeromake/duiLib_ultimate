@@ -10,7 +10,7 @@ namespace DuiLib
 	public:
 		CWPPanel()
 		{
-			// ²¼¾Ö¼ÆËã
+			// Â²Â¼Â¾Ã–Â¼Ã†Ã‹Ã£
 			int aaLayouts[4][4] = {{4,1,1,4},{1,4,4,1},{4,4,1,1},{1,1,4,4}};
 			srand(time(NULL));
 			int nLayout = rand() % 4;

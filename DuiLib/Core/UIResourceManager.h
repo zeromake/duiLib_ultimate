@@ -3,7 +3,7 @@
 #pragma once
 
 namespace DuiLib {
-	// 控件文字查询接口
+	// 鎺т欢鏂囧瓧鏌ヨ鎺ュ彛
 	class UILIB_API IQueryControlText
 	{
 	public:

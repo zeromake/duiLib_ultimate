@@ -443,27 +443,27 @@ public:
 	~CCurveUI();
 
 public:
-	// UIÏà¹Ø
+	// UIç›¸å…³
 	UINT GetControlFlags() const;
 	void DoInit();
 	void DoEvent(TEventUI& event);
 	void PaintBkImage(HDC hDC);
 
-	// ×î´ó¿Éµ÷½ÚµãÊı£¨²»°üÀ¨ÆğÊ¼ºÍ½áÊø½Úµã£©
+	// æœ€å¤§å¯è°ƒèŠ‚ç‚¹æ•°ï¼ˆä¸åŒ…æ‹¬èµ·å§‹å’Œç»“æŸèŠ‚ç‚¹ï¼‰
 	void SetMaxKnot(int nCount);
-	// ¼ÓÔØºÍ¶ÁÈ¡¿Éµ÷½Úµã
+	// åŠ è½½å’Œè¯»å–å¯è°ƒèŠ‚ç‚¹
 	void LoadKnots(std::vector<POINT>& vKnots);
 	void GetAllKnots(std::vector<POINT>& vKnots);
-	// ´´½¨È¥Ïë
+	// åˆ›å»ºå»æƒ³
 	BOOL CreateCurve(CDuiRect rcClipRect);
 
-	// ¼à²âÊó±ê
+	// ç›‘æµ‹é¼ æ ‡
 	void HitTest(POINT ptHit, LPHITINFO pHitInfo);
 	BOOL PtOnKnot(POINT ptHit, UINT nInterval, UINT*  iIndex);
 	BOOL PtOnCurve(POINT ptHit, UINT nInterval, POINT* ptCurve);
 	UINT GetCurveY(UINT ptX);
 
-	// ½Úµã²Ù×÷
+	// èŠ‚ç‚¹æ“ä½œ
 	UINT InsertKnot(POINT ptCntKnot, BOOL bRelative = FALSE);
 	BOOL MoveKnot(POINT ptMoveTo, UINT nIndex);
 	BOOL RemoveKnot(UINT nIndex);					
@@ -492,20 +492,20 @@ class TROYCONTROLS_API CChartUI : public CControlUI
 public:
 	CChartUI()
 	{
-		// Íâ±ß¿ò ÑÕÉ«´óĞ¡
+		// å¤–è¾¹æ¡† é¢œè‰²å¤§å°
 		m_dwBorderColor = 0xff888888;
 		m_nBorderSize = 1;
-		// µã±ß¿ò ÑÕÉ«´óĞ¡
+		// ç‚¹è¾¹æ¡† é¢œè‰²å¤§å°
 		m_dwDotBorderColor = 0xffFFFF00;
 		m_nDotBorderSize = 2;
-		// µã ±³¾°Í¼Æ¬ºÍ³ß´ç
+		// ç‚¹ èƒŒæ™¯å›¾ç‰‡å’Œå°ºå¯¸
 		m_sDotImage.Empty();
 		m_nDotSize = 8;
-		// Á¬½ÓÏß ÑÕÉ«´óĞ¡
+		// è¿æ¥çº¿ é¢œè‰²å¤§å°
 		m_dwDotLineColor = 0xffFFFF00;
 		m_nDotLineSize = 1;
 
-		// ÄÚ²¿Ê¹ÓÃ
+		// å†…éƒ¨ä½¿ç”¨
 		m_nSelectedDot = -1;
 		m_uButtonState = 0;
 		m_wCursor = IDC_ARROW;
@@ -639,7 +639,7 @@ protected:
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-//ĞéÄâÁĞ±íÊı¾İÔ´½Ó¿Ú
+//è™šæ‹Ÿåˆ—è¡¨æ•°æ®æºæ¥å£
 class IVListDataSource
 {
 public:
@@ -658,7 +658,7 @@ public:
 	virtual bool SortItems(int(__cdecl *_PtFuncCompare)(void*, const void*, const void*), void* pArgs) = 0;
 };
 
-//ĞéÄâÁĞ±í±ä»»Æ÷½Ó¿Ú
+//è™šæ‹Ÿåˆ—è¡¨å˜æ¢å™¨æ¥å£
 class IVListDataConverter
 {
 public:
@@ -667,7 +667,7 @@ public:
 	virtual void UpdateUIFromData(int nIndex, LPVOID lpData, CControlUI* pControl) = 0;
 };
 
-//ĞéÄâÁĞ±íÍ¨ÓÃÊı¾İÔ´
+//è™šæ‹Ÿåˆ—è¡¨é€šç”¨æ•°æ®æº
 class TROYCONTROLS_API CVListDataSource : public IVListDataSource
 {
 public:
@@ -702,7 +702,7 @@ protected:
 	bool  m_bNeedButtonUp;
 };
 
-//ĞéÄâÁĞ±íµÄÊÓÍ¼²¿·Ö
+//è™šæ‹Ÿåˆ—è¡¨çš„è§†å›¾éƒ¨åˆ†
 class CVListUI;
 class TROYCONTROLS_API CVListViewUI : public CContainerUI
 {
@@ -900,7 +900,7 @@ public:
 	bool IsExpanded() const;
 	bool Expand(bool bExpand = true);
 
-	void Invalidate(); // Ö±½ÓCControl::Invalidate»áµ¼ÖÂ¹ö¶¯ÌõË¢ĞÂ£¬ÖØĞ´¼õÉÙË¢ĞÂÇøÓò
+	void Invalidate(); // ç›´æ¥CControl::Invalidateä¼šå¯¼è‡´æ»šåŠ¨æ¡åˆ·æ–°ï¼Œé‡å†™å‡å°‘åˆ·æ–°åŒºåŸŸ
 	bool Activate();
 
 	void DoEvent(TEventUI& event);
@@ -955,7 +955,7 @@ public:
 	void EndDrag(CControlUI* dstParent);
 	void BeginDrag(CControlUI* pNode, POINT pt);
 	void Draging(POINT pt);
-	// ÁĞ½»»»
+	// åˆ—äº¤æ¢
 	void Switch(int from, int to);
 
 protected:
@@ -1082,10 +1082,10 @@ public:
 public:
 	void SetPageCount(int nCount);
 	int GetPageCount() const;
-	// ĞòºÅ´Ó0¿ªÊ¼
+	// åºå·ä»0å¼€å§‹
 	void SetCurPage(int nPage);
 	int GetCurPage();
-	// ĞòºÅ´Ó0¿ªÊ¼
+	// åºå·ä»0å¼€å§‹
 	void SetCurGroup(int nPage);
 	int GetCurGroup();
 
@@ -1126,7 +1126,7 @@ public:
 	bool SelectItem(int iIndex, bool bTakeFocus = false);
 	bool SelectMultiItem(int iIndex, bool bTakeFocus = false);
 public:
-	// ÍÏ×§
+	// æ‹–æ‹½
 	virtual void EndDrag(POINT ptMouse);
 	virtual void BeginDrag(POINT ptMouse);
 	virtual void Draging(POINT ptMouse);

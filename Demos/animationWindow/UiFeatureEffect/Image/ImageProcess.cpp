@@ -222,7 +222,7 @@ PixelEnd:
 BOOL CWarp::WarpImage(BYTE *pData, int width, int height, BYTE* &imgDes, real param1/* = 0*/)
 {
 	int SrcStride = width * 4;
-	//²»Ëõ·Å
+	//ä¸ç¼©æ”¾
 	real scale = 1.0f;
 
 	BYTE *pixelsDes = (BYTE*)imgDes;
@@ -802,7 +802,7 @@ BOOL CWater::AmplitudeBlob(int x, int y, int radius, int amplitude)
 	int *newptr;
 	int *oldptr;
 
-	// ÉèÖÃÖ¸Õë
+	// è®¾ç½®æŒ‡é’ˆ
 	if(m_iHpage == 0)
 	{
 		newptr = m_iParticleAmplitudeField1;
@@ -814,7 +814,7 @@ BOOL CWater::AmplitudeBlob(int x, int y, int radius, int amplitude)
 		oldptr = m_iParticleAmplitudeField1;
 	}
 
-	// Ëæ»ú
+	// éšæœº
 	if(x < 0) 
 	{
 		x = 1 + radius + rand()%(m_iWidth - 2 * radius - 1);
@@ -829,7 +829,7 @@ BOOL CWater::AmplitudeBlob(int x, int y, int radius, int amplitude)
 	left = top = -radius; 
 	right = bottom = radius;
 
-	// ±ß½ç
+	// è¾¹ç•Œ
 	if(x - radius < 1) 
 	{
 		left -= (x - radius - 1);
@@ -872,7 +872,7 @@ BOOL CWater::CalcWaterAmplitude(int npage, int density)
 	int *newptr;
 	int *oldptr;
 
-	// ÉèÖÃÖ¸Õë
+	// è®¾ç½®æŒ‡é’ˆ
 	if(npage == 0)
 	{
 		newptr = m_iParticleAmplitudeField1;
@@ -1052,7 +1052,7 @@ BOOL CScale::Scale(BYTE *DataDes,int desWidth, int desHeight,BYTE *DataSrc, int 
 		}
 	}
 
-#ifdef PROCESSBOUNDER  //´¦Àí±ß½ç
+#ifdef PROCESSBOUNDER  //å¤„ç†è¾¹ç•Œ
 	// up bounder
 	for (int row = 0; row < top; row++)
 	{
@@ -1451,7 +1451,7 @@ BOOL CScale::BilinearScale(BYTE *DataDes, int desWidth, int desHeight, BYTE *Dat
 		}
 	}
 
-//#ifdef PROCESSBOUNDER  //´¦Àí±ß½ç
+//#ifdef PROCESSBOUNDER  //å¤„ç†è¾¹ç•Œ
 //	// up bounder
 //	for (int row = 0; row < top; row++)
 //	{
@@ -1758,10 +1758,10 @@ BOOL CAlphaBlend::AlphaBlend(BYTE *desData, int desStride, int desLeft, int desT
 {
 	if(srcWidth == desWidth || desHeight == srcHeight)
 	{
-		// ²»Ëõ·Å
+		// ä¸ç¼©æ”¾
 		if(srcWidth == (srcStride >> 2) && desWidth == (desStride >> 2))
 		{
-			// Á½ÕÅÍ¼´óĞ¡ÏàµÈ
+			// ä¸¤å¼ å›¾å¤§å°ç›¸ç­‰
 			return AlphaBlend(desData, srcData, srcWidth, srcHeight, sourceAlpha);
 		}
 
@@ -1923,7 +1923,7 @@ cOffset1:
 			sub     eax, row				
 			imul    eax, 4					
 			add		edi, eax
-			mov		eax, stride					// Êı¾İÆ«ÒÆÁ¿
+			mov		eax, stride					// æ•°æ®åç§»é‡
 			imul	eax, row
 			sub		esi, eax	
 			jmp		cblurLoop
@@ -2226,7 +2226,7 @@ void CGaussBlur::InitWeights(double Q,int radius,int **weights)
 
 	*weights = new int[templateLength];
 
-	// ¹éÒ»»¯£¬ÕûÊı»¯
+	// å½’ä¸€åŒ–ï¼Œæ•´æ•°åŒ–
 	for(int i = 0; i < templateLength; i++)
 	{
 		(*weights)[i] = int(fweights[i] / fx * 65536.0 + 0.5);  

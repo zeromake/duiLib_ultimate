@@ -28,7 +28,7 @@ LPCTSTR CMainWnd::GetWindowClassName() const
 {
 	try
 	{
-		return _T("ÊÓÆµ¹ã¸æ¹ıÂË´óÊ¦°²×°Ïòµ¼");
+		return _T("è§†é¢‘å¹¿å‘Šè¿‡æ»¤å¤§å¸ˆå®‰è£…å‘å¯¼");
 	}
 	catch (...)
 	{
@@ -98,7 +98,7 @@ LRESULT CMainWnd::OnTimer(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandle
 	{
 		int nVal = m_pProgressBar->GetValue();
 		CDuiString strPercent;
-		strPercent.Format(_T("ÕıÔÚ°²×°£¨%d%%£©"), nVal);
+		strPercent.Format(_T("æ­£åœ¨å®‰è£…ï¼ˆ%d%%ï¼‰"), nVal);
 		m_pInstallText->SetText( strPercent );
 		if (nVal > 95)
 		{
@@ -128,13 +128,13 @@ void CMainWnd::Init()
 void CMainWnd::InstallStart()
 {
 	m_pStepTabLayout->SelectItem(1);
-	//m_pInstallText->SetText(_T("ÕıÔÚ°²×°ÖĞ£¬ÇëÉÔºò..."));
+	//m_pInstallText->SetText(_T("æ­£åœ¨å®‰è£…ä¸­ï¼Œè¯·ç¨å€™..."));
 
 	SetTimer(GetHWND(), TIMER_ID_PROGRESS, 100, NULL);
 }
 
 void CMainWnd::InstallFinished()
 {
-	m_pInstallText->SetText(_T("°²×°Íê³É£¡"));
+	m_pInstallText->SetText(_T("å®‰è£…å®Œæˆï¼"));
 	KillTimer(GetHWND(), TIMER_ID_PROGRESS);
 }

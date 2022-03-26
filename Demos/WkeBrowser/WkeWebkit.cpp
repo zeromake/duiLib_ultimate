@@ -139,13 +139,13 @@ LPVOID CWkeWebkitUI::GetInterface(LPCTSTR pstrName)
 void CWkeWebkitUI::DoInit()
 {
 	CControlUI::DoInit();
-	// ÉèÖÃUA
+	// è®¾ç½®UA
 	wkeSetUserAgent(m_pWebView, "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2228.0 Safari/537.36");
-	// ÉèÖÃÃû³Æ
+	// è®¾ç½®åç§°
 	wkeSetName(m_pWebView, T2ANSI(GetName()).c_str());
-	// Æô¶¯¶¨Ê±Æ÷
+	// å¯åŠ¨å®šæ—¶å™¨
 	SetTimer(EVENT_TICK_TIEMER_ID, 30);
-	// ³õÊ¼»¯ºó»Øµ÷½Ó¿Ú
+	// åˆå§‹åŒ–åŽå›žè°ƒæŽ¥å£
 	wkeOnTitleChanged(m_pWebView, OnWkeTitleChanged, this);
 	wkeOnURLChanged(m_pWebView, OnWkeURLChanged, this);
 	wkeOnNavigation(m_pWebView, OnWkeNavigation, this);
@@ -158,7 +158,7 @@ void CWkeWebkitUI::SetPos(RECT rc, bool bNeedUpdate/* = true*/)
 {	
 	m_RendData.rt = rc;
 	m_RendData.pixels = NULL;
-	// µ÷ÕûÎ»ÖÃºÍ³ß´ç
+	// è°ƒæ•´ä½ç½®å’Œå°ºå¯¸
 	CControlUI::SetPos(rc, bNeedUpdate);
 	wkeResize(m_pWebView, rc.right - rc.left, rc.bottom - rc.top);	
 }
@@ -191,16 +191,16 @@ bool CWkeWebkitUI::DoPaint(HDC hDC, const RECT& rcPaint, CControlUI* pStopContro
 
 void CWkeWebkitUI::InitializeWebkit()
 {
-	// ³õÊ¼»¯
+	// åˆå§‹åŒ–
 	wkeInitialize();
 
-	//°ó¶¨È«¾Öº¯Êý
+	//ç»‘å®šå…¨å±€å‡½æ•°
 	jsBindFunction("jsToNative", JsToNative, 2);	
 }
 
 void CWkeWebkitUI::UninitializeWebkit()
 {
-	// ÇåÀí
+	// æ¸…ç†
 	wkeFinalize();
 }
 
@@ -440,7 +440,7 @@ void WKE_CALL CWkeWebkitUI::OnWkeLoadingFinish(wkeWebView webView, void* param, 
 	CWkeWebkitUI *pWkeUI = (CWkeWebkitUI*)param;
 	if(!pWkeUI)	return;
 
-	//Ò³Ãæ¼ÓÔØÊ§°Ü
+	//é¡µé¢åŠ è½½å¤±è´¥
 	if(result == WKE_LOADING_FAILED) {
 		pWkeUI->Navigate(pWkeUI->m_chErrUrl);
 	}
@@ -452,7 +452,7 @@ void WKE_CALL CWkeWebkitUI::OnWkeLoadingFinish(wkeWebView webView, void* param, 
 
 jsValue JS_CALL CWkeWebkitUI::JsToNative(jsExecState es)
 {
-	//²éÕÒUI¶ÔÏó
+	//æŸ¥æ‰¾UIå¯¹è±¡
 	CWkeWebkitUI *pWkeUI = NULL;
 	wkeWebView pWke = jsGetWebView(es);
 	if(pWke) {
@@ -467,7 +467,7 @@ jsValue JS_CALL CWkeWebkitUI::JsToNative(jsExecState es)
 			jsValue arg1 = jsArg(es, 0);
 			jsValue arg2 = jsArg(es, 1);
 			if(jsIsString(arg1) && jsIsString(arg2)) {
-				//ÐèÒª±£Ö¤Á½¸ö²ÎÊý¶¼Îª×Ö·û´®
+				//éœ€è¦ä¿è¯ä¸¤ä¸ªå‚æ•°éƒ½ä¸ºå­—ç¬¦ä¸²
 #ifdef _UNICODE 
 				wchar_t buf1[16*1024] = {0}, buf2[16*1024] = {0};
 				wcsncpy(buf1, jsToTempStringW(es, arg1), 16*1024-1);
@@ -482,7 +482,7 @@ jsValue JS_CALL CWkeWebkitUI::JsToNative(jsExecState es)
 				LPCTSTR lpArg2 = buf2;
 
 				if(wcscmp(lpArg1, L"refresh") == 0) {
-					//±¾µØË¢ÐÂ
+					//æœ¬åœ°åˆ·æ–°
 					pWkeUI->Navigate(pWkeUI->m_chCurPageUrl);
 					return jsUndefined();
 				}

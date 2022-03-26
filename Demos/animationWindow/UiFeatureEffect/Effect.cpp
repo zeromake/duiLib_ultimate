@@ -18,7 +18,7 @@ BOOL SaveBitmapToFile(HBITMAP hBitmap , LPCTSTR lpFileName)
 	LPBITMAPINFOHEADER	lpbi;			
 	HANDLE				fh, hDib, hPal, hOldPal = NULL;	
 
-	//ÉèÖÃÎ»Í¼ĞÅÏ¢Í·½á¹¹
+	//è®¾ç½®ä½å›¾ä¿¡æ¯å¤´ç»“æ„
 	GetObject(hBitmap, sizeof(BITMAP), &Bitmap);
 	bi.biSize            = sizeof(BITMAPINFOHEADER);
 	bi.biWidth           = Bitmap.bmWidth;
@@ -37,13 +37,13 @@ BOOL SaveBitmapToFile(HBITMAP hBitmap , LPCTSTR lpFileName)
 		dwPaletteSize = (1 << bi.biBitCount) *sizeof(RGBQUAD);
 	}
 
-	//ÎªÎ»Í¼ÄÚÈİ·ÖÅäÄÚ´æ
+	//ä¸ºä½å›¾å†…å®¹åˆ†é…å†…å­˜
 	hDib  = GlobalAlloc(GHND,bi.biSizeImage + dwPaletteSize + sizeof(BITMAPINFOHEADER));
 
 	lpbi = (LPBITMAPINFOHEADER)GlobalLock(hDib);
 	*lpbi = bi;
 
-	// ´¦Àíµ÷É«°å   
+	// å¤„ç†è°ƒè‰²æ¿   
 	hPal = GetStockObject(DEFAULT_PALETTE);
 	if (hPal)
 	{
@@ -52,10 +52,10 @@ BOOL SaveBitmapToFile(HBITMAP hBitmap , LPCTSTR lpFileName)
 		RealizePalette(hDC);
 	}
 
-	// »ñÈ¡¸Ãµ÷É«°åÏÂĞÂµÄÏñËØÖµ
+	// è·å–è¯¥è°ƒè‰²æ¿ä¸‹æ–°çš„åƒç´ å€¼
 	GetDIBits(hDC, hBitmap, 0, (UINT)Bitmap.bmHeight, (LPSTR)lpbi + sizeof(BITMAPINFOHEADER) + dwPaletteSize, (LPBITMAPINFO)lpbi, DIB_RGB_COLORS);
 
-	//»Ö¸´µ÷É«°å   
+	//æ¢å¤è°ƒè‰²æ¿   
 	if (hOldPal)
 	{
 		SelectPalette(hDC, (HPALETTE)hOldPal, TRUE);
@@ -63,26 +63,26 @@ BOOL SaveBitmapToFile(HBITMAP hBitmap , LPCTSTR lpFileName)
 		::ReleaseDC(NULL, hDC);
 	}
 
-	//´´½¨Î»Í¼ÎÄ¼ş    
+	//åˆ›å»ºä½å›¾æ–‡ä»¶    
 	fh = CreateFile(lpFileName, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL | FILE_FLAG_SEQUENTIAL_SCAN, NULL);
 
 	if (fh == INVALID_HANDLE_VALUE)
 		return FALSE;
 
-	// ÉèÖÃÎ»Í¼ÎÄ¼şÍ·
+	// è®¾ç½®ä½å›¾æ–‡ä»¶å¤´
 	bmfHdr.bfType		= 0x4D42;	
 	bmfHdr.bfSize		= sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER) + dwPaletteSize + bi.biSizeImage;
 	bmfHdr.bfReserved1	= 0;
 	bmfHdr.bfReserved2	= 0;
 	bmfHdr.bfOffBits	= (DWORD)sizeof(BITMAPFILEHEADER) + (DWORD)sizeof(BITMAPINFOHEADER) + dwPaletteSize;
 
-	// Ğ´ÈëÎ»Í¼ÎÄ¼şÍ·
+	// å†™å…¥ä½å›¾æ–‡ä»¶å¤´
 	WriteFile(fh, (LPSTR)&bmfHdr, sizeof(BITMAPFILEHEADER), &dwWritten, NULL);
 
-	// Ğ´ÈëÎ»Í¼ÎÄ¼şÆäÓàÄÚÈİ
+	// å†™å…¥ä½å›¾æ–‡ä»¶å…¶ä½™å†…å®¹
 	WriteFile(fh, (LPSTR)lpbi, bmfHdr.bfSize, &dwWritten, NULL);
 
-	//Ïû³ıÄÚ´æ·ÖÅä  
+	//æ¶ˆé™¤å†…å­˜åˆ†é…  
 	GlobalUnlock(hDib);
 	GlobalFree(hDib);
 	CloseHandle(fh);
@@ -135,16 +135,16 @@ void CFlipEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 	RECT rcClient = {0,0,internalParam->param.bmpSize.cx,internalParam->param.bmpSize.cy};
 
-	// ¹¹ÔìÒªÅ¤ÇúµÄ¾ØĞÎÊı¾İÏÂ±ê
+	// æ„é€ è¦æ‰­æ›²çš„çŸ©å½¢æ•°æ®ä¸‹æ ‡
 	RECT rcSrc = {rcClient.left,rcClient.top,rcClient.right-1,rcClient.bottom-1};
 	CdRect rc(rcSrc);
 
-	// Å¤Çú¾ØĞÎÓëÍ¶Ó°¾ØÕó
+	// æ‰­æ›²çŸ©å½¢ä¸æŠ•å½±çŸ©é˜µ
 	WarpRect rcWarp;
 	CProjection mtxProject;
 
 	int frame = internalParam->frameNow;
-	// pi/2Ê±Ã»ÓĞÍ¶Ó°
+	// pi/2æ—¶æ²¡æœ‰æŠ•å½±
 	if (frame == 12)
 	{
 		CMemery::SetPixels(internalParam->param.pBmpData,internalParam->param.bmpSize.cx,internalParam->param.bmpSize.cy,0);
@@ -483,12 +483,12 @@ void CBandSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 					
 					if(row & 1)
 					{			
-						// Å¼ÊıĞĞ
+						// å¶æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,0,top, width-slidedistance ,top+rowsCopy,internalParam->bmpDataCopy,width*4,slidedistance,top);	
 					}
 					else
 					{	
-						// ÆæÊıĞĞ
+						// å¥‡æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,slidedistance,top, width ,top+rowsCopy,internalParam->bmpDataCopy,width*4,0,top);
 					}
 				}
@@ -512,12 +512,12 @@ void CBandSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 					if(col & 1)
 					{	
-						// Å¼ÊıĞĞ
+						// å¶æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,left,slidedistance,left+colsCopy,height,internalParam->bmpDataCopy,width*4,left,0);
 					}
 					else
 					{	
-						// ÆæÊıĞĞ
+						// å¥‡æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,left,0,left+colsCopy,height-slidedistance,internalParam->bmpDataCopy,width*4,left,slidedistance);
 					}
 				}
@@ -544,12 +544,12 @@ void CBandSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 					if(row & 1)
 					{	
-						// Å¼ÊıĞĞ
+						// å¶æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,width-slidedistance, top,width ,top+rowsCopy,internalParam->bmpDataCopy,width*4,0,top);
 					}
 					else
 					{	
-						// ÆæÊıĞĞ
+						// å¥‡æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,0,top, slidedistance ,top+rowsCopy,internalParam->bmpDataCopy,width*4,width-slidedistance,top);	
 					}
 				}
@@ -577,12 +577,12 @@ void CBandSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 					if(col & 1)
 					{	
-						// Å¼ÊıĞĞ
+						// å¶æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,left,0,left+colsCopy,slidedistance,internalParam->bmpDataCopy,width*4,left,height - slidedistance);
 					}
 					else
 					{	
-						// ÆæÊıĞĞ
+						// å¥‡æ•°è¡Œ
 						CMemery::CopyPixels(internalParam->param.pBmpData,width*4,left,height-slidedistance,left+colsCopy,height,internalParam->bmpDataCopy,width*4,left,0);	
 					}
 				}
@@ -735,7 +735,7 @@ void CSepcialBlindsEffect::CalculateFrame(int length)
 
 	sort(m_specialBandSize.begin(),m_specialBandSize.end());
 
-	// Ã¿´ÎÒª´¦ÀíµÄ³ß´ç
+	// æ¯æ¬¡è¦å¤„ç†çš„å°ºå¯¸
 	m_bandSize = (int)ceil(delta);
 	m_nowSumRowCol = 0;
 }
@@ -1106,7 +1106,7 @@ void CInertiaSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 			}	
 			
 			m_tInertiaTime += M_PI/pUnderDamp->GetAngularFrequency()/m_tInertiacoeffecient;
-			// ¹ßĞÔÔË¶¯½áÊøÌõ¼ş
+			// æƒ¯æ€§è¿åŠ¨ç»“æŸæ¡ä»¶
 			if (inertiaDistance == (int)pUnderDamp->GetNowAmplitude(m_tInertiaTime))
 			{
 				internalParam->bLastFrame = TRUE;
@@ -1185,7 +1185,7 @@ void CZoomEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 	RECT rcClient = {0,0,internalParam->param.bmpSize.cx,internalParam->param.bmpSize.cy};
 
-	// ¹¹ÔìÒªÅ¤ÇúµÄ¾ØĞÎÊı¾İÏÂ±ê
+	// æ„é€ è¦æ‰­æ›²çš„çŸ©å½¢æ•°æ®ä¸‹æ ‡
 	RECT rcSrc = {rcClient.left,rcClient.top,rcClient.right-1,rcClient.bottom-1};
 	CdRect rc(rcSrc);
 	
@@ -1242,7 +1242,7 @@ void CShrinkEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 	RECT rcClient = {0,0,internalParam->param.bmpSize.cx,internalParam->param.bmpSize.cy};
 
-	// ¹¹ÔìÒªÅ¤ÇúµÄ¾ØĞÎÊı¾İÏÂ±ê
+	// æ„é€ è¦æ‰­æ›²çš„çŸ©å½¢æ•°æ®ä¸‹æ ‡
 	RECT rcSrc = {rcClient.left,rcClient.top,rcClient.right-1,rcClient.bottom-1};
 	CdRect rc(rcSrc);
 
@@ -1322,7 +1322,7 @@ void CSwingEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 			mtxProject.ProjectRect(rc,rcWarp,ptCenter);
 
-			// ¹¹ÔìÍâ°ü¿ò
+			// æ„é€ å¤–åŒ…æ¡†
 			RECT boundRect = rcWarp.GetBoundRect().ToRECT();
 			RECT rcBound = {boundRect.left,boundRect.top,boundRect.right+1,boundRect.bottom+1};
 
@@ -1344,7 +1344,7 @@ void CSwingEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 		mtxProject.ProjectRect(rc,rcWarp,ptCenter);
 
-		// ¹¹ÔìÍâ°ü¿ò
+		// æ„é€ å¤–åŒ…æ¡†
 		RECT boundRect = rcWarp.GetBoundRect().ToRECT();
 		RECT rcBound = {boundRect.left,boundRect.top,boundRect.right+1,boundRect.bottom+1};
 
@@ -2616,7 +2616,7 @@ void CPatchFlipEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	long &height = internalParam->param.bmpSize.cy;
 	RECT rcClient = {0,0,width,height};
 
-	// ¹¹ÔìÒªÅ¤ÇúµÄ¾ØĞÎÊı¾İÏÂ±ê
+	// æ„é€ è¦æ‰­æ›²çš„çŸ©å½¢æ•°æ®ä¸‹æ ‡
 	POINT ptCenter = {width/2,height/2};
 
 	RECT rcSrc[4] = { 0 };
@@ -2646,7 +2646,7 @@ void CPatchFlipEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 		rc[i] = CdRect(rcSrc[i]);
 	}
 
-	// Å¤Çú¾ØĞÎÓëÍ¶Ó°¾ØÕó
+	// æ‰­æ›²çŸ©å½¢ä¸æŠ•å½±çŸ©é˜µ
 	WarpRect rcWarp[4];
 	CProjection mtxProject[4];
 
@@ -3149,7 +3149,7 @@ void CDampSlideEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	
 	m_tInertiaTime += M_PI/pCriticalDamp->GetAngularFrequency()/m_tInertiacoeffecient;
 
-	// ¹ßĞÔÔË¶¯½áÊøÌõ¼ş
+	// æƒ¯æ€§è¿åŠ¨ç»“æŸæ¡ä»¶
 	if(!xInt && !yInt || (inertiaDistance<1.0f))
 	{
 		internalParam->bLastFrame = TRUE;
@@ -3688,10 +3688,10 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	CdRect rcClient(0, 0, width, height);
 	memset(m_pBits, 0, width*height*4);
 
-	//»­Í¼µÄÇøÓòºÍ¾í½ÇµÄÇøÓò
+	//ç”»å›¾çš„åŒºåŸŸå’Œå·è§’çš„åŒºåŸŸ
 	GraphicsPath rg1, rg2;
 
-	Point pageCorner = Point(rcClient.right, rcClient.bottom);//Ò³½Ç
+	Point pageCorner = Point(rcClient.right, rcClient.bottom);//é¡µè§’
 
 	Point ptCenter(rcClient.left, rcClient.bottom+2*rcClient.Width());
 	Matrix mtx1;
@@ -3708,9 +3708,9 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 		}
 		else
 		{
-			//¼ÆËãµãºÍÇøÓò
+			//è®¡ç®—ç‚¹å’ŒåŒºåŸŸ
 
-			//¼ÆËãÒ³½Ç
+			//è®¡ç®—é¡µè§’
 			Matrix mtx2;
 			mtx2.Rotate(-angle*(real)internalParam->frameNow);
 			mtx2.Multiply(&mtx1);
@@ -3744,9 +3744,9 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				IntersectLine(line1, line2, NULL, NULL, &pt1);
 				ptintsect1 = Point(pt1.x, pt1.y);
 
-				//µ÷Õûk
+				//è°ƒæ•´k
 				m_nK = 3;
-				//µ÷ÕûÒ³½Ç
+				//è°ƒæ•´é¡µè§’
 				pgcorn.X += rcClient.Width()*internalParam->frameNow/80.0f;
 			}
 
@@ -3759,7 +3759,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				rg1.AddLine((INT)rcClient.left, (INT)rcClient.bottom, (INT)rcClient.left, (INT)rcClient.top);
 				rg1.CloseAllFigures();
 
-				//¼ÆËã»¡Ïß
+				//è®¡ç®—å¼§çº¿
 				ptintsect1 = ptintsect3;		
 				pt1 = CdPoint(pgcorn.X, pgcorn.Y);
 				pt2 = CdPoint(ptintsect1.X, ptintsect1.Y);
@@ -3792,7 +3792,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				rg1.AddLine((INT)rcClient.left, (INT)rcClient.bottom, (INT)rcClient.left, (INT)rcClient.top);
 				rg1.CloseAllFigures();
 
-				//¼ÆËã»¡Ïß
+				//è®¡ç®—å¼§çº¿
 
 				pt1 = CdPoint(pgcorn.X, pgcorn.Y);
 				pt2 = CdPoint(ptintsect1.X, ptintsect1.Y);
@@ -3817,7 +3817,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 			}
 
-			//Éú²ú¶¯»­Ö¡
+			//ç”Ÿäº§åŠ¨ç”»å¸§
 	#ifdef new
 	#undef new
 	#endif
@@ -3827,12 +3827,12 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	#ifdef _DEBUG
 	#define new DEBUG_CLIENTBLOCK
 	#endif
-			// »­Í¼
+			// ç”»å›¾
 			Graphics graphics(pBitmap);
 			graphics.SetClip(&rg1);
 			graphics.DrawImage(m_pBitmap, 0, 0);
 
-			// »­Ö½
+			// ç”»çº¸
 			graphics.SetClip(&rg2);
 			graphics.FillRectangle(&SolidBrush(Color::White), 0, 0, width, height);
 
@@ -3861,9 +3861,9 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 		}
 		else
 		{
-			//¼ÆËãµãºÍÇøÓò
+			//è®¡ç®—ç‚¹å’ŒåŒºåŸŸ
 
-			//¼ÆËãÒ³½Ç
+			//è®¡ç®—é¡µè§’
 			Matrix mtx2;
 			mtx2.Rotate(-angle*(m_effectFrame-(real)internalParam->frameNow));
 			mtx2.Multiply(&mtx1);
@@ -3895,7 +3895,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 				if(rcClient.Width() < rcClient.Height()/1.5f)
 				{
-					//µ÷Õûk
+					//è°ƒæ•´k
 					m_nK = 2;
 				}
 			}
@@ -3906,7 +3906,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				line2 = CdLine(pt1, pt2);
 				IntersectLine(line1, line2, NULL, NULL, &pt1);
 				ptintsect1 = Point(pt1.x, pt1.y);
-				//µ÷ÕûÒ³½Ç
+				//è°ƒæ•´é¡µè§’
 				pgcorn.X += rcClient.Width()*(m_effectFrame-(real)internalParam->frameNow)/80.0f;
 			}
 
@@ -3919,7 +3919,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				rg1.AddLine((INT)rcClient.left, (INT)rcClient.bottom, (INT)rcClient.left, (INT)rcClient.top);
 				rg1.CloseAllFigures();
 
-				//¼ÆËã»¡Ïß
+				//è®¡ç®—å¼§çº¿
 				ptintsect1 = ptintsect3;		
 				pt1 = CdPoint(pgcorn.X, pgcorn.Y);
 				pt2 = CdPoint(ptintsect1.X, ptintsect1.Y);
@@ -3952,7 +3952,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 				rg1.AddLine((INT)rcClient.left, (INT)rcClient.bottom, (INT)rcClient.left, (INT)rcClient.top);
 				rg1.CloseAllFigures();
 
-				//¼ÆËã»¡Ïß
+				//è®¡ç®—å¼§çº¿
 
 				pt1 = CdPoint(pgcorn.X, pgcorn.Y);
 				pt2 = CdPoint(ptintsect1.X, ptintsect1.Y);
@@ -3977,7 +3977,7 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 			}
 
-			//Éú²ú¶¯»­Ö¡
+			//ç”Ÿäº§åŠ¨ç”»å¸§
 	#ifdef new
 	#undef new
 	#endif
@@ -3987,12 +3987,12 @@ void CPagePeelEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	#ifdef _DEBUG
 	#define new DEBUG_CLIENTBLOCK
 	#endif
-			// »­Í¼
+			// ç”»å›¾
 			Graphics graphics(pBitmap);
 			graphics.SetClip(&rg1);
 			graphics.DrawImage(m_pBitmap, 0, 0);
 
-			// »­Ö½
+			// ç”»çº¸
 			graphics.SetClip(&rg2);
 			graphics.FillRectangle(&SolidBrush(Color::White), 0, 0, width, height);
 
@@ -4187,7 +4187,7 @@ void CFoldEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 			project.ProjectRect(m_foldRect[j], m_warpRect[j], m_foldRect[j].GetCenter());
 		}
 
-		// ¼ÆËã×Ü¿í¶È
+		// è®¡ç®—æ€»å®½åº¦
 		int totalWidth = 0;
 		for(int j = 0; j < m_foldNum; j++)
 		{
@@ -4224,7 +4224,7 @@ void CFoldEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 			project.ProjectRect(m_foldRect[j], m_warpRect[j], m_foldRect[j].GetCenter());
 		}
 
-		// ¼ÆËã×Ü¸ß¶È
+		// è®¡ç®—æ€»é«˜åº¦
 		int totalHeight = 0;
 		for(int j = 0; j < m_foldNum; j++)
 		{
@@ -4314,7 +4314,7 @@ void CStackEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 
 	if (!internalParam->param.bShow)
 	{
-		// ´Ó×óÍùÓÒ¶Ñ
+		// ä»å·¦å¾€å³å †
 		if (internalParam->param.animationEffect == 82)
 		{
 			if(internalParam->frameNow == m_effectFrame)
@@ -4474,7 +4474,7 @@ void CStackEffect::ComputeOneFrame(InternalAnimationParam *internalParam)
 	}
 	else
 	{
-		// ´Ó×óÍùÓÒ¶Ñ
+		// ä»å·¦å¾€å³å †
 		if (internalParam->param.animationEffect == 82)
 		{
 			memset(internalParam->param.pBmpData, 0, width*height*4);
@@ -4633,7 +4633,7 @@ void CStackEffect::InitEffectParam(InternalAnimationParam *internalParam)
 		m_bandSize = internalParam->param.bmpSize.cx/10;
 		m_bandNum = ((internalParam->param.bmpSize.cx % m_bandSize == 0) ? internalParam->param.bmpSize.cx / m_bandSize : (internalParam->param.bmpSize.cx / m_bandSize + 1));
 
-		// ³õÊ¼»¯Ã¿¸ö´ø×´µÄÖ¡Êı
+		// åˆå§‹åŒ–æ¯ä¸ªå¸¦çŠ¶çš„å¸§æ•°
 		if (m_bandNum == 11)
 		{
 			m_bandFrameNum.push_back(1);
@@ -4661,7 +4661,7 @@ void CStackEffect::InitEffectParam(InternalAnimationParam *internalParam)
 		m_bandSize = internalParam->param.bmpSize.cy/10;
 		m_bandNum = ((internalParam->param.bmpSize.cy % m_bandSize == 0) ? internalParam->param.bmpSize.cy / m_bandSize : (internalParam->param.bmpSize.cy / m_bandSize + 1));
 
-		// ³õÊ¼»¯Ã¿¸ö´ø×´µÄÖ¡Êı
+		// åˆå§‹åŒ–æ¯ä¸ªå¸¦çŠ¶çš„å¸§æ•°
 		if (m_bandNum == 11)
 		{
 			m_bandFrameNum.push_back(1);

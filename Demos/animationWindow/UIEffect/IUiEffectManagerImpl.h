@@ -10,9 +10,9 @@ public:
 
 	static IUiEffectManagerImpl* GetInstance();
 
-	// µÃµ½Ò»¸ö¶¯»­¶ÔÏó
+	// å¾—åˆ°ä¸€ä¸ªåŠ¨ç”»å¯¹è±¡
 	IUIEffect* GetAnimation();
-	// É¾³ýÒ»¸ö¶¯»­¶ÔÏó
+	// åˆ é™¤ä¸€ä¸ªåŠ¨ç”»å¯¹è±¡
 	bool ReleaseAnimation(IUIEffect* &pUIEffect);
 	DWORD GetSurportAnimationType(const char* &strType);
 

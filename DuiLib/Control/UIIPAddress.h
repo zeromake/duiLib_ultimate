@@ -3,13 +3,13 @@
 
 #pragma once
 
-//给该控件添加一个属性dtstyle
+//缁欒鎺т欢娣诲姞涓�涓睘鎬tstyle
 
 namespace DuiLib
 {
 	class CIPAddressWnd;
 
-	/// 时间选择控件
+	/// 鏃堕棿閫夋嫨鎺т欢
 	class UILIB_API CIPAddressUI : public CLabelUI
 	{
 		DECLARE_DUICONTROL(CIPAddressUI)

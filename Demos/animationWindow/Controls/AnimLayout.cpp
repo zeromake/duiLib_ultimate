@@ -85,16 +85,16 @@ bool AnimLayout::StartEffect()
 	GetObject(m_hTransBitmap, sizeof(bmDst), &bmDst);
 	SIZE szMemDc = { bmDst.bmWidth, bmDst.bmHeight };
 
-	//ÐÞ²¹Ò»ÏÂAlphaÍ¨µÀ,Ò»Ð©¿Ø¼þ(Richedit)»áÈÃAlphaÎª0
+	//ä¿®è¡¥ä¸€ä¸‹Alphaé€šé“,ä¸€äº›æŽ§ä»¶(Richedit)ä¼šè®©Alphaä¸º0
 	RECT rcRestore = m_rcItem;
 	RestoreAlphaColor((LPBYTE)bmDst.bmBits, bmDst.bmWidth, &rcRestore);
 
-	// Ìî³ä¶¯»­²ÎÊý
+	// å¡«å……åŠ¨ç”»å‚æ•°
 	AnimationParam animParam;
-	animParam.effectKey = (WPARAM)this;				//¿Ø¼þÖ¸Õë
-	animParam.animationEffect = m_dwEffectNum++;	//¶¯»­ÀàÐÍ£¬´Ó2-80£¬1Îª×Ô¶¨Òå¶¯»­£¬²¢Ã»ÓÐÒÆÖ²¹ýÀ´
-	animParam.animationFrequency = 20;				//¶¯»­¼ä¸ô
-	animParam.bShow = TRUE;							//¶¯»­Ë³Ðò
+	animParam.effectKey = (WPARAM)this;				//æŽ§ä»¶æŒ‡é’ˆ
+	animParam.animationEffect = m_dwEffectNum++;	//åŠ¨ç”»ç±»åž‹ï¼Œä»Ž2-80ï¼Œ1ä¸ºè‡ªå®šä¹‰åŠ¨ç”»ï¼Œå¹¶æ²¡æœ‰ç§»æ¤è¿‡æ¥
+	animParam.animationFrequency = 20;				//åŠ¨ç”»é—´éš”
+	animParam.bShow = TRUE;							//åŠ¨ç”»é¡ºåº
 	animParam.hBitmap = m_hTransBitmap;
 	animParam.pBmpData = (BYTE*)bmDst.bmBits;
 	animParam.bmpSize = szMemDc;
@@ -105,11 +105,11 @@ bool AnimLayout::StartEffect()
 
 	m_bPlaying = true;
 
-	// ÕâÀïÊÇÍ¬²½Ö´ÐÐµÄ£¬Animationº¯ÊýÔÚ¶¯»­Íê±Ïºó·µ»Ø
+	// è¿™é‡Œæ˜¯åŒæ­¥æ‰§è¡Œçš„ï¼ŒAnimationå‡½æ•°åœ¨åŠ¨ç”»å®Œæ¯•åŽè¿”å›ž
 	bRet = m_pEffect->Animation(dynamic_cast<IUIEffectCallBack*>(this), 0);
 	ASSERT(bRet);
 
-	// µÝ¹éÑÝÊ¾ËùÓÐ¶¯»­Ð§¹û,ÕâÖ»ÊÇÎªÁËÑÝÊ¾Ð§¹û,Êµ¼Ê¿ª·¢²»ÒªÕâÑù×ö!
+	// é€’å½’æ¼”ç¤ºæ‰€æœ‰åŠ¨ç”»æ•ˆæžœ,è¿™åªæ˜¯ä¸ºäº†æ¼”ç¤ºæ•ˆæžœ,å®žé™…å¼€å‘ä¸è¦è¿™æ ·åš!
 	StartEffect();
 
 	return true;
@@ -145,6 +145,6 @@ void AnimLayout::OnUiEffectEnd(WPARAM effectKey, DWORD animaType)
 
 void AnimLayout::OnUiEffectDraw()
 {
-	// ÕâÀï±ØÐëÇ¿ÖÆÖØ»æ´°Ìå£¬·ñÔòÎÞ·¨ÏÔÊ¾³ö¶¯»­£¬ºÜ¹Ø¼ü
+	// è¿™é‡Œå¿…é¡»å¼ºåˆ¶é‡ç»˜çª—ä½“ï¼Œå¦åˆ™æ— æ³•æ˜¾ç¤ºå‡ºåŠ¨ç”»ï¼Œå¾ˆå…³é”®
 	RedrawWindow(m_pManager->GetPaintWindow(), NULL, NULL,  RDW_INVALIDATE | RDW_UPDATENOW);
 }

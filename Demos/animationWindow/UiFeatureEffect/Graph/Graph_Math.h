@@ -5,31 +5,31 @@
 
 namespace Graph
 {
-	// ²ÎÊı¶¨Òå(ºê)
+	// å‚æ•°å®šä¹‰(å®)
 	const real M_PI = 3.141592654f;
 	
-	// ÊıÖµ²Ù×÷(ºê)
+	// æ•°å€¼æ“ä½œ(å®)
 	#define ABS(x) ((x)>0?(x):-(x))
 	#define ToInt(value)	((int)(value))
 	#define ToLong(value)	((long)(value))	
 	#define SIGN(x) ((x)>0?(1):-(1))
 
-	// °Ñreal x ×ª»»³Éint y 
+	// æŠŠreal x è½¬æ¢æˆint y 
 	#define  REAL2INT(x,y)		__asm fld [x] __asm fistp y 
 
-	// °Ñint x ×ª»»³Éreal y 
+	// æŠŠint x è½¬æ¢æˆreal y 
 	#define  INT2REAL(x,y)		__asm fild [x] __asm fstp y 
 	
-	// ÊıÖµ±È½Ï(ºê)
+	// æ•°å€¼æ¯”è¾ƒ(å®)
 	#define max(a,b)    (((a) > (b)) ? (a) : (b))
 	#define min(a,b)    (((a) < (b)) ? (a) : (b))
 	#define between(a,b,c) (((a)<=(b)) && ((b)<(c)))
 	#define isnear(a,b,d)	(((b)-(d)<(a)) && ((a)<(b)+(d)))
 
-	// Êı×é²Ù×÷(ºê)
+	// æ•°ç»„æ“ä½œ(å®)
 	#define ARRAY_BOUND_OF(array)	(sizeof(array)/sizeof(array[0]))
 
-	// ÊıÖµ±È½Ï
+	// æ•°å€¼æ¯”è¾ƒ
 	inline bool D_Equal(real d1, real d2, real dPrec = dConst_MinPrecision)
 	{
 		return (ABS(d1-d2)<dPrec);
@@ -87,22 +87,22 @@ namespace Graph
 		return d;
 	}
 
-	//Ïò+¡ŞÉáÈë
+	//å‘+âˆèˆå…¥
 	inline real D_Ceil(real d)
 	{
 		return ceil(d);
 	}
-	//Ïò0ÉáÈë
+	//å‘0èˆå…¥
 	inline real D_Fix(real d)
 	{
 		return (d >= 0) ? floor(d) : ceil(d);
 	}
-	//Ïò-¡ŞÉáÈë
+	//å‘-âˆèˆå…¥
 	inline real D_Floor(real d)
 	{
 		return floor(d);
 	}
-	//ËÄÉáÎåÈë
+	//å››èˆäº”å…¥
 	inline real D_Round(real d)
 	{
 		real df = floor(d);
@@ -147,7 +147,7 @@ namespace Graph
 		b=temp;
 	}
 
-	// Point&Size½á¹¹
+	// Point&Sizeç»“æ„
 	#pragma pack(push,1)
 	template<class T>
 	struct DPOINTT
@@ -171,13 +171,13 @@ namespace Graph
 	}
 
 
-	// CdPoint&CdSizeÉùÃ÷
+	// CdPoint&CdSizeå£°æ˜
 	template<class T>
 	class CdPointT;
 	template<class T>
 	class CdSizeT;
 
-	// CdPointÀà
+	// CdPointç±»
 	#pragma pack(push,1)
 	template<class T>
 	class CdPointT : public DPOINTT<T>
@@ -328,7 +328,7 @@ namespace Graph
 	};
 	#pragma pack(pop)
 
-	// CdSizeÀà
+	// CdSizeç±»
 	#pragma pack(push,1)
 	template<class T>
 	class CdSizeT : public DSIZET<T>
@@ -489,7 +489,7 @@ namespace Graph
 	typedef CdSizeFloat CdSize;
 #endif //USING_DOUBLEFLOAT
 	
-	// CdPoint&CdSizeÔËËã
+	// CdPoint&CdSizeè¿ç®—
 	#define OUGHT(f)           ((void)0)
 	inline void CdPoint::operator += (const CdSize& size)
 	{

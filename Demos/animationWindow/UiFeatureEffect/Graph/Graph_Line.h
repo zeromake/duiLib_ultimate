@@ -37,13 +37,13 @@ namespace Graph
 			m_vector = line.m_vector;
 		}
 
-		// »ñµÃÖ±ÏßÉÏµÄµã
+		// è·å¾—ç›´çº¿ä¸Šçš„ç‚¹
 		inline CdPoint GetLambdaPoint(real lambda) const
 		{
 			return m_point + m_vector * lambda;
 		}
 
-		// µãµ½Ïß¶ÎµÄ×î¶Ì¾àÀë
+		// ç‚¹åˆ°çº¿æ®µçš„æœ€çŸ­è·ç¦»
 		real DistFromLine(const CdPoint& point0) const
 		{
 			real lambda = 0;
@@ -126,8 +126,8 @@ namespace Graph
 			return m_point + m_vector;
 		}
 
-		// ÅĞ¶ÏµãÓëÏß¶ÎµÄÏà¶ÔÎ»ÖÃ
-		// 0£º×ó²à 1£ºÓÒ²à
+		// åˆ¤æ–­ç‚¹ä¸çº¿æ®µçš„ç›¸å¯¹ä½ç½®
+		// 0ï¼šå·¦ä¾§ 1ï¼šå³ä¾§
 		real GetInsideLambdaOfPoint(const CdPoint& point0) const
 		{
 			real lambda = GetInfiniteLambdaOfPoint(point0);
@@ -148,13 +148,13 @@ namespace Graph
 			return DistFromLine(point0) <= delta;
 		}
 
-		// »ñµÃÖ±ÏßÏòÁ¿
+		// è·å¾—ç›´çº¿å‘é‡
 		inline const CdSize& GetVector() const
 		{
 			return m_vector;
 		}
 
-		// »ñµÃÖ±ÏßµÄ½Ç¶È
+		// è·å¾—ç›´çº¿çš„è§’åº¦
 		inline real GetPolarAngle() const
 		{
 			return m_vector.GetPolarAngle();
@@ -175,7 +175,7 @@ namespace Graph
 			return m_vector.GetLength();
 		}
 		
-		// ÑØ·¨ÏßÕı·½ÏòÒÆ¶¯
+		// æ²¿æ³•çº¿æ­£æ–¹å‘ç§»åŠ¨
 		bool OffsetNormal(real dOffset)
 		{
 			real dLength = m_vector.GetLength();
@@ -187,7 +187,7 @@ namespace Graph
 			return !D_Equal(dLength, 0);
 		}
 		
-		// ÑØÇĞÏß·½ÏòÒÆ¶¯
+		// æ²¿åˆ‡çº¿æ–¹å‘ç§»åŠ¨
 		bool OffsetTangent(real dOffset)
 		{
 			real dLength = m_vector.GetLength();
@@ -217,12 +217,12 @@ namespace Graph
 		}
 	}
 
-	// ¼ÆËãÁ½Ö±Ïß½»µã
+	// è®¡ç®—ä¸¤ç›´çº¿äº¤ç‚¹
 	#define fabs_(x)	(((x) >= 0) ? (x) : (-(x)))
 	inline int IntersectLine(const CdPoint& pt1, const CdSize& v1, const CdPoint pt2, const CdSize& v2,
 		real* pLambda1, real* pLambda2, CdPoint* pPt)
 	{
-		// Èë²Î¼ì²é
+		// å…¥å‚æ£€æŸ¥
 		if((v1.cx == 0) && (v1.cy == 0) || (v2.cx == 0) && (v2.cy == 0))
 		{
 			return INTERSECTLINE_NONE;
@@ -352,7 +352,7 @@ namespace Graph
 	}
 	#undef fabs_
 
-	// ¼ÆËãÁ½Ö±Ïß½»µã
+	// è®¡ç®—ä¸¤ç›´çº¿äº¤ç‚¹
 	inline int IntersectLine(const CdLine& line1, const CdLine& line2,
 		real* pLambda1, real* pLambda2, CdPoint* pPt)
 	{
@@ -414,8 +414,8 @@ namespace Graph
 		return false;
 	}
 
-	// ÅĞ¶ÏµãÓëÏßµÄÏà¶ÔÎ»ÖÃ¹ØÏµ
-	// ·µ»ØÖµ £­1:ÓÒ²à 0:ÏßÉÏ 1:×ó²à
+	// åˆ¤æ–­ç‚¹ä¸çº¿çš„ç›¸å¯¹ä½ç½®å…³ç³»
+	// è¿”å›å€¼ ï¼1:å³ä¾§ 0:çº¿ä¸Š 1:å·¦ä¾§
 	inline int GetRelativePos(const CdLine& line, const CdPoint& pt)
 	{
 		const real dx0 = line.GetVector().cx;
@@ -440,7 +440,7 @@ namespace Graph
 		}
 	}
 
-	// ÅĞ¶ÏÁ½µãÊÇ·ñ¶¼´¦ÓÚÒ»ÌõÖ±ÏßµÄÍ¬²à
+	// åˆ¤æ–­ä¸¤ç‚¹æ˜¯å¦éƒ½å¤„äºä¸€æ¡ç›´çº¿çš„åŒä¾§
 	inline bool IsSameSide(const CdLine& line, const CdPoint& pt1, const CdPoint& pt2)
 	{
 		int iPos1 = GetRelativePos(line, pt1);
@@ -454,7 +454,7 @@ namespace Graph
 		return false;
 	}
 
-	// ÅĞ¶ÏÁ½ÌõÏß¶ÎÊÇ·ñÏà½»
+	// åˆ¤æ–­ä¸¤æ¡çº¿æ®µæ˜¯å¦ç›¸äº¤
 	inline bool IsSegIntersect(const CdLine& segline1, const CdLine& segline2)
 	{
 		if((segline1.GetVector().cx == 0) && (segline1.GetVector().cy == 0) && (segline2.GetVector().cx == 0) && (segline2.GetVector().cy == 0))
@@ -466,8 +466,8 @@ namespace Graph
 			!IsSameSide(segline2, segline1.GetStartPoint(), segline1.GetStopPoint()));
 	}
 
-	// ¼ÆËãÁ½ÌõÏß¶ÎµÄ½»µã
-	// ·µ»ØÖµ false:Ã»ÓĞ½»µã£¬³ö²ÎptÎŞĞ§; true:ÓĞ½»µã£¬³ö²ÎptÓĞĞ§
+	// è®¡ç®—ä¸¤æ¡çº¿æ®µçš„äº¤ç‚¹
+	// è¿”å›å€¼ false:æ²¡æœ‰äº¤ç‚¹ï¼Œå‡ºå‚ptæ— æ•ˆ; true:æœ‰äº¤ç‚¹ï¼Œå‡ºå‚ptæœ‰æ•ˆ
 	inline bool GetSegIntersect(const CdLine& segline1, const CdLine& segline2, CdPoint& pt)
 	{
 		if(!IsSegIntersect(segline1, segline2))

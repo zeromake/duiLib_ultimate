@@ -23,7 +23,7 @@ public:
 	~CMainWnd(void);
 
 public:
-	// 初始化资源管理器
+	// 鍒濆鍖栬祫婧愮鐞嗗櫒
 	virtual void InitWindow();
 
 	virtual void OnFinalMessage( HWND );

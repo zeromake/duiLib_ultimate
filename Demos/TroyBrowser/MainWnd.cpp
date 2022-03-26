@@ -68,7 +68,7 @@ void CMainWnd::InitWindow()
 	m_pBrowserTabBar = static_cast<CBrowserTabBar*>(m_pm.FindControl(_T("browser_tabbar")));
 	m_pBrowserTabBody = static_cast<CTabLayoutUI*>(m_pm.FindControl(_T("browser_tabbody")));
 
-	// ´´½¨ÆðÊ¼Ò³
+	// åˆ›å»ºèµ·å§‹é¡µ
 	CreateNewTabAndGo(sHomePage);
 }
 
@@ -205,7 +205,7 @@ void CMainWnd::OnReturn( TNotifyUI &msg )
 
 LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
  {
-	 // ¹Ø±Õ´°¿Ú£¬ÍË³ö³ÌÐò
+	 // å…³é—­çª—å£ï¼Œé€€å‡ºç¨‹åº
 	 if(uMsg == WM_DESTROY)
 	 {
 		 ::PostQuitMessage(0L);
@@ -222,7 +222,7 @@ LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 
 LRESULT CMainWnd::OnSysCommand( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
-	// ÓÐÊ±»áÔÚÊÕµ½WM_NCDESTROYºóÊÕµ½wParamÎªSC_CLOSEµÄWM_SYSCOMMAND
+	// æœ‰æ—¶ä¼šåœ¨æ”¶åˆ°WM_NCDESTROYåŽæ”¶åˆ°wParamä¸ºSC_CLOSEçš„WM_SYSCOMMAND
 	if( wParam == SC_CLOSE ) {
 		::PostQuitMessage(0L);
 		bHandled = TRUE;
@@ -266,8 +266,8 @@ int CMainWnd::CreateNewTab(int nIndex, LPCTSTR pstrUrl)
 
 	if(pstrUrl == NULL) {
 		lstrcpy(pInfo->szUrl, _T("about:blank"));
-		lstrcpy(pInfo->szTitle, _T("¿Õ°×Ò³"));
-		pTab->SetText(_T("¿Õ°×Ò³"));
+		lstrcpy(pInfo->szTitle, _T("ç©ºç™½é¡µ"));
+		pTab->SetText(_T("ç©ºç™½é¡µ"));
 	}
 	else {
 		lstrcpy(pInfo->szUrl, pstrUrl);

@@ -12,7 +12,7 @@ namespace Graph
 		~CView(){};
 
 	public:
-		// ³õÊ¼»¯¹Û²ì¾ØÕó(×óÊÖ×ø±êÏµ)
+		// åˆå§‹åŒ–è§‚å¯ŸçŸ©é˜µ(å·¦æ‰‹åæ ‡ç³»)
 		void InitViewMatrix(Vector &eye, Vector &lookAt, Vector &up)
 		{						
 			//right vector

@@ -87,7 +87,7 @@ bool IUiEffectManagerImpl::LoadEffectDll()
 	return true;
 }
 
-// µÃµ½Ò»¸ö¶¯»­¶ÔÏó
+// å¾—åˆ°ä¸€ä¸ªåŠ¨ç”»å¯¹è±¡
 IUIEffect* IUiEffectManagerImpl::GetAnimation()
 {
 	if (m_hEffectDll == NULL || m_funGetAnimation == NULL)
@@ -96,7 +96,7 @@ IUIEffect* IUiEffectManagerImpl::GetAnimation()
 	return m_funGetAnimation();
 }
 
-// É¾³ýÒ»¸ö¶¯»­¶ÔÏó
+// åˆ é™¤ä¸€ä¸ªåŠ¨ç”»å¯¹è±¡
 bool IUiEffectManagerImpl::ReleaseAnimation(IUIEffect* &pUIEffect)
 {
 	if (m_hEffectDll == NULL || m_funReleaseAnimation == NULL)

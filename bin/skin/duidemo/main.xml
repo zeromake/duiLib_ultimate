@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Window size="800,572" sizebox="4,4,6,6" roundcorner="0,0" caption="0,0,0,64" bktrans="false" mininfo="600,480" showshadow="true" shadowimage="main/shadow.png" shadowsize="6" shadowcorner="8,8,8,8">
   <Font shared="true" id="0" name="宋体" size="13" default="true"/>
   <Font shared="true" id="1" name="宋体" size="12" bold="false" underline="true"/>

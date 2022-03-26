@@ -46,11 +46,11 @@ namespace DuiLib
 			Create(m_pOwner->GetManager()->GetPaintWindow(), NULL, uStyle, 0, rcPos);
 			SetWindowFont(m_hWnd, m_pOwner->GetManager()->GetFontInfo(m_pOwner->GetFont())->hFont, TRUE);
 		}
-		// 使用系统当前时间
+		// 浣跨敤绯荤粺褰撳墠鏃堕棿
 		if (m_pOwner->GetText().IsEmpty()) {
 			::GetLocalTime(&m_pOwner->m_sysTime);
 		}
-		// 显示格式
+		// 鏄剧ず鏍煎紡
 		if(m_pOwner->IsShowTime()) {
 			::SendMessage(m_hWnd, DTM_SETFORMAT, 0, LPARAM(_T("yyyy-MM-dd HH:mm:ss")));
 		}

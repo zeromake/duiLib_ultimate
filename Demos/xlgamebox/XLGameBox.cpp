@@ -4,22 +4,22 @@
 
 void InitResource()
 {	
-	// ×ÊÔ´ÀàÐÍ
+	// èµ„æºç±»åž‹
 #ifdef _DEBUG
 	CPaintManagerUI::SetResourceType(UILIB_FILE);
 #else
 	CPaintManagerUI::SetResourceType(UILIB_ZIPRESOURCE);
 #endif
-	// ×ÊÔ´Â·¾¶
+	// èµ„æºè·¯å¾„
 	CDuiString strResourcePath = CPaintManagerUI::GetInstancePath();
-	// ¼ÓÔØ×ÊÔ´
+	// åŠ è½½èµ„æº
 	switch(CPaintManagerUI::GetResourceType())
 	{
 	case UILIB_FILE:
 		{
 			strResourcePath += _T("skin\\xlgamebox\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 			break;
 		}
@@ -27,7 +27,7 @@ void InitResource()
 		{
 			strResourcePath += _T("skin\\xlgamebox\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("IDR_RES"), _T("xml"));
 			break;
 		}
@@ -36,7 +36,7 @@ void InitResource()
 			strResourcePath += _T("skin\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
 			CPaintManagerUI::SetResourceZip(_T("xlgamebox.zip"), true);
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 			break;
 		}
@@ -53,7 +53,7 @@ void InitResource()
 					dwSize = ::SizeofResource(CPaintManagerUI::GetResourceDll(), hResource);
 					if( dwSize > 0 ) {
 						CPaintManagerUI::SetResourceZip((LPBYTE)::LockResource(hGlobal), dwSize);
-						// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+						// åŠ è½½èµ„æºç®¡ç†å™¨
 						CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 					}
 				}
@@ -68,14 +68,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 {
 	HRESULT Hr = ::CoInitialize(NULL);
 	if( FAILED(Hr) ) return 0;
-	// ³õÊ¼»¯UI¹ÜÀíÆ÷
+	// åˆå§‹åŒ–UIç®¡ç†å™¨
 	CPaintManagerUI::SetInstance(hInstance);
-	// ³õÊ¼»¯×ÊÔ´
+	// åˆå§‹åŒ–èµ„æº
 	InitResource();
 
 	CMainWnd* pFrame = new CMainWnd();
 	if( pFrame == NULL ) return 0;
-	pFrame->Create(NULL, _T("Ñ¸À×ÓÎÏ·ºÐ×Ó"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 990,690);
+	pFrame->Create(NULL, _T("è¿…é›·æ¸¸æˆç›’å­"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 990,690);
 	pFrame->CenterWindow();
 
 	CPaintManagerUI::MessageLoop();

@@ -21,7 +21,7 @@ namespace Graph
 	const real dConst_Rect_MaxLen=40000.0f;
 	const real dConst_Rect_MinLen=0.01f;
 
-	// 线段相互关系
+	// 绾挎鐩镐簰鍏崇郴
 	#define INTERSECTLINE_NORMAL 0
 	#define INTERSECTLINE_NONE   1
 	#define INTERSECTLINE_COVER  2

@@ -19,10 +19,10 @@ std::string T2ANSI(LPCTSTR);
 
 typedef struct _rend_data
 {
-	RECT rt; //äÖÈ¾µÄ¾ØĞÎÇøÓò
-	void* pixels; //äÖÈ¾µÄÄÚ´æÊı¾İ
-	HDC hDC; //ÄÚ´æÉè±¸
-	HBITMAP hBitmap; //Î»Í¼
+	RECT rt; //æ¸²æŸ“çš„çŸ©å½¢åŒºåŸŸ
+	void* pixels; //æ¸²æŸ“çš„å†…å­˜æ•°æ®
+	HDC hDC; //å†…å­˜è®¾å¤‡
+	HBITMAP hBitmap; //ä½å›¾
 
 	_rend_data()
 	{
@@ -73,54 +73,54 @@ protected:
 	virtual void DoEvent(TEventUI& event);	
 
 public:
-	//³õÊ¼»¯webkit
+	//åˆå§‹åŒ–webkit
 	static void InitializeWebkit();
 
-	//·´³õÊ¼»¯webkit
+	//ååˆå§‹åŒ–webkit
 	static void UninitializeWebkit();	
 
-	//Ö´ĞĞjs´úÂë
+	//æ‰§è¡Œjsä»£ç 
 	void ExecuteJS(LPCTSTR lpJS);
 
 public:
 	wkeWebView GetWebView();
 
-	//¼ÓÔØurl
+	//åŠ è½½url
 	void Navigate(LPCTSTR lpUrl);	
 
-	//¼ÓÔØhtml´úÂë
+	//åŠ è½½htmlä»£ç 
 	void LoadHtml(LPCTSTR lpHtml);
 
-	//¹Ø±Õwebkit´°¿Ú
+	//å…³é—­webkitçª—å£
 	void Close();	
 	
-	//Ò³Ãæ²Ù×÷£ººóÍË¡¢Ç°½ø¡¢Í£Ö¹¡¢Ë¢ĞÂ
+	//é¡µé¢æ“ä½œï¼šåé€€ã€å‰è¿›ã€åœæ­¢ã€åˆ·æ–°
 	void Back();
 	void Forward();
 	void Stop();
 	void Reload();	
 
-	//ÉèÖÃÖ÷Ò³
+	//è®¾ç½®ä¸»é¡µ
 	void SetHomePage(LPCTSTR lpHomeUrl);
 
-	//ä¯ÀÀÖ÷Ò³
+	//æµè§ˆä¸»é¡µ
 	void NavigateHomePage();
 
-	//ÉèÖÃÒ³Ãæ½¹µã
+	//è®¾ç½®é¡µé¢ç„¦ç‚¹
 	void SetPageFocus();
 
 public:
-	//ÉèÖÃ¼àÌı¶ÔÏó
+	//è®¾ç½®ç›‘å¬å¯¹è±¡
 	void SetListenObj(void *pListenObj);
 
-	// ÉèÖÃ»Øµ÷½Ó¿Ú
+	// è®¾ç½®å›è°ƒæ¥å£
 	void SetWkeCallback(IWkeCallback* pWkeCallback);
 
-	//ÉèÖÃÒòÍøÂçÔ­Òòµ¼ÖÂÒ³Ãæ¼ÓÔØÊ§°ÜºóµÄÌáÊ¾Ò³Ãæ
+	//è®¾ç½®å› ç½‘ç»œåŸå› å¯¼è‡´é¡µé¢åŠ è½½å¤±è´¥åçš„æç¤ºé¡µé¢
 	void SetErrorInfoPageUrl(LPCTSTR lpErrUrl);
 
 private:
-	// »Øµ÷ÊÂ¼ş
+	// å›è°ƒäº‹ä»¶
 	static void WKE_CALL OnWkeTitleChanged(wkeWebView webView, void* param, wkeString title);
 	static void WKE_CALL OnWkeURLChanged(wkeWebView webView, void* param, wkeString url);
 	static void WKE_CALL OnWkeAlertBox(wkeWebView webView, void* param, wkeString msg);
@@ -128,7 +128,7 @@ private:
 	static wkeWebView WKE_CALL OnWkeCreateView(wkeWebView webView, void* param, const wkeNewViewInfo* info);
 	static void WKE_CALL OnWkeDocumentReady(wkeWebView webView, void* param, const wkeDocumentReadyInfo* info);
 	static void WKE_CALL OnWkeLoadingFinish(wkeWebView webView, void* param, const wkeString url, wkeLoadingResult result, const wkeString failedReason);
-	//ÄÚÖÃÒ»¸öjsÓë±¾µØµÄº¯ÊıÓ³Éä
+	//å†…ç½®ä¸€ä¸ªjsä¸æœ¬åœ°çš„å‡½æ•°æ˜ å°„
 	static jsValue JS_CALL JsToNative(jsExecState es);
 
 private:
@@ -136,15 +136,15 @@ private:
 
 	wkeWebView	 m_pWebView;
 
-	TCHAR m_chHomeUrl[1024]; //Ö÷Ò³µÄurl
+	TCHAR m_chHomeUrl[1024]; //ä¸»é¡µçš„url
 
-	TCHAR m_chCurPageUrl[1024]; //µ±Ç°Ò³ÃæµÄurl
+	TCHAR m_chCurPageUrl[1024]; //å½“å‰é¡µé¢çš„url
 
-	TCHAR m_chErrUrl[1024]; //´íÎóÌáÊ¾Ò³ÃæµÄurl
+	TCHAR m_chErrUrl[1024]; //é”™è¯¯æç¤ºé¡µé¢çš„url
 
 private:
-	void *m_pListenObj; //¼àÌı¶ÔÏó
-	IWkeCallback* m_pWkeCallback;	// »Øµ÷½Ó¿Ú
-	static map<wkeWebView, CWkeWebkitUI*> m_mapWke2UI; //½¨Á¢WkeºËĞÄµ½WebkitUIµÄÓ³Éä¹ØÏµ
+	void *m_pListenObj; //ç›‘å¬å¯¹è±¡
+	IWkeCallback* m_pWkeCallback;	// å›è°ƒæ¥å£
+	static map<wkeWebView, CWkeWebkitUI*> m_mapWke2UI; //å»ºç«‹Wkeæ ¸å¿ƒåˆ°WebkitUIçš„æ˜ å°„å…³ç³»
 };
 

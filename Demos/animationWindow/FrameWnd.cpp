@@ -31,7 +31,7 @@ void CFrameWnd::InitWindow()
 
 void CFrameWnd::OnPrepare(TNotifyUI& msg)
 {
-	if (IDOK == MessageBoxW(m_hWnd, L"µ¥»úÈ·¶¨ºó¿ªÊ¼ÑÝÊ¾79¸ö¶¯»­Ð§¹û", L"ÌáÊ¾", MB_OKCANCEL))
+	if (IDOK == MessageBoxW(m_hWnd, L"å•æœºç¡®å®šåŽå¼€å§‹æ¼”ç¤º79ä¸ªåŠ¨ç”»æ•ˆæžœ", L"æç¤º", MB_OKCANCEL))
 	{
 		m_pAnimLayout->StartEffect();
 	}

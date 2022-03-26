@@ -37,7 +37,7 @@ namespace Graph
 		}
 
 	public:
-		// Í¶Ó°Æ½ÃæÖĞĞÄÎªxyÖĞĞÄ£¨x,y·½Ïò¶¼¾ÓÖĞ£©
+		// æŠ•å½±å¹³é¢ä¸­å¿ƒä¸ºxyä¸­å¿ƒï¼ˆx,yæ–¹å‘éƒ½å±…ä¸­ï¼‰
 		void InitProMatrix(CdRect &rcPlane, real nearPlane, real farPlane)
 		{
 			if (IsIdentity())
@@ -82,7 +82,7 @@ namespace Graph
 			m_matrix[2][3] = 1;
 		}
 
-		// Í¶Ó°Æ½ÃæÖĞĞÄ²»ÎªxyÖĞĞÄ£¨x,y·½Ïò¶¼²»¾ÓÖĞ£©
+		// æŠ•å½±å¹³é¢ä¸­å¿ƒä¸ä¸ºxyä¸­å¿ƒï¼ˆx,yæ–¹å‘éƒ½ä¸å±…ä¸­ï¼‰
 		void InitProMatrixOffCenter(CdRect &rcPlane, real nearPlane, real farPlane)
 		{
 			if (IsIdentity())
@@ -102,12 +102,12 @@ namespace Graph
 
 		}
 
-		// Í¶Ó°vecµ½Æ½Æ¬nearPlane,
+		// æŠ•å½±vecåˆ°å¹³ç‰‡nearPlane,
 		BOOL ProjectPoint(Vector &vec,real nearPlane = 0)
 		{
 			real innerRes = 0.0f;
 			MapVector(vec);
-			// Í¶Ó°¼ÆËã
+			// æŠ•å½±è®¡ç®—
 			//innerRes = (nearPlane - eye.m_vector[2])/(vec.m_vector[2]-eye.m_vector[2]);
 			//vec.m_vector[1] = -(innerRes*(vec.m_vector[1]-eye.m_vector[1]) + eye.m_vector[1]);
 			//vec.m_vector[0] = innerRes*(vec.m_vector[0]-eye.m_vector[0]) + eye.m_vector[0];
@@ -117,11 +117,11 @@ namespace Graph
 			vec.m_vector[0] = innerRes*vec.m_vector[0];
 		}
 
-		// rcSrc Í¶Ó°µ½wRc
-		// rcSrc ÓëwRc¾ùÊÇÊı¾İµÄÏÂ±ê·¶Î§¶ø²»ÊÇbouderRect
+		// rcSrc æŠ•å½±åˆ°wRc
+		// rcSrc ä¸wRcå‡æ˜¯æ•°æ®çš„ä¸‹æ ‡èŒƒå›´è€Œä¸æ˜¯bouderRect
 		BOOL ProjectRect(CdRect &rcSrc,WarpRect &wRc,CdPoint &ptCenter)
 		{
-			// ÒÆµ½xyÆ½ÃæÖĞĞÄ
+			// ç§»åˆ°xyå¹³é¢ä¸­å¿ƒ
 			CdRect rc(rcSrc);
 		//	ptCenter.Offset(-rcSrc.left,-rcSrc.top);
 			CdSize offSet(ptCenter.x,ptCenter.y);
@@ -154,8 +154,8 @@ namespace Graph
 
 			return TRUE;
 		}
-		// ÓÃrcSrc¹¹ÔìÔ­µãcube,Í¨¹ıĞı×ªµÃµ½Í¶Ó°µÄÃæ,index ÎªÒª»ñµÃµÄÃæµÄĞòºÅ
-		// rcSrc ÓëwRc¾ùÊÇÊı¾İµÄÏÂ±ê·¶Î§¶ø²»ÊÇbouderRect
+		// ç”¨rcSrcæ„é€ åŸç‚¹cube,é€šè¿‡æ—‹è½¬å¾—åˆ°æŠ•å½±çš„é¢,index ä¸ºè¦è·å¾—çš„é¢çš„åºå·
+		// rcSrc ä¸wRcå‡æ˜¯æ•°æ®çš„ä¸‹æ ‡èŒƒå›´è€Œä¸æ˜¯bouderRect
 		// cube plane index  
 		// front 	0 
 		// right 	1 
@@ -167,7 +167,7 @@ namespace Graph
 		{
 			assert(rcSrc.TopLeft() == CdPoint(0,0));
 		
-			// ÒÆµ½xyÆ½ÃæÖĞĞÄ
+			// ç§»åˆ°xyå¹³é¢ä¸­å¿ƒ
 			real ptTemp1 = rcSrc.Width()/2;
 			real ptTemp2 = rcSrc.Height()/2;
 
@@ -252,8 +252,8 @@ namespace Graph
 			return TRUE;
 		}
 
-		// ÓÃrcSrc¹¹ÔìÔ­µãcube,Í¨¹ıĞı×ªµÃµ½Í¶Ó°µÄÃæ,index ÎªÒª»ñµÃµÄÃæµÄĞòºÅ
-		// rcSrc ÓëwRc¾ùÊÇÊı¾İµÄÏÂ±ê·¶Î§¶ø²»ÊÇbouderRect
+		// ç”¨rcSrcæ„é€ åŸç‚¹cube,é€šè¿‡æ—‹è½¬å¾—åˆ°æŠ•å½±çš„é¢,index ä¸ºè¦è·å¾—çš„é¢çš„åºå·
+		// rcSrc ä¸wRcå‡æ˜¯æ•°æ®çš„ä¸‹æ ‡èŒƒå›´è€Œä¸æ˜¯bouderRect
 		// cube plane index  
 		// front 	0 
 		// right 	1 
@@ -265,7 +265,7 @@ namespace Graph
 		{
 			assert(rcSrc.TopLeft() == CdPoint(0,0));
 
-			// ÒÆµ½xyÆ½ÃæÖĞĞÄ
+			// ç§»åˆ°xyå¹³é¢ä¸­å¿ƒ
 			real ptTemp1 = rcSrc.Width()/2;
 			real ptTemp2 = rcSrc.Height()/2;
 
@@ -350,8 +350,8 @@ namespace Graph
 			return TRUE;
 		}
 
-		// ÓÃrcSrc¹¹ÔìÔ­µãcube,Í¨¹ıĞı×ªµÃµ½Í¶Ó°µÄÃæ,index ÎªÒª»ñµÃµÄÃæµÄĞòºÅ
-		// rcSrc ÓëwRc¾ùÊÇÊı¾İµÄÏÂ±ê·¶Î§¶ø²»ÊÇbouderRect
+		// ç”¨rcSrcæ„é€ åŸç‚¹cube,é€šè¿‡æ—‹è½¬å¾—åˆ°æŠ•å½±çš„é¢,index ä¸ºè¦è·å¾—çš„é¢çš„åºå·
+		// rcSrc ä¸wRcå‡æ˜¯æ•°æ®çš„ä¸‹æ ‡èŒƒå›´è€Œä¸æ˜¯bouderRect
 		// prism plane index  
 		// front 		0 
 		// right_back 	1 
@@ -360,7 +360,7 @@ namespace Graph
 		{
 			assert(rcSrc.TopLeft() == CdPoint(0,0));
 
-			// ÒÆµ½xyÆ½ÃæÖĞĞÄ
+			// ç§»åˆ°xyå¹³é¢ä¸­å¿ƒ
 			real ptTemp1 = rcSrc.Width()/2;
 			real ptTemp2 = rcSrc.Height()/2;
 			real nearPlane = ptTemp1*tanf(M_PI/6);
@@ -420,8 +420,8 @@ namespace Graph
 			return TRUE;
 		}
 
-		// ÓÃrcSrc¹¹ÔìÔ­µãcube,Í¨¹ıĞı×ªµÃµ½Í¶Ó°µÄÃæ,index ÎªÒª»ñµÃµÄÃæµÄĞòºÅ
-		// rcSrc ÓëwRc¾ùÊÇÊı¾İµÄÏÂ±ê·¶Î§¶ø²»ÊÇbouderRect
+		// ç”¨rcSrcæ„é€ åŸç‚¹cube,é€šè¿‡æ—‹è½¬å¾—åˆ°æŠ•å½±çš„é¢,index ä¸ºè¦è·å¾—çš„é¢çš„åºå·
+		// rcSrc ä¸wRcå‡æ˜¯æ•°æ®çš„ä¸‹æ ‡èŒƒå›´è€Œä¸æ˜¯bouderRect
 		// prism plane index  
 		// front 		0 
 		// top_back 	1 
@@ -430,7 +430,7 @@ namespace Graph
 		{
 			assert(rcSrc.TopLeft() == CdPoint(0,0));
 
-			// ÒÆµ½xyÆ½ÃæÖĞĞÄ
+			// ç§»åˆ°xyå¹³é¢ä¸­å¿ƒ
 			real ptTemp1 = rcSrc.Width()/2;
 			real ptTemp2 = rcSrc.Height()/2;
 			real nearPlane = ptTemp2*tanf(M_PI/6);

@@ -2,8 +2,8 @@
 #define GifAnimUIEX_h__
 #pragma once
 /* write by wangji 2016.03.16
-** 解决多个gif控件在gdi+环境下占用CPU过高的问题，本类采用ximage替代
-** 注意：使用的时候在预编译头文件中包含UIlib.h前先定义宏USE_XIMAGE_EFFECT
+** 瑙ｅ喅澶氫釜gif鎺т欢鍦╣di+鐜涓嬪崰鐢–PU杩囬珮鐨勯棶棰橈紝鏈被閲囩敤ximage鏇夸唬
+** 娉ㄦ剰锛氫娇鐢ㄧ殑鏃跺�欏湪棰勭紪璇戝ご鏂囦欢涓寘鍚玌Ilib.h鍓嶅厛瀹氫箟瀹廢SE_XIMAGE_EFFECT
 ** #define USE_XIMAGE_EFFECT
 ** #include "UIlib.h"
 */

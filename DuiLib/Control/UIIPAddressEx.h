@@ -3,12 +3,12 @@
 
 #pragma once
 
-//给该控件添加一个属性dtstyle
+//缁欒鎺т欢娣诲姞涓�涓睘鎬tstyle
 
 namespace DuiLib
 {
 	
-    /// IP输入控件
+    /// IP杈撳叆鎺т欢
     class UILIB_API CIPAddressExUI : public CEditUI
     {
 		DECLARE_DUICONTROL(CIPAddressExUI)

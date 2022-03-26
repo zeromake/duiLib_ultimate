@@ -20,16 +20,16 @@ public:
 	void OnTimer(int iCurFrame);
 
 public:
-	// Ã¿Ò» ¸ö ¶¯»­¿ªÊ¼Ê±»Øµ÷
+	// æ¯ä¸€ ä¸ª åŠ¨ç”»å¼€å§‹æ—¶å›è°ƒ
 	virtual void OnUiEffectBegin(WPARAM effectKey, DWORD animaType) override;
-	// Ã¿Ò» ¸ö ¶¯»­½áÊøÊ±»Øµ÷
+	// æ¯ä¸€ ä¸ª åŠ¨ç”»ç»“æŸæ—¶å›è°ƒ
 	virtual void OnUiEffectEnd(WPARAM effectKey, DWORD animaType) override;
-	// Ã¿Ò» Ö¡ ¶¯»­»æÖÆÊ±»Øµ÷
+	// æ¯ä¸€ å¸§ åŠ¨ç”»ç»˜åˆ¶æ—¶å›è°ƒ
 	virtual void OnUiEffectDraw() override;
 
 private:
 
-	CDuiRect			m_rcCustomShadow;		//±£´æ´°Ìå·´×ªÇ°µÄÒõÓ°¾Å¹¬¸ñ
+	CDuiRect			m_rcCustomShadow;		//ä¿å­˜çª—ä½“åè½¬å‰çš„é˜´å½±ä¹å®«æ ¼
 
 	bool				m_bPlaying;
 	HDC					m_hMemDc;

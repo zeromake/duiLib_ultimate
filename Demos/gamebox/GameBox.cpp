@@ -29,13 +29,13 @@ public:
 public:
 	void InitWindow()
 	{
-		// ËÑË÷´°¿Ú
+		// æœç´¢çª—å£
 		m_pSearchWnd  = new CSearchWnd(m_pm.GetRoot());
 		m_pSearchWnd->Create(m_hWnd,  _T("searchwnd"), WS_POPUP, WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE);
 		::SetWindowPos(m_pSearchWnd->GetHWND(), NULL, 0,0,1,1, SWP_NOACTIVATE);
 		m_pSearchWnd->ShowWindow(true);
 
-		// ³õÊ¼»¯¿Ø¼ş
+		// åˆå§‹åŒ–æ§ä»¶
 		m_pGameList = (CTileLayoutUI*)(m_pm.FindControl(_T("gamelist")));
 		m_pFindList = (CHorizontalLayoutUI*)(m_pm.FindControl(_T("findlist")));
 
@@ -48,7 +48,7 @@ public:
 			m_pGameList->Add(pGameItem);
 			pGameItem->SetForeImage(_T("file='icon1.png' dest='20,5,50,35'")); 
 			CDuiString sText;
-			sText.Format(_T("ÓÎÏ·%d"), i);
+			sText.Format(_T("æ¸¸æˆ%d"), i);
 			pGameItem->SetText(sText);
 		}
 
@@ -60,25 +60,25 @@ public:
 				m_pFindList->Add(pGameItem);
 				pGameItem->SetForeImage(_T("file='icon1.png' dest='20,5,50,35'")); 
 				CDuiString sText;
-				sText.Format(_T("²éÕÒ-ÓÎÏ·%d"), i);
+				sText.Format(_T("æŸ¥æ‰¾-æ¸¸æˆ%d"), i);
 				pGameItem->SetText(sText);
 			}
 
 		}
 		
-		// Ìí¼ÓÓÎÏ·ÁĞ±í
+		// æ·»åŠ æ¸¸æˆåˆ—è¡¨
 		CGameListUI::Node* pGameNode = NULL;
-		CGameListUI::Node* pCategoryNode1 = AddCategoryNode(_T("·ÖÀàÒ»"), 1);
-		CGameListUI::Node* pCategoryNode2 = AddCategoryNode(_T("·ÖÀà¶ş"), 1);
-		CGameListUI::Node* pCategoryNode3 = AddCategoryNode(_T("·ÖÀàÈı"), 1);
-		CGameListUI::Node* pCategoryNode4 = AddCategoryNode(_T("·ÖÀàËÄ"), 1);
+		CGameListUI::Node* pCategoryNode1 = AddCategoryNode(_T("åˆ†ç±»ä¸€"), 1);
+		CGameListUI::Node* pCategoryNode2 = AddCategoryNode(_T("åˆ†ç±»äºŒ"), 1);
+		CGameListUI::Node* pCategoryNode3 = AddCategoryNode(_T("åˆ†ç±»ä¸‰"), 1);
+		CGameListUI::Node* pCategoryNode4 = AddCategoryNode(_T("åˆ†ç±»å››"), 1);
 
 		for( int i = 0; i < 6; ++i )
 		{
-			AddGameNode(_T("¶ş¼¶ÓÎÏ·"), pCategoryNode1, i);
-			AddGameNode(_T("¶ş¼¶ÓÎÏ·"), pCategoryNode2, i);
-			AddGameNode(_T("¶ş¼¶ÓÎÏ·"), pCategoryNode3, i);
-			AddGameNode(_T("¶ş¼¶ÓÎÏ·"), pCategoryNode4, i);
+			AddGameNode(_T("äºŒçº§æ¸¸æˆ"), pCategoryNode1, i);
+			AddGameNode(_T("äºŒçº§æ¸¸æˆ"), pCategoryNode2, i);
+			AddGameNode(_T("äºŒçº§æ¸¸æˆ"), pCategoryNode3, i);
+			AddGameNode(_T("äºŒçº§æ¸¸æˆ"), pCategoryNode4, i);
 		}
 
 		CGameListUI* pGameList = static_cast<CGameListUI*>(m_pm.FindControl(_T("categorylist")));
@@ -211,7 +211,7 @@ public:
 					pGameItem->SetForeImage(_T("file='icon1.png' dest='20,5,50,35'")); 
 					
 					CDuiString sText;
-					sText.Format(_T("ÓÎÏ·%d_%d"), nID, i);
+					sText.Format(_T("æ¸¸æˆ%d_%d"), nID, i);
 					pGameItem->SetText(sText);
 					//CLabelUI *pIcon = static_cast<CLabelUI*>(pGameItem->FindSubControl(_T("gameitem_icon")));
 					//CLabelUI *pText = static_cast<CLabelUI*>(pGameItem->FindSubControl(_T("gameitem_text")));
@@ -255,7 +255,7 @@ public:
 	void Notify(TNotifyUI& msg)
 	{
 		if( msg.sType == _T("click") ) {
-			// °´Å¥ÏûÏ¢
+			// æŒ‰é’®æ¶ˆæ¯
 			OnLClick(msg.pSender);
 		}
 		else if(msg.sType == _T("return"))
@@ -332,7 +332,7 @@ public:
 	}
 	LRESULT OnSysCommand(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 	{
-		// ÓĞÊ±»áÔÚÊÕµ½WM_NCDESTROYºóÊÕµ½wParamÎªSC_CLOSEµÄWM_SYSCOMMAND
+		// æœ‰æ—¶ä¼šåœ¨æ”¶åˆ°WM_NCDESTROYåæ”¶åˆ°wParamä¸ºSC_CLOSEçš„WM_SYSCOMMAND
 		if( wParam == SC_CLOSE ) {
 			::PostQuitMessage(0L);
 			bHandled = TRUE;
@@ -392,22 +392,22 @@ public:
 
 void InitResource()
 {	
-	// ×ÊÔ´ÀàĞÍ
+	// èµ„æºç±»å‹
 #ifdef _DEBUG
 	CPaintManagerUI::SetResourceType(UILIB_FILE);
 #else
 	CPaintManagerUI::SetResourceType(UILIB_ZIPRESOURCE);
 #endif
-	// ×ÊÔ´Â·¾¶
+	// èµ„æºè·¯å¾„
 	CDuiString strResourcePath = CPaintManagerUI::GetInstancePath();
-	// ¼ÓÔØ×ÊÔ´
+	// åŠ è½½èµ„æº
 	switch(CPaintManagerUI::GetResourceType())
 	{
 	case UILIB_FILE:
 		{
 			strResourcePath += _T("skin\\gamebox\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 			break;
 		}
@@ -415,7 +415,7 @@ void InitResource()
 		{
 			strResourcePath += _T("skin\\gamebox\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("IDR_RES"), _T("xml"));
 			break;
 		}
@@ -424,7 +424,7 @@ void InitResource()
 			strResourcePath += _T("skin\\");
 			CPaintManagerUI::SetResourcePath(strResourcePath.GetData());
 			CPaintManagerUI::SetResourceZip(_T("gamebox.zip"), true);
-			// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+			// åŠ è½½èµ„æºç®¡ç†å™¨
 			CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 			break;
 		}
@@ -441,7 +441,7 @@ void InitResource()
 					dwSize = ::SizeofResource(CPaintManagerUI::GetResourceDll(), hResource);
 					if( dwSize > 0 ) {
 						CPaintManagerUI::SetResourceZip((LPBYTE)::LockResource(hGlobal), dwSize);
-						// ¼ÓÔØ×ÊÔ´¹ÜÀíÆ÷
+						// åŠ è½½èµ„æºç®¡ç†å™¨
 						CResourceManager::GetInstance()->LoadResource(_T("res.xml"), NULL);
 					}
 				}
@@ -452,7 +452,7 @@ void InitResource()
 	}
 
 
-	// ×¢²á¿Ø¼ş
+	// æ³¨å†Œæ§ä»¶
 	//REGIST_DUICONTROL(CLabelIconUI);
 	//REGIST_DUICONTROL(CGameItemUI);
 	//REGIST_DUICONTROL(CGameListUI);
@@ -463,14 +463,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPSTR /*l
 {
 	HRESULT Hr = ::CoInitialize(NULL);
 	if( FAILED(Hr) ) return 0;
-	// ³õÊ¼»¯UI¹ÜÀíÆ÷
+	// åˆå§‹åŒ–UIç®¡ç†å™¨
 	CPaintManagerUI::SetInstance(hInstance);
-	// ³õÊ¼»¯×ÊÔ´
+	// åˆå§‹åŒ–èµ„æº
 	InitResource();
 
 	CGameBoxFrame* pFrame = new CGameBoxFrame();
 	if( pFrame == NULL ) return 0;
-	pFrame->Create(NULL, _T("ÓÎÏ·ºĞ×Ó"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 800, 572);
+	pFrame->Create(NULL, _T("æ¸¸æˆç›’å­"), UI_WNDSTYLE_FRAME, 0L, 0, 0, 800, 572);
 	pFrame->CenterWindow();
 	::ShowWindow(*pFrame, SW_SHOW);
 

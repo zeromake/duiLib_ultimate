@@ -71,10 +71,10 @@ CControlUI* CMainWnd::CreateControl(LPCTSTR pstrClass)
 void CMainWnd::InitWindow() 
 {
 	SetIcon(IDR_MAINFRAME);
-	// ¶àÓïÑÔ½Ó¿Ú
+	// å¤šè¯­è¨€æ¥å£
 	CResourceManager::GetInstance()->SetTextQueryInterface(this);
 	CResourceManager::GetInstance()->LoadLanguage(_T("lan_cn.xml"));
-	// Æ¤·ô½Ó¿Ú
+	// çš®è‚¤æ¥å£
 	CSkinManager::GetSkinManager()->AddReceiver(this);
 
 	m_pCloseBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("closebtn")));
@@ -82,7 +82,7 @@ void CMainWnd::InitWindow()
 	m_pRestoreBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("restorebtn")));
 	m_pMinBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("minbtn")));
 	m_pSkinBtn = static_cast<CButtonUI*>(m_pm.FindControl(_T("skinbtn")));
-	// ³õÊ¼»¯WebBrowser¿Ø¼ş
+	// åˆå§‹åŒ–WebBrowseræ§ä»¶
 	CWebBrowserUI* pBrowser1 = static_cast<CWebBrowserUI*>(m_pm.FindControl(_T("oneclick_browser1")));
 	pBrowser1->SetWebBrowserEventHandler(this);
 	CWebBrowserUI* pBrowser2 = static_cast<CWebBrowserUI*>(m_pm.FindControl(_T("oneclick_browser2")));
@@ -90,12 +90,12 @@ void CMainWnd::InitWindow()
 	pBrowser1->NavigateUrl(_T("https://www.baidu.com"));
 	pBrowser2->NavigateUrl(_T("https://blog.csdn.net/duisharp/"));
 
-	// ¶¯Ì¬´´½¨Combo
+	// åŠ¨æ€åˆ›å»ºCombo
 	CComboUI* pFontSize = static_cast<CComboUI*>(m_pm.FindControl(_T("font_size")));
 	if(pFontSize)
 	{
 		CListLabelElementUI * pElement = new CListLabelElementUI();
-		pElement->SetText(_T("²âÊÔ³¤ÎÄ×Ö"));
+		pElement->SetText(_T("æµ‹è¯•é•¿æ–‡å­—"));
 		pElement->SetFixedHeight(30);
 		pElement->SetFixedWidth(120);
 		pFontSize->Add(pElement);
@@ -115,14 +115,14 @@ void CMainWnd::InitWindow()
 		pCombo->SetFixedXY(CDuiSize(140,0));
 		pCombo->SetItemFont(2);
 		CListLabelElementUI * pElement = new CListLabelElementUI();
-		pElement->SetText(_T("¶¯Ì¬Êı¾İ¶¯Ì¬Êı¾İ"));
+		pElement->SetText(_T("åŠ¨æ€æ•°æ®åŠ¨æ€æ•°æ®"));
 		pElement->SetFixedHeight(30);
 		pElement->SetFixedWidth(120);
 		pCombo->Add(pElement);
 		pCombo->SelectItem(0);
 	}
 
-	// List¿Ø¼şÌí¼ÓÔªËØ
+	// Listæ§ä»¶æ·»åŠ å…ƒç´ 
 	CListUI* pList = static_cast<CListUI*>(m_pm.FindControl(_T("listview")));
 	CListContainerElementUI* pListItem  = new CListContainerElementUI();
 	pListItem->SetChildVAlign(DT_VCENTER);
@@ -133,7 +133,7 @@ void CMainWnd::InitWindow()
 	CButtonUI* pBtn1 = new CButtonUI();
 	pBtn1->SetManager(&m_pm, NULL, false);
 	pBtn1->SetAttribute(_T("style"), _T("btn_style"));
-	pBtn1->SetText(_T("´úÂë°¢´ô"));
+	pBtn1->SetText(_T("ä»£ç é˜¿å‘†"));
 	pBtn1->SetFixedHeight(20);
 	pBtn1->SetFixedWidth(30);
 	pListItem->Add(pBtn1);
@@ -154,7 +154,7 @@ void CMainWnd::InitWindow()
 		CListTextElementUI* pItem  = new CListTextElementUI();
 		pItem->SetFixedHeight(30);
 		pList->Add(pItem);
-		pItem->SetText(0, _T("ÕÅÈı"));
+		pItem->SetText(0, _T("å¼ ä¸‰"));
 		pItem->SetText(1, _T("1000"));
 		pItem->SetText(2, _T("100"));
 		pItem->SetTextColor(0, 0xff0000ff);
@@ -166,10 +166,10 @@ void CMainWnd::InitWindow()
 
 	CTreeNodeUI* pItem  = new CTreeNodeUI();
 	pItem->SetFixedHeight(30);
-	pItem->SetItemText(_T("¶¯Ì¬Ìí¼Ó"));
+	pItem->SetItemText(_T("åŠ¨æ€æ·»åŠ "));
 	pTreeView->AddAt(pItem, 0);
 	COptionUI* pRadio = new COptionUI();
-	pRadio->SetText(_T("µ¥Ñ¡°´Å¥"));
+	pRadio->SetText(_T("å•é€‰æŒ‰é’®"));
 	pItem->Add(pRadio);
 	pRadio->SetAttribute(_T("Style"), _T("cb_style"));
 	pItem->SetAttribute(_T("itemattr"), _T("valign=&quot;center&quot;"));
@@ -183,37 +183,37 @@ void CMainWnd::InitWindow()
 	pTreeView->SetItemExpand(false, NULL);
 
 
-	// Í¼±í¿Ø¼ş
+	// å›¾è¡¨æ§ä»¶
 	CChartViewUI *pHistpgramView = static_cast<CChartViewUI*>(m_pm.FindControl(_T("ChartView_Histpgram")));
 	if (NULL != pHistpgramView)
 	{
-		pHistpgramView->Add(_T("1ÔÂ{c #FE5900}13%{/c}"), 13);
-		pHistpgramView->Add(_T("2ÔÂ{c #FE5900}11%{/c}"), 11);
-		pHistpgramView->Add(_T("3ÔÂ{c #FE5900}32%{/c}"), 32);
-		pHistpgramView->Add(_T("4ÔÂ{c #FE5900}17%{/c}"), 17);
-		pHistpgramView->Add(_T("5ÔÂ{c #FE5900}8%{/c}"), 8);
-		pHistpgramView->Add(_T("6ÔÂ{c #FE5900}12%{/c}"), 12);
+		pHistpgramView->Add(_T("1æœˆ{c #FE5900}13%{/c}"), 13);
+		pHistpgramView->Add(_T("2æœˆ{c #FE5900}11%{/c}"), 11);
+		pHistpgramView->Add(_T("3æœˆ{c #FE5900}32%{/c}"), 32);
+		pHistpgramView->Add(_T("4æœˆ{c #FE5900}17%{/c}"), 17);
+		pHistpgramView->Add(_T("5æœˆ{c #FE5900}8%{/c}"), 8);
+		pHistpgramView->Add(_T("6æœˆ{c #FE5900}12%{/c}"), 12);
 	}
 
 	CChartViewUI *pPieView = static_cast<CChartViewUI*>(m_pm.FindControl(_T("ChartView_Pie")));
 	if (NULL != pPieView)
 	{
-		pPieView->Add(_T("±±¾©{c #FE5900}35%{/c}"), 35);
-		pPieView->Add(_T("ÉÏº£{c #FE5900}38%{/c}"), 38);
-		pPieView->Add(_T("¹ãÖİ{c #FE5900}35%{/c}"), 35);
-		pPieView->Add(_T("Ïã¸Û{c #FE5900}15%{/c}"), 15);
+		pPieView->Add(_T("åŒ—äº¬{c #FE5900}35%{/c}"), 35);
+		pPieView->Add(_T("ä¸Šæµ·{c #FE5900}38%{/c}"), 38);
+		pPieView->Add(_T("å¹¿å·{c #FE5900}35%{/c}"), 35);
+		pPieView->Add(_T("é¦™æ¸¯{c #FE5900}15%{/c}"), 15);
 	}
 
-	// ¹ö¶¯ÎÄ×Ö
+	// æ»šåŠ¨æ–‡å­—
 	CRollTextUI* pRollText = (CRollTextUI*)m_pm.FindControl(_T("rolltext"));
-	pRollText->SetText(_T("³¬¹ı5000ÍòÈËÊ¹ÓÃ\nÊÊÓÃÓÚ Chrome µÄÃâ·ÑµÄ¹ã¸æÀ¹½ØÆ÷\n¿É×èÖ¹ËùÓĞ·³ÈËµÄ¹ã¸æ¼°¶ñÒâÈí¼şºÍ¸ú×Ù¡£"));
-	pRollText->BeginRoll(ROLLTEXT_UP, 200, 20);		//ÔË¶¯·½Ê½£¬ËÙ¶È£¬Ê±¼ä
+	pRollText->SetText(_T("è¶…è¿‡5000ä¸‡äººä½¿ç”¨\né€‚ç”¨äº Chrome çš„å…è´¹çš„å¹¿å‘Šæ‹¦æˆªå™¨\nå¯é˜»æ­¢æ‰€æœ‰çƒ¦äººçš„å¹¿å‘ŠåŠæ¶æ„è½¯ä»¶å’Œè·Ÿè¸ªã€‚"));
+	pRollText->BeginRoll(ROLLTEXT_UP, 200, 20);		//è¿åŠ¨æ–¹å¼ï¼Œé€Ÿåº¦ï¼Œæ—¶é—´
 
-	// µ÷É«°åÊ¹ÓÃ
+	// è°ƒè‰²æ¿ä½¿ç”¨
 	CColorPaletteUI* pColorPalette = (CColorPaletteUI*)m_pm.FindControl(_T("Pallet"));
 	pColorPalette->SetSelectColor(0xff0199cb);
 
-	// ÍØÕ¹List
+	// æ‹“å±•List
 	CListExUI* pListEx = static_cast<CListExUI*>(m_pm.FindControl(_T("listex")));
 	pListEx->InitListCtrl();
 	for(int i = 0; i < 5; i++)
@@ -222,12 +222,12 @@ void CMainWnd::InitWindow()
 		pItem->SetFixedHeight(30);
 		pListEx->Add(pItem);
 		pItem->SetAttribute(_T("style"), _T("listex_item_style"));
-		pItem->SetText(1, _T("ÕÅÈı"));
+		pItem->SetText(1, _T("å¼ ä¸‰"));
 		pItem->SetText(2, _T("1000"));
 		pItem->SetText(3, _T("100"));
 	}
-	// ×¢²áÍĞÅÌÍ¼±ê
-	m_trayIcon.CreateTrayIcon(m_hWnd, IDR_MAINFRAME, _T("DuilibÑİÊ¾´óÈ«"));
+	// æ³¨å†Œæ‰˜ç›˜å›¾æ ‡
+	m_trayIcon.CreateTrayIcon(m_hWnd, IDR_MAINFRAME, _T("Duilibæ¼”ç¤ºå¤§å…¨"));
 }
 
 BOOL CMainWnd::Receive(SkinChangedParam param)
@@ -268,8 +268,8 @@ HRESULT STDMETHODCALLTYPE CMainWnd::ShowContextMenu(CWebBrowserUI* pWeb,
 	/* [in] */ IDispatch __RPC_FAR *pdispReserved)
 {
 	return E_NOTIMPL;
-	//·µ»Ø E_NOTIMPL Õı³£µ¯³öÏµÍ³ÓÒ¼ü²Ëµ¥
-	//·µ»ØS_OK Ôò¿ÉÆÁ±ÎÏµÍ³ÓÒ¼ü²Ëµ¥
+	//è¿”å› E_NOTIMPL æ­£å¸¸å¼¹å‡ºç³»ç»Ÿå³é”®èœå•
+	//è¿”å›S_OK åˆ™å¯å±è”½ç³»ç»Ÿå³é”®èœå•
 }
 
 DuiLib::CDuiString CMainWnd::GetSkinFile()
@@ -305,10 +305,10 @@ LPCTSTR CMainWnd::QueryControlText(LPCTSTR lpstrId, LPCTSTR lpstrType)
 	}
 	else{
 		if(lstrcmpi(lpstrId, _T("titletext")) == 0) {
-			return _T("Duilib Ê¹ÓÃÑİÊ¾ v1.1");
+			return _T("Duilib ä½¿ç”¨æ¼”ç¤º v1.1");
 		}
 		else if(lstrcmpi(lpstrId, _T("hometext")) == 0) {
-			return _T("{a}ÑİÊ¾¹ÙÍø{/a}");
+			return _T("{a}æ¼”ç¤ºå®˜ç½‘{/a}");
 		}
 	}
 
@@ -334,7 +334,7 @@ void CMainWnd::Notify(TNotifyUI& msg)
 		}
 	}
 	else if(msg.sType == DUI_MSGTYPE_ITEMACTIVATE) {
-		if(MSGID_OK == CMsgWnd::MessageBox(m_hWnd, _T("DuilibÆì½¢°æ"), _T("È·¶¨ÍË³öduidemoÑİÊ¾³ÌĞò£¿")))
+		if(MSGID_OK == CMsgWnd::MessageBox(m_hWnd, _T("Duilibæ——èˆ°ç‰ˆ"), _T("ç¡®å®šé€€å‡ºduidemoæ¼”ç¤ºç¨‹åºï¼Ÿ")))
 		{
 			::DestroyWindow(m_hWnd);
 		}
@@ -363,7 +363,7 @@ void CMainWnd::Notify(TNotifyUI& msg)
 	{
 		if( name.CompareNoCase(_T("closebtn")) == 0 ) 
 		{
-			if(MSGID_OK == CMsgWnd::MessageBox(m_hWnd, _T("DuilibÆì½¢°æ"), _T("È·¶¨ÍË³öduidemoÑİÊ¾³ÌĞò£¿")))
+			if(MSGID_OK == CMsgWnd::MessageBox(m_hWnd, _T("Duilibæ——èˆ°ç‰ˆ"), _T("ç¡®å®šé€€å‡ºduidemoæ¼”ç¤ºç¨‹åºï¼Ÿ")))
 			{
 				::DestroyWindow(m_hWnd);
 			}
@@ -384,7 +384,7 @@ void CMainWnd::Notify(TNotifyUI& msg)
 		else if( msg.pSender == m_pSkinBtn ) {
 			new CSkinFrame(m_hWnd, m_pSkinBtn);
 		}
-		// °´Å¥ÏûÏ¢
+		// æŒ‰é’®æ¶ˆæ¯
 		OnLClick(msg.pSender);
 	}
 	
@@ -413,7 +413,7 @@ void CMainWnd::Notify(TNotifyUI& msg)
 			pFontSize->RemoveAll();
 			for(int i = 0; i < 10; i++) {
 				CListLabelElementUI * pElement = new CListLabelElementUI();
-				pElement->SetText(_T("²âÊÔ³¤ÎÄ×Ö"));
+				pElement->SetText(_T("æµ‹è¯•é•¿æ–‡å­—"));
 				pElement->SetFixedHeight(30);
 				pFontSize->Add(pElement);
 			}
@@ -438,13 +438,13 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 		//pList->Add(pListItem);
 		//pList->EndDown();
 		//return;
-		// ¶¯Ì¬´´½¨Combo
+		// åŠ¨æ€åˆ›å»ºCombo
 		//CComboUI* pFontSize = static_cast<CComboUI*>(m_pm.FindControl(_T("mycombo")));
 		//if(pFontSize)
 		//{
 		//	pFontSize->RemoveAll();
 		//	CListLabelElementUI * pElement = new CListLabelElementUI();
-		//	pElement->SetText(_T("²âÊÔ³¤ÎÄ×Ö"));
+		//	pElement->SetText(_T("æµ‹è¯•é•¿æ–‡å­—"));
 		//	pElement->SetFixedHeight(30);
 		//	pElement->SetFixedWidth(120);
 		//	pFontSize->Add(pElement);
@@ -476,7 +476,7 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 	else if(sName.CompareNoCase(_T("modal_popwnd_btn")) == 0)
 	{
 		CPopWnd* pPopWnd = new CPopWnd();
-		pPopWnd->Create(m_hWnd, _T("Í¸Ã÷´°¿ÚÑİÊ¾"), WS_POPUP | WS_VISIBLE, WS_EX_TOOLWINDOW, 0, 0, 800, 572);
+		pPopWnd->Create(m_hWnd, _T("é€æ˜çª—å£æ¼”ç¤º"), WS_POPUP | WS_VISIBLE, WS_EX_TOOLWINDOW, 0, 0, 800, 572);
 		pPopWnd->CenterWindow();
 		pPopWnd->ShowModal();
 	}
@@ -509,7 +509,7 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 		CDuiPoint point;
 		::GetCursorPos(&point);
 		m_pMenu->Init(NULL, _T("menu.xml"), point, &m_pm);
-		// ÉèÖÃ×´Ì¬
+		// è®¾ç½®çŠ¶æ€
 		CMenuWnd::SetMenuItemInfo(_T("qianting"), true);
 
 		CMenuUI* rootMenu = m_pMenu->GetMenuUI();
@@ -517,7 +517,7 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 		{
 			CMenuElementUI* pNew = new CMenuElementUI;
 			pNew->SetName(_T("Menu_Dynamic"));
-			pNew->SetText(_T("¶¯Ì¬Ò»¼¶²Ëµ¥"));
+			pNew->SetText(_T("åŠ¨æ€ä¸€çº§èœå•"));
 			pNew->SetShowExplandIcon(true);
 			pNew->SetIcon(_T("WebSit.png"));
 			pNew->SetIconSize(16,16);
@@ -525,7 +525,7 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 
 			//CMenuElementUI* pTempMenu = (CMenuElementUI*)rootMenu->GetItemAt(0);
 			//CMenuElementUI* pSubNew = new CMenuElementUI;
-			//pSubNew->SetText(_T("¶¯Ì¬¶ş¼¶²Ëµ¥"));
+			//pSubNew->SetText(_T("åŠ¨æ€äºŒçº§èœå•"));
 			//pSubNew->SetName(_T("Menu_Dynamic"));
 			//pSubNew->SetIcon(_T("Virus.png"));
 			//pSubNew->SetIconSize(16,16);
@@ -534,11 +534,11 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 
 			CMenuElementUI* pNew2 = new CMenuElementUI;
 			pNew2->SetName(_T("Menu_Dynamic"));
-			pNew2->SetText(_T("¶¯Ì¬Ò»¼¶²Ëµ¥2"));
+			pNew2->SetText(_T("åŠ¨æ€ä¸€çº§èœå•2"));
 			rootMenu->AddAt(pNew2,2);
 		}
 
-		// ¶¯Ì¬Ìí¼ÓºóÖØĞÂÉèÖÃ²Ëµ¥µÄ´óĞ¡
+		// åŠ¨æ€æ·»åŠ åé‡æ–°è®¾ç½®èœå•çš„å¤§å°
 		m_pMenu->ResizeMenu();
 	}
 	else if(sName.CompareNoCase(_T("dpi_btn")) == 0)
@@ -548,7 +548,7 @@ void CMainWnd::OnLClick(CControlUI *pControl)
 	}
 	else if(sName.CompareNoCase(_T("combo_closebtn")) == 0 ) 
 	{
-		CMsgWnd::ShowMessageBox(m_hWnd, _T("Combo°´Å¥µã»÷"), _T("ComboÁĞ±íÏî-°´Å¥µã»÷"));
+		CMsgWnd::ShowMessageBox(m_hWnd, _T("ComboæŒ‰é’®ç‚¹å‡»"), _T("Comboåˆ—è¡¨é¡¹-æŒ‰é’®ç‚¹å‡»"));
 
 		return; 
 	}
@@ -558,14 +558,14 @@ LRESULT CMainWnd::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 {
 	m_trayIcon.DeleteTrayIcon();
 	bHandled = FALSE;
-	// ÍË³ö³ÌĞò
+	// é€€å‡ºç¨‹åº
 	PostQuitMessage(0);
 	return 0;
 }
 
 LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-	// ¹Ø±Õ´°¿Ú£¬ÍË³ö³ÌĞò
+	// å…³é—­çª—å£ï¼Œé€€å‡ºç¨‹åº
 	if(uMsg == WM_DESTROY)
 	{
 		::PostQuitMessage(0L);
@@ -616,11 +616,11 @@ LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 			{
 				if (bChecked)
 				{
-					CMsgWnd::MessageBox(m_hWnd, NULL, _T("ÄãÔ¤¶¨ĞŞÇ±Í§·şÎñ"));
+					CMsgWnd::MessageBox(m_hWnd, NULL, _T("ä½ é¢„å®šä¿®æ½œè‰‡æœåŠ¡"));
 				} 
 				else
 				{
-					CMsgWnd::MessageBox(m_hWnd, NULL, _T("ÄãÈ¡ÏûĞŞÇ±Í§·şÎñ"));
+					CMsgWnd::MessageBox(m_hWnd, NULL, _T("ä½ å–æ¶ˆä¿®æ½œè‰‡æœåŠ¡"));
 				}			 
 			}
 			else if(sMenuName == _T("exit")) {
@@ -651,7 +651,7 @@ LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 			::GetCursorPos(&point);
 			point.y -= 100;
 			m_pMenu->Init(NULL, _T("menu.xml"), point, &m_pm);
-			// ¶¯Ì¬Ìí¼ÓºóÖØĞÂÉèÖÃ²Ëµ¥µÄ´óĞ¡
+			// åŠ¨æ€æ·»åŠ åé‡æ–°è®¾ç½®èœå•çš„å¤§å°
 			m_pMenu->ResizeMenu();
 		}
 	}

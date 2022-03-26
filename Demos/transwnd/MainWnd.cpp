@@ -73,7 +73,7 @@ void CMainWnd::OnItemSelect( TNotifyUI &msg )
 
 LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
  {
-	 // ¹Ø±Õ´°¿Ú£¬ÍË³ö³ÌĞò
+	 // å…³é—­çª—å£ï¼Œé€€å‡ºç¨‹åº
 	 if(uMsg == WM_DESTROY)
 	 {
 		 ::PostQuitMessage(0L);
@@ -91,7 +91,7 @@ void CMainWnd::Notify( TNotifyUI &msg )
 
 LRESULT CMainWnd::OnSysCommand( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
-	// ÓĞÊ±»áÔÚÊÕµ½WM_NCDESTROYºóÊÕµ½wParamÎªSC_CLOSEµÄWM_SYSCOMMAND
+	// æœ‰æ—¶ä¼šåœ¨æ”¶åˆ°WM_NCDESTROYåæ”¶åˆ°wParamä¸ºSC_CLOSEçš„WM_SYSCOMMAND
 	if( wParam == SC_CLOSE ) {
 		::PostQuitMessage(0L);
 		bHandled = TRUE;

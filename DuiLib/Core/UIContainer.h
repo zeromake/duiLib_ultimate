@@ -55,7 +55,7 @@ namespace DuiLib {
 		void SetMouseEnabled(bool bEnable = true);
 
 		virtual RECT GetInset() const;
-		virtual void SetInset(RECT rcInset); // 设置内边距，相当于设置客户区
+		virtual void SetInset(RECT rcInset); // 璁剧疆鍐呰竟璺濓紝鐩稿綋浜庤缃鎴峰尯
 		virtual int GetChildPadding() const;
 		virtual void SetChildPadding(int iPadding);
 		virtual UINT GetChildAlign() const;

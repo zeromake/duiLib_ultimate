@@ -9,7 +9,7 @@
 #pragma once
 
 #ifdef __GNUC__
-// ÔõÃ´¶¼Ã»ÕÒµ½min£¬maxµÄÍ·ÎÄ¼ş-_-
+// æ€ä¹ˆéƒ½æ²¡æ‰¾åˆ°minï¼Œmaxçš„å¤´æ–‡ä»¶-_-
 #ifndef min
 #define min(a,b) (((a) < (b)) ? (a) : (b))
 #endif
@@ -52,7 +52,7 @@
 #define _WIN32_WINNT _WIN32_WINNT_WINXP//0x0501
 #endif
 
-//#define USE_XIMAGE_EFFECT //Ê¹ÓÃximageµÄgif¿Ø¼şCGifAnimExUI¿ª¹Ø£¬ÌáÉıĞÔÄÜ,Ä¬ÈÏ²»Ê¹ÓÃ
+//#define USE_XIMAGE_EFFECT //ä½¿ç”¨ximageçš„gifæ§ä»¶CGifAnimExUIå¼€å…³ï¼Œæå‡æ€§èƒ½,é»˜è®¤ä¸ä½¿ç”¨
 
 #include "UIlib.h"
 

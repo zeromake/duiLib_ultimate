@@ -80,7 +80,7 @@ namespace DuiLib {
 		void ShowWindow(bool bShow = true, bool bTakeFocus = true);
 		UINT ShowModal();
 		void Close(UINT nRet = IDOK);
-		void CenterWindow();	// ¾ÓÖĞ£¬Ö§³ÖÀ©Õ¹ÆÁÄ»
+		void CenterWindow();	// å±…ä¸­ï¼Œæ”¯æŒæ‰©å±•å±å¹•
 		void SetIcon(UINT nRes);
 
 		LRESULT SendMessage(UINT uMsg, WPARAM wParam = 0, LPARAM lParam = 0L);

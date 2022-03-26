@@ -84,23 +84,23 @@ struct TABBTN
 };
 void CMainWnd::InitWindow()
 {
-	// ³õÊ¼»¯Êı¾İ¹ÜÀíÆ÷
+	// åˆå§‹åŒ–æ•°æ®ç®¡ç†å™¨
 	m_Data.Init(m_hWnd);
-	// ´´½¨·ÖÀà°´Å¥
+	// åˆ›å»ºåˆ†ç±»æŒ‰é’®
 	CHorizontalLayoutUI* pTabBar = (CHorizontalLayoutUI*)m_pm.FindControl(_T("tabbar"));
 	if(pTabBar)
 	{
 		TABBTN aTypes[] = {
-			{_T("8009|1003|1004|1007|1002|1005|1006|1001|1008"), _T("¾«Ñ¡")},
-			{_T("1003"), _T("·ç¾°")},
-			{_T("1004"), _T("ÃÀÅ®")},
-			{_T("1007"), _T("Ğ¡ÇåĞÂ")},
-			{_T("1002"), _T("¶¯Âş")},
-			{_T("1005"), _T("ÃÈ³è")},
-			{_T("1006"), _T("Ã÷ĞÇ")},
-			{_T("1001"), _T("´´Òâ")},
-			{_T("1008"), _T("Æû³µ")},
-			{_T("8009"), _T("ÑÕÉ«")},
+			{_T("8009|1003|1004|1007|1002|1005|1006|1001|1008"), _T("ç²¾é€‰")},
+			{_T("1003"), _T("é£æ™¯")},
+			{_T("1004"), _T("ç¾å¥³")},
+			{_T("1007"), _T("å°æ¸…æ–°")},
+			{_T("1002"), _T("åŠ¨æ¼«")},
+			{_T("1005"), _T("èŒå® ")},
+			{_T("1006"), _T("æ˜æ˜Ÿ")},
+			{_T("1001"), _T("åˆ›æ„")},
+			{_T("1008"), _T("æ±½è½¦")},
+			{_T("8009"), _T("é¢œè‰²")},
 		};
 		COptionUI* pFirst = NULL;
 		for(int i = 0; i < sizeof(aTypes) / sizeof(TABBTN); ++i)
@@ -170,7 +170,7 @@ void CMainWnd::Notify( TNotifyUI &msg )
 	}
 	else if(msg.sType.CompareNoCase(DUI_MSGTYPE_CLICK_WPFAV) == 0)
 	{
-		MessageBox(NULL, _T("ÊÕ²Ø³É¹¦"), _T("°Ù¶È±ÚÖ½ - ÌáÊ¾"), MB_OK);
+		MessageBox(NULL, _T("æ”¶è—æˆåŠŸ"), _T("ç™¾åº¦å£çº¸ - æç¤º"), MB_OK);
 	}
 	else if(msg.sType.CompareNoCase(DUI_MSGTYPE_CLICK_WPSET) == 0)
 	{
