@@ -97,6 +97,7 @@ namespace DuiLib {
 					nAttributes = node.GetAttributeCount();
 					int id = -1;
 					LPCTSTR pFontName = NULL;
+					LPCTSTR pFontNames = NULL;
 					int size = 12;
 					bool bold = false;
 					bool underline = false;
@@ -111,6 +112,9 @@ namespace DuiLib {
 						}
 						else if( _tcsicmp(pstrName, _T("name")) == 0 ) {
 							pFontName = pstrValue;
+						}
+						else if (_tcsicmp(pstrName, _T("names")) == 0) {
+							pFontNames = pstrValue;
 						}
 						else if( _tcsicmp(pstrName, _T("size")) == 0 ) {
 							size = _tcstol(pstrValue, &pstr, 10);
@@ -132,7 +136,20 @@ namespace DuiLib {
 						}
 					}
 					if( id >= 0 ) {
-						pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
+						if (pFontNames != NULL) {
+							std::wstring name = pFontNames;
+							std::vector<std::wstring> arr;
+							wsplit(name, arr, _T(","));
+							const int count = arr.size();
+							for (int ii = 0; ii < count; ii++) {
+								LPCTSTR fname = arr.at(ii).c_str();
+								if (pManager->AddFont(id, fname, size, bold, underline, italic, shared) != NULL) {
+									break;
+								}
+							}
+						} else {
+							pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
+						}
 						if( defaultfont ) pManager->SetDefaultFont(pFontName, size, bold, underline, italic, shared);
 					}
 				}

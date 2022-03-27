@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "AnimLayout.h"
 #include "../UiFeatureEffect/Interface/IUIEffect.h"
 

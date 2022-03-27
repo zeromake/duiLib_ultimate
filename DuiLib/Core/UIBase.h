@@ -41,7 +41,7 @@ namespace DuiLib {
 #endif
 
 	void UILIB_API DUI__Trace(LPCTSTR pstrFormat, ...);
-	LPCTSTR UILIB_API DUI__TraceMsg(UINT uMsg);
+	LPCTSTR UILIB_API DUI__TraceMsg(UINT uMsg) noexcept;
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	//

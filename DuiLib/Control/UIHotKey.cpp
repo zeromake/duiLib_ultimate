@@ -107,7 +107,7 @@ namespace DuiLib{
 	}
 
 
-	LPCTSTR CHotKeyWnd::GetSuperClassName() const
+	LPCTSTR CHotKeyWnd::GetSuperClassName() const noexcept
 	{
 		return HOTKEY_CLASS;
 	}
@@ -269,7 +269,7 @@ namespace DuiLib{
 
 		if( event.Type == UIEVENT_SETCURSOR && IsEnabled() )
 		{
-			::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
+			::SetCursor(::LoadCursor(NULL, IDC_IBEAM));
 			return;
 		}
 		if( event.Type == UIEVENT_WINDOWSIZE )

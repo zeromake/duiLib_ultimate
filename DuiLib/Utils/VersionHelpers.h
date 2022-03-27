@@ -4,21 +4,20 @@
 
 namespace DuiLib 
 {
-#define _WIN32_WINNT_NT4                    0x0400
-#define _WIN32_WINNT_WIN2K                  0x0500
-#define _WIN32_WINNT_WINXP                  0x0501
-#define _WIN32_WINNT_WS03                   0x0502
-#define _WIN32_WINNT_WIN6                   0x0600
-#define _WIN32_WINNT_VISTA                  0x0600
-#define _WIN32_WINNT_WS08                   0x0600
-#define _WIN32_WINNT_LONGHORN               0x0600
-#define _WIN32_WINNT_WIN7                   0x0601
-#define _WIN32_WINNT_WIN8                   0x0602
-#define _WIN32_WINNT_WINBLUE                0x0603
-#define _WIN32_WINNT_WINTHRESHOLD           0x0A00 /* ABRACADABRA_THRESHOLD*/
-#define _WIN32_WINNT_WIN10                  0x0A00 /* ABRACADABRA_THRESHOLD*/
-
-	#define WM_DPICHANGED                   0x02E0
+	#define _WIN32_WINNT_NT4                    0x0400
+	#define _WIN32_WINNT_WIN2K                  0x0500
+	#define _WIN32_WINNT_WINXP                  0x0501
+	#define _WIN32_WINNT_WS03                   0x0502
+	#define _WIN32_WINNT_WIN6                   0x0600
+	#define _WIN32_WINNT_VISTA                  0x0600
+	#define _WIN32_WINNT_WS08                   0x0600
+	#define _WIN32_WINNT_LONGHORN               0x0600
+	#define _WIN32_WINNT_WIN7                   0x0601
+	#define _WIN32_WINNT_WIN8                   0x0602
+	#define _WIN32_WINNT_WINBLUE                0x0603
+	#define _WIN32_WINNT_WINTHRESHOLD           0x0A00 /* ABRACADABRA_THRESHOLD*/
+	#define _WIN32_WINNT_WIN10                  0x0A00 /* ABRACADABRA_THRESHOLD*/
+	#define WM_DPICHANGED                       0x02E0
 
 	static BOOL IsWindowsVersionOrGreater(WORD wMajorVersion, WORD wMinorVersion, WORD wServicePackMajor)
 	{
@@ -99,7 +98,7 @@ namespace DuiLib
 	{
 		OSVERSIONINFOEXW osvi = { sizeof(osvi), 0, 0, 0, 0, {0}, 0, 0, 0, VER_NT_WORKSTATION };
 		DWORDLONG const dwlConditionMask = VerSetConditionMask(0, VER_PRODUCT_TYPE, VER_EQUAL);
-		return !VerifyVersionInfoW(&osvi, VER_PRODUCT_TYPE, dwlConditionMask);
+		return ~VerifyVersionInfoW(&osvi, VER_PRODUCT_TYPE, dwlConditionMask);
 	}
 }
 #endif // _VERSIONHELPERS_H_INCLUDED_

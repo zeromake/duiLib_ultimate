@@ -35,7 +35,7 @@ namespace DuiLib
 		RECT CalPos();
 
 		LPCTSTR GetWindowClassName() const;
-		LPCTSTR GetSuperClassName() const;
+		LPCTSTR GetSuperClassName() const noexcept;
 		void OnFinalMessage(HWND hWnd);
 
 		LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -90,7 +90,7 @@ namespace DuiLib
 		return _T("IPAddressWnd");
 	}
 
-	LPCTSTR CIPAddressWnd::GetSuperClassName() const
+	LPCTSTR CIPAddressWnd::GetSuperClassName() const noexcept
 	{
 		return WC_IPADDRESS;
 	}
@@ -115,7 +115,7 @@ namespace DuiLib
 		}
 		else if (uMsg == WM_KEYUP && (wParam == VK_DELETE || wParam == VK_BACK))
 		{
-			LRESULT lRes = ::DefWindowProc(m_hWnd, uMsg, wParam, lParam);
+			lRes = ::DefWindowProc(m_hWnd, uMsg, wParam, lParam);
 			m_pOwner->m_nIPUpdateFlag = IP_DELETE;
 			m_pOwner->UpdateText();
 			PostMessage(WM_CLOSE);
@@ -123,7 +123,7 @@ namespace DuiLib
 		}
 		else if (uMsg == WM_KEYUP && wParam == VK_ESCAPE)
 		{
-			LRESULT lRes = ::DefWindowProc(m_hWnd, uMsg, wParam, lParam);
+			lRes = ::DefWindowProc(m_hWnd, uMsg, wParam, lParam);
 			m_pOwner->m_nIPUpdateFlag = IP_KEEP;
 			PostMessage(WM_CLOSE);
 			return lRes;
@@ -234,7 +234,7 @@ namespace DuiLib
 
 		if( event.Type == UIEVENT_SETCURSOR && IsEnabled() )
 		{
-			::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_IBEAM)));
+			::SetCursor(::LoadCursor(NULL, IDC_IBEAM));
 			return;
 		}
 		if( event.Type == UIEVENT_WINDOWSIZE )

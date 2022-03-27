@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include <zmouse.h>
+#include <WinUser.h>
 
 namespace DuiLib {
 
@@ -445,6 +446,15 @@ namespace DuiLib {
 	void CPaintManagerUI::SetInstance(HINSTANCE hInst)
 	{
 		m_hInstance = hInst;
+#ifdef AUTO_DPI
+#if(WINVER >= 0x0605)
+		SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
+#elif(WINVER >= _WIN32_WINNT_WIN8)
+		SetProcessDpiAwareness(PROCESS_SYSTEM_DPI_AWARE);
+#elif(WINVER >= _WIN32_WINNT_VISTA)
+		SetProcessDPIAware()
+#endif
+#endif
 	}
 
 	void CPaintManagerUI::SetCurrentPath(LPCTSTR pStrPath)
@@ -2129,9 +2139,9 @@ namespace DuiLib {
 
 	void DuiLib::CPaintManagerUI::SetDPI(int iDPI)
 	{
-		int scale1 = GetDPIObj()->GetScale();
+		const int scale1 = GetDPIObj()->GetScale();
 		GetDPIObj()->SetScale(iDPI);
-		int scale2 = GetDPIObj()->GetScale();
+		const int scale2 = GetDPIObj()->GetScale();
 		ResetDPIAssets();
 		RECT rcWnd = {0};
 		::GetWindowRect(GetPaintWindow(), &rcWnd);

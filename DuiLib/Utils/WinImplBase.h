@@ -14,8 +14,8 @@ namespace DuiLib
 		, public IQueryControlText
 	{
 	public:
-		WindowImplBase(){};
-		virtual ~WindowImplBase(){};
+		WindowImplBase () noexcept{};
+		virtual ~WindowImplBase() noexcept{};
 		// 只需主窗口重写（初始化资源与多语言接口）
 		virtual void InitResource(){};
 		// 每个窗口都可以重写
@@ -31,10 +31,9 @@ namespace DuiLib
 		virtual CDuiString GetSkinType() { return _T(""); }
 		virtual CDuiString GetSkinFile() = 0;
 		virtual LPCTSTR GetWindowClassName(void) const = 0 ;
-		virtual LPCTSTR GetManagerName() { return NULL; }
+		virtual LPCTSTR GetManagerName() noexcept { return NULL; }
 		virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam);
 		CPaintManagerUI m_pm;
-
 	public:
 		virtual UINT GetClassStyle() const;
 		virtual CControlUI* CreateControl(LPCTSTR pstrClass);
@@ -43,6 +42,9 @@ namespace DuiLib
 		virtual LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM /*lParam*/, bool& /*bHandled*/);
 		virtual LRESULT OnClose(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 		virtual LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
+		void SetDPI(int dpi) {
+			m_pm.SetDPI(dpi);
+		}
 
 #if defined(WIN32) && !defined(UNDER_CE)
 		virtual LRESULT OnNcActivate(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& bHandled);

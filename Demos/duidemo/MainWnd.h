@@ -57,6 +57,7 @@ public:// 系统消息
 	//LRESULT OnGetMinMaxInfo(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& bHandled);
 	LRESULT HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	void setDPI(int DPI);
 
 public:// WebBrowser
 	virtual HRESULT STDMETHODCALLTYPE UpdateUI(void);

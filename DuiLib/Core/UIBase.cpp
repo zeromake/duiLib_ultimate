@@ -27,7 +27,7 @@ void UILIB_API DUI__Trace(LPCTSTR pstrFormat, ...)
 #endif
 }
 
-LPCTSTR DUI__TraceMsg(UINT uMsg)
+LPCTSTR DUI__TraceMsg(UINT uMsg) noexcept
 {
 #define MSGDEF(x) if(uMsg==x) return _T(#x)
     MSGDEF(WM_SETCURSOR);
@@ -85,8 +85,8 @@ LPCTSTR DUI__TraceMsg(UINT uMsg)
     MSGDEF(WM_GETTEXT);
     MSGDEF(WM_GETTEXTLENGTH);   
     static TCHAR szMsg[10];
-    ::wsprintf(szMsg, _T("0x%04X"), uMsg);
-    return szMsg;
+    ::wsprintf(static_cast<LPWSTR>(szMsg), _T("0x%04X"), uMsg);
+    return static_cast<LPCTSTR>(szMsg);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -98,7 +98,7 @@ LPCTSTR DUI__TraceMsg(UINT uMsg)
 DUI_BASE_BEGIN_MESSAGE_MAP(CNotifyPump)
 DUI_END_MESSAGE_MAP()
 
-static const DUI_MSGMAP_ENTRY* DuiFindMessageEntry(const DUI_MSGMAP_ENTRY* lpEntry,TNotifyUI& msg )
+static const DUI_MSGMAP_ENTRY* DuiFindMessageEntry(const DUI_MSGMAP_ENTRY* lpEntry,const TNotifyUI& msg )
 {
 	CDuiString sMsgType = msg.sType;
 	CDuiString sCtrlName = msg.pSender->GetName();
@@ -128,7 +128,7 @@ bool CNotifyPump::AddVirtualWnd(CDuiString strName,CNotifyPump* pObject)
 {
 	if( m_VirtualWndMap.Find(strName) == NULL )
 	{
-		m_VirtualWndMap.Insert(strName.GetData(),(LPVOID)pObject);
+		m_VirtualWndMap.Insert(strName.GetData(), static_cast<LPVOID>(pObject));
 		return true;
 	}
 	return false;
@@ -217,7 +217,7 @@ CWindowWnd::CWindowWnd() : m_hWnd(NULL), m_OldWndProc(::DefWindowProc), m_bSubcl
 {
 }
 
-HWND CWindowWnd::GetHWND() const 
+HWND CWindowWnd::GetHWND() const
 { 
     return m_hWnd; 
 }

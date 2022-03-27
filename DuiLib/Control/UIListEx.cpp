@@ -116,8 +116,8 @@ namespace DuiLib {
 			{
 				if (pHeader->GetItemAt(i) == msg.pSender)
 				{
-					for (int i = 0; i < GetCount(); ++i) {
-						CControlUI* p = GetItemAt(i);
+					for (int ii = 0; ii < GetCount(); ++ii) {
+						CControlUI* p = GetItemAt(ii);
 						CListTextExtElementUI* pLItem = static_cast<CListTextExtElementUI*>(p->GetInterface(_T("ListTextExElement")));
 						if (pLItem != NULL) {
 							pLItem->SetCheck(bCheck);
@@ -134,7 +134,7 @@ namespace DuiLib {
 				CListTextExtElementUI* pLItem = static_cast<CListTextExtElementUI*>(p->GetInterface(_T("ListTextExElement")));
 				if (pLItem != NULL && pLItem == msg.pSender)
 				{
-					OnListItemChecked(LOWORD(msg.wParam), HIWORD(msg.wParam), msg.lParam);
+					OnListItemChecked(LOWORD(msg.wParam), HIWORD(msg.wParam), msg.lParam == 1);
 					break;
 				}
 			}
@@ -168,8 +168,8 @@ namespace DuiLib {
 		else if (_tcsicmp(strName, _T("ListEx_Combo")) == 0 && m_pComboBoxUI && m_nRow >= 0 && m_nColum >= 0)
 		{
 			int  iCurSel, iOldSel;
-			iCurSel = msg.wParam;
-			iOldSel = msg.lParam;
+			iCurSel = int(msg.wParam);
+			iOldSel = int(msg.lParam);
 
 			if(_tcsicmp(msg.sType, DUI_MSGTYPE_SETFOCUS) == 0)
 			{
@@ -294,8 +294,8 @@ namespace DuiLib {
 	}
 	void CListExUI::OnListItemChecked(int nIndex, int nColum, BOOL bChecked)
 	{
-		CControlUI* p = m_pHeader->GetItemAt(nColum);
-		CListContainerHeaderItemUI* pHItem = static_cast<CListContainerHeaderItemUI*>(p->GetInterface(_T("ListContainerHeaderItem")));
+		CControlUI* _p = m_pHeader->GetItemAt(nColum);
+		CListContainerHeaderItemUI* pHItem = static_cast<CListContainerHeaderItemUI*>(_p->GetInterface(_T("ListContainerHeaderItem")));
 		if (pHItem == NULL)
 		{
 			return;
@@ -307,8 +307,8 @@ namespace DuiLib {
 			BOOL bCheckAll = TRUE;
 			for(int i = 0; i < GetCount(); i++) 
 			{
-				CControlUI* p = GetItemAt(i);
-				CListTextExtElementUI* pLItem = static_cast<CListTextExtElementUI*>(p->GetInterface(_T("ListTextExElement")));
+				CControlUI* __p = GetItemAt(i);
+				CListTextExtElementUI* pLItem = static_cast<CListTextExtElementUI*>(__p->GetInterface(_T("ListTextExElement")));
 				if( pLItem != NULL && !pLItem->GetCheck()) 
 				{
 					bCheckAll = FALSE;
@@ -745,7 +745,7 @@ namespace DuiLib {
 			else
 				rcSeparator.right+=4;
 			if( IsEnabled() && m_bDragable && ::PtInRect(&rcSeparator, event.ptMouse) ) {
-				::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_SIZEWE)));
+				::SetCursor(::LoadCursor(NULL, IDC_SIZEWE));
 				return;
 			}
 		}
@@ -1139,7 +1139,7 @@ Label_ForeImage:
 		if( event.Type == UIEVENT_SETCURSOR ) {
 			for( int i = 0; i < m_nLinks; i++ ) {
 				if( ::PtInRect(&m_rcLinks[i], event.ptMouse) ) {
-					::SetCursor(::LoadCursor(NULL, MAKEINTRESOURCE(IDC_HAND)));
+					::SetCursor(::LoadCursor(NULL, IDC_HAND));
 					return;
 				}
 			}      

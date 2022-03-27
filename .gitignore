@@ -19,6 +19,7 @@
 *.exp
 *.aps
 *.iobj
+*.lib
 Temp/duidemo/Debug/duidemo.res
 Temp/duidemo/Debug/duidemo_d.exe.embed.manifest.res
 Temp/duidemo/Debug/duidemo_d_manifest.rc

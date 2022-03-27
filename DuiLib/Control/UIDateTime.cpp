@@ -18,7 +18,7 @@ namespace DuiLib
 		RECT CalPos();
 
 		LPCTSTR GetWindowClassName() const;
-		LPCTSTR GetSuperClassName() const;
+		LPCTSTR GetSuperClassName() const noexcept;
 		void OnFinalMessage(HWND hWnd);
 
 		LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
@@ -96,7 +96,7 @@ namespace DuiLib
 		return _T("DateTimeWnd");
 	}
 
-	LPCTSTR CDateTimeWnd::GetSuperClassName() const
+	LPCTSTR CDateTimeWnd::GetSuperClassName() const noexcept
 	{
 		return DATETIMEPICK_CLASS;
 	}

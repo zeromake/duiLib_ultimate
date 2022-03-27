@@ -285,8 +285,7 @@ namespace DuiLib
 		// 关联UI管理器
 		m_pm.Init(m_hWnd, GetManagerName());
 		// 注册PreMessage回调
-		m_pm.AddPreMessageFilter(this);
-
+		m_pm.AddPreMessageFilter(this);;
 		// 创建主窗口
 		CControlUI* pRoot=NULL;
 		CDialogBuilder builder;
@@ -311,6 +310,10 @@ namespace DuiLib
 		m_pm.AddNotifier(this);
 		// 窗口初始化完毕
 		InitWindow();
+		// 设置默认 dpi
+#ifdef AUTO_DPI
+		m_pm.SetDPI(CDPI::GetMainMonitorDPI());
+#endif
 		return 0;
 	}
 

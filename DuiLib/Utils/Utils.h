@@ -215,7 +215,17 @@ namespace DuiLib
 		}
 		vResults.push_back(text);
 		return vResults;
-}
+	}
+	static void wsplit(const std::wstring& s, std::vector<std::wstring>& tokens, const std::wstring& delimiters)
+	{
+		std::wstring::size_type lastPos = s.find_first_not_of(delimiters, 0);
+		std::wstring::size_type pos = s.find_first_of(delimiters, lastPos);
+		while (std::wstring::npos != pos || std::wstring::npos != lastPos) {
+			tokens.push_back(s.substr(lastPos, pos - lastPos));
+			lastPos = s.find_first_not_of(delimiters, pos);
+			pos = s.find_first_of(delimiters, lastPos);
+		}
+	}
 	/////////////////////////////////////////////////////////////////////////////////////
 	//
 

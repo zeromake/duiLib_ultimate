@@ -381,6 +381,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/utf-8</AdditionalOptions>
     </ClCompile>
     <ResourceCompile>
       <Culture>0x0804</Culture>

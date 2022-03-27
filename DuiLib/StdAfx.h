@@ -3,6 +3,8 @@
 //      are changed infrequently
 //
 
+
+
 #if !defined(AFX_STDAFX_H__E30B2003_188B_4EB4_AB99_3F3734D6CE6C__INCLUDED_)
 #define AFX_STDAFX_H__E30B2003_188B_4EB4_AB99_3F3734D6CE6C__INCLUDED_
 
@@ -45,11 +47,6 @@
 #endif // _MSC_VER
 #ifdef __BORLANDC__
 #pragma option -w-8027		   // function not expanded inline
-#endif
-
-// Required for VS 2008 (fails on XP and Win2000 without this fix)
-#ifndef _WIN32_WINNT
-#define _WIN32_WINNT _WIN32_WINNT_WINXP//0x0501
 #endif
 
 //#define USE_XIMAGE_EFFECT //使用ximage的gif控件CGifAnimExUI开关，提升性能,默认不使用

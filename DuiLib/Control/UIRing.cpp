@@ -48,10 +48,10 @@ namespace DuiLib
 		}
 
 		if(m_pBkimage != NULL) {
-			RECT rcItem = m_rcItem;
-			int iWidth = rcItem.right - rcItem.left;
-			int iHeight = rcItem.bottom - rcItem.top;
-			Gdiplus::PointF centerPos(rcItem.left + iWidth/2, rcItem.top + iHeight/2);
+			const RECT rcItem = m_rcItem;
+			const int iWidth = rcItem.right - rcItem.left;
+			const int iHeight = rcItem.bottom - rcItem.top;
+			const Gdiplus::PointF centerPos(rcItem.left + iWidth/2, rcItem.top + iHeight/2);
 
 			Gdiplus::Graphics graphics(hDC);
 			graphics.TranslateTransform(centerPos.X,centerPos.Y);

@@ -15,7 +15,7 @@ namespace DuiLib{
 		RECT CalPos();
 		LPCTSTR GetWindowClassName() const;
 		void OnFinalMessage(HWND hWnd);
-		LPCTSTR GetSuperClassName() const;
+		LPCTSTR GetSuperClassName() const noexcept;
 		LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
 		LRESULT OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 		LRESULT OnEditChanged(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);

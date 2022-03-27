@@ -11,6 +11,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <string>
 
 
 // TODO: 在此处引用程序需要的其他头文件

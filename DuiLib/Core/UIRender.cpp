@@ -2294,8 +2294,8 @@ namespace DuiLib {
 	HBITMAP CRenderEngine::GenerateBitmap(CPaintManagerUI* pManager, RECT rc, CControlUI* pStopControl, DWORD dwFilterColor)
 	{
 		if (pManager == NULL) return NULL;
-		int cx = rc.right - rc.left;
-		int cy = rc.bottom - rc.top;
+		const int cx = rc.right - rc.left;
+		const int cy = rc.bottom - rc.top;
 
 		bool bUseOffscreenBitmap = true;
 		HDC hPaintDC = ::CreateCompatibleDC(pManager->GetPaintDC());
@@ -2307,7 +2307,7 @@ namespace DuiLib {
 			hPaintBitmap = ::CreateCompatibleBitmap(pManager->GetPaintDC(), rc.right, rc.bottom);
 			ASSERT(hPaintBitmap);
 		}
-		HBITMAP hOldPaintBitmap = (HBITMAP) ::SelectObject(hPaintDC, hPaintBitmap);
+		HBITMAP hOldPaintBitmap = static_cast<HBITMAP> (::SelectObject(hPaintDC, hPaintBitmap));
 		if (!bUseOffscreenBitmap) {
 			CControlUI* pRoot = pManager->GetRoot();
 			pRoot->Paint(hPaintDC, rc, pStopControl);
@@ -2328,7 +2328,7 @@ namespace DuiLib {
 		ASSERT(hBitmap);
 		if( hBitmap != NULL )
 		{
-			HBITMAP hOldBitmap = (HBITMAP) ::SelectObject(hCloneDC, hBitmap);
+			HBITMAP hOldBitmap = static_cast<HBITMAP> (::SelectObject(hCloneDC, hBitmap));
 			::BitBlt(hCloneDC, 0, 0, cx, cy, hPaintDC, rc.left, rc.top, SRCCOPY);
 			RECT rcClone = {0, 0, cx, cy};
 			if (dwFilterColor > 0x00FFFFFF) DrawColor(hCloneDC, rcClone, dwFilterColor);
@@ -2348,14 +2348,14 @@ namespace DuiLib {
 	HBITMAP CRenderEngine::GenerateBitmap(CPaintManagerUI* pManager, CControlUI* pControl, RECT rc, DWORD dwFilterColor)
 	{
 		if (pManager == NULL || pControl == NULL) return NULL;
-		int cx = rc.right - rc.left;
-		int cy = rc.bottom - rc.top;
+		const int cx = rc.right - rc.left;
+		const int cy = rc.bottom - rc.top;
 
 		HDC hPaintDC = ::CreateCompatibleDC(pManager->GetPaintDC());
 		HBITMAP hPaintBitmap = ::CreateCompatibleBitmap(pManager->GetPaintDC(), rc.right, rc.bottom);
 		ASSERT(hPaintDC);
 		ASSERT(hPaintBitmap);
-		HBITMAP hOldPaintBitmap = (HBITMAP) ::SelectObject(hPaintDC, hPaintBitmap);
+		HBITMAP hOldPaintBitmap = static_cast<HBITMAP> (::SelectObject(hPaintDC, hPaintBitmap));
 		pControl->Paint(hPaintDC, rc, NULL);
 
 		BITMAPINFO bmi = { 0 };
@@ -2373,7 +2373,7 @@ namespace DuiLib {
 		ASSERT(hBitmap);
 		if( hBitmap != NULL )
 		{
-			HBITMAP hOldBitmap = (HBITMAP) ::SelectObject(hCloneDC, hBitmap);
+			HBITMAP hOldBitmap = static_cast<HBITMAP>(::SelectObject(hCloneDC, hBitmap));
 			::BitBlt(hCloneDC, 0, 0, cx, cy, hPaintDC, rc.left, rc.top, SRCCOPY);
 			RECT rcClone = {0, 0, cx, cy};
 			if (dwFilterColor > 0x00FFFFFF) DrawColor(hCloneDC, rcClone, dwFilterColor);
@@ -2396,8 +2396,8 @@ namespace DuiLib {
 		ASSERT(::GetObjectType(hDC)==OBJ_DC || ::GetObjectType(hDC)==OBJ_MEMDC);
 		if( pstrText == NULL || pManager == NULL ) return size;
 		::SetBkMode(hDC, TRANSPARENT);
-		HFONT hOldFont = (HFONT)::SelectObject(hDC, pManager->GetFont(iFont));
-		GetTextExtentPoint32(hDC, pstrText, _tcslen(pstrText) , &size);
+		HFONT hOldFont = static_cast<HFONT>(::SelectObject(hDC, pManager->GetFont(iFont)));
+		GetTextExtentPoint32(hDC, pstrText, static_cast<int>(_tcslen(pstrText)), &size);
 		::SelectObject(hDC, hOldFont);
 		return size;
 	}

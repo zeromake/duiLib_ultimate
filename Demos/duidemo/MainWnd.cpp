@@ -563,6 +563,12 @@ LRESULT CMainWnd::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/,
 	return 0;
 }
 
+
+void CMainWnd::setDPI(int DPI)
+{
+	m_pm.SetDPI(DPI);
+}
+
 LRESULT CMainWnd::HandleCustomMessage(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	// 关闭窗口，退出程序

@@ -20,7 +20,7 @@ namespace DuiLib {
 		void Scroll(int dx, int dy);
 
 #if(_WIN32_WINNT >= 0x0501)
-		virtual UINT GetClassStyle() const;
+		virtual UINT GetClassStyle() const noexcept;
 #endif
 		bool IsHitItem(POINT ptMouse);
 	public:
@@ -253,7 +253,7 @@ namespace DuiLib {
 	}
 
 #if(_WIN32_WINNT >= 0x0501)
-	UINT CComboWnd::GetClassStyle() const
+	UINT CComboWnd::GetClassStyle() const noexcept
 	{
 		return __super::GetClassStyle();
 		if(m_pOwner->IsShowShadow()) {

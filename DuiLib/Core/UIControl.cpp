@@ -402,7 +402,7 @@ namespace DuiLib {
 			CControlUI* pParent = this;
 			RECT rcTemp;
 			RECT rcParent;
-			while( pParent = pParent->GetParent() ) {
+			while( (pParent = pParent->GetParent()) ) {
 				if( !pParent->IsVisible() ) return;
 				rcTemp = invalidateRc;
 				rcParent = pParent->GetPos();
