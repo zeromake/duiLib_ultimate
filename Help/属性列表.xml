@@ -24,14 +24,21 @@
 		<Attribute name="shadowdarkness" default="255" type="BYTE" comment="算法阴影的深度(相当于透明度)"/>
 		<Attribute name="shadowposition" default="0,0" type="SIZE" comment="算法阴影的偏移量"/>
 		<Attribute name="shadowcolor" default="0x000000" type="DWORD" comment="算法阴影的颜色，RGB格式，不支持透明度，使用shadowdarkness设置透明度"/>
-    <Attribute name="gdiplustext" default="false" type="BOOL" comment="是否用gdi+渲染文字（抗锯齿效果更好，默认开启，但是效率低）"/>
+    <Attribute name="gdiplustext" default="false" type="BOOL" comment="是否用gdi+渲染文字（抗锯齿效果更好，默认关闭，但是效率低，不开启使用 DrawTextW 渲染）"/>
     <Attribute name="textrenderinghint" default="0" type="int" comment="gdi+渲染文字提示（0-5），字体大的时候可以设置为4"/>
 	</Window>
-	<Include >
+	<Font>
+		<Attribute name="name" default="" type="STRING" comment="字体名"/>
+		<Attribute name="names" default="" type="STRING" comment="多个字体备选: 字体1,字体2"/>
+		<Attribute name="size" default="0" type="INT" comment="字体大小(px)"/>
+		<Attribute name="id" default="0" type="INT" comment="字体别名id"/>
+		<Attribute name="default" default="false" type="BOOL" comment="是否为默认字体"/>
+	</Font>
+	<Include>
 		<Attribute name="source" default="" type="STRING" comment="XML布局文件"/>
 		<Attribute name="count" default="" type="INT" comment="嵌入的次数"/>
 	</Include>
-	<ChildLayout parent="Container" >
+	<ChildLayout parent="Container">
 		<Attribute name="xmlfile" default="" type="STRING" comment="子窗体XML布局文件"/>
 	</ChildLayout>
 	<Control parent="" notifies="setfocus killfocus timer menu windowinit(root)">
@@ -69,11 +76,11 @@
 		<Attribute name="shortcut" default="" type="CHAR" comment="对应的快捷键,如(P)"/>
 		<Attribute name="menu" default="false" type="BOOL" comment="是否需要右键菜单,如(true)"/>
 		<Attribute name="keyboard" default="true" type="BOOL" comment="非CButtonUI类忽略该值，为false时不支持TAB_STOP,且该对象不处理键盘信息"/>
-    <Attribute name="virtualwnd" default="" type="string" comment="设置控件的虚拟窗体的名字"/>
-    <Attribute name="resourcetext" default="false" type="BOOL" comment="是否支持多语言，为true文字绘制会走多语言接口"/>
-    <Attribute name="style" default="" type="string" comment="通过样式名称设置控件的样式"/>
-    <Attribute name="innerstyle" default="" type="string" comment="通过样式表设置控件的样式"/>
-    <Attribute name="floatalign" default="" type="string" comment="用于控制float控件先对于父控件的对齐方式（left\center\right、top\vcenter\bottom）"/>
+		<Attribute name="virtualwnd" default="" type="string" comment="设置控件的虚拟窗体的名字"/>
+		<Attribute name="resourcetext" default="false" type="BOOL" comment="是否支持多语言，为true文字绘制会走多语言接口"/>
+		<Attribute name="style" default="" type="string" comment="通过样式名称设置控件的样式"/>
+		<Attribute name="innerstyle" default="" type="string" comment="通过样式表设置控件的样式"/>
+		<Attribute name="floatalign" default="" type="string" comment="用于控制float控件先对于父控件的对齐方式（left\center\right、top\vcenter\bottom）"/>
 	</Control>
 	<Container parent="Control" notifies="setfocus killfocus timer menu windowinit(root)">
 		<Attribute name="name" default="" type="STRING" comment="控件名字，同一窗口内必须唯一，如(testbtn)"/>
@@ -413,11 +420,11 @@
 		<Attribute name="itemshowhtml" default="false" type="BOOL" comment="item是否使用类html富文本绘制,如(false)"/>
 		<Attribute name="multiexpanding" default="false" type="BOOL" comment="是否支持多个item同时打开,如(false)"/>
 	</Combo>
-  <GifAnim parent="Control" notifies="setfocus killfocus timer menu windowinit(root)">
-    <Attribute name="bkimage" default="" type="STRING" comment="Gif动画图片路径(不支持source等属性设置)"/>
-    <Attribute name="autoplay" default="true" type="BOOL" comment="是否自动播放GIF动画"/>
-    <Attribute name="autosize" default="false" type="BOOL" comment="是否根据图片自动设置控件大小(开启后width和height属性失效)"/>
-  </GifAnim>
+	<GifAnim parent="Control" notifies="setfocus killfocus timer menu windowinit(root)">
+		<Attribute name="bkimage" default="" type="STRING" comment="Gif动画图片路径(不支持source等属性设置)"/>
+		<Attribute name="autoplay" default="true" type="BOOL" comment="是否自动播放GIF动画"/>
+		<Attribute name="autosize" default="false" type="BOOL" comment="是否根据图片自动设置控件大小(开启后width和height属性失效)"/>
+	</GifAnim>
 	<Label parent="Control" notifies="setfocus killfocus timer menu windowinit(root)">
 		<Attribute name="name" default="" type="STRING" comment="控件名字，同一窗口内必须唯一，如(testbtn)"/>
 		<Attribute name="pos" default="0,0,0,0" type="RECT" comment="位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)"/>

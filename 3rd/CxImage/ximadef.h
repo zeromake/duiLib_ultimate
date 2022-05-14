@@ -59,11 +59,16 @@
  #define CXIMAGE_SUPPORT_WINDOWS 0
 #endif
 
+#ifdef __MINGW32__
+#include <algorithm>
+using namespace std;
+#else
 #ifndef min
 #define min(a,b) (((a)<(b))?(a):(b))
 #endif
 #ifndef max
 #define max(a,b) (((a)>(b))?(a):(b))
+#endif
 #endif
 
 #ifndef PI
@@ -103,6 +108,7 @@ typedef struct tagcomplex {
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <tchar.h>
 
 typedef uint32_t   COLORREF;
 typedef void*      HANDLE;
@@ -122,6 +128,9 @@ typedef void*      HRGN;
 
 #ifndef TCHAR
 #define TCHAR char
+#endif
+
+#ifndef _T
 #define _T
 #endif
 

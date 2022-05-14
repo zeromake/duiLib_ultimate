@@ -230,7 +230,7 @@ bool CxImage::CreateFromHANDLE(HANDLE hMem)
 		SetYDPI((int32_t)floor(head.biYPelsPerMeter * 254.0 / 10000.0 + 0.5));
 
 		/*//copy the pixels (old way)
-		if((pHead->biCompression != BI_RGB) || (pHead->biBitCount == 32)){ //<Jörgen Alfredsson>
+		if((pHead->biCompression != BI_RGB) || (pHead->biBitCount == 32)){ //<JÃ¶gen Alfredsson>
 			// BITFIELD case
 			// set the internal header in the dib
 			memcpy(pDib,&head,sizeof(head));
@@ -565,7 +565,7 @@ HBITMAP CxImage::MakeBitmap(HDC hdc, bool bTransparency)
 		COLORREF* pCrBits = NULL;
 		HBITMAP hbmp = CreateDIBSection (
 			hMemDC, &bi, DIB_RGB_COLORS, (void **)&pCrBits,
-			NULL, NULL);
+			NULL, 0);
 
 		if (!hdc)
 			DeleteDC(hMemDC);
@@ -846,10 +846,10 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 	RECT clipbox,paintbox;
 	GetClipBox(hdc,&clipbox);
 
-	paintbox.top = min(clipbox.bottom,max(clipbox.top,y));
-	paintbox.left = min(clipbox.right,max(clipbox.left,x));
-	paintbox.right = max(clipbox.left,min(clipbox.right,x+cx));
-	paintbox.bottom = max(clipbox.top,min(clipbox.bottom,y+cy));
+	paintbox.top = min((int32_t)clipbox.bottom,max((int32_t)clipbox.top,y));
+	paintbox.left = min((int32_t)clipbox.right,max((int32_t)clipbox.left,x));
+	paintbox.right = max((int32_t)clipbox.left,min((int32_t)clipbox.right,x+cx));
+	paintbox.bottom = max((int32_t)clipbox.top,min((int32_t)clipbox.bottom,y+cy));
 
 	int32_t destw = paintbox.right - paintbox.left;
 	int32_t desth = paintbox.bottom - paintbox.top;
@@ -900,7 +900,7 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 
 				for(yy=0;yy<desth;yy++){
 					dy = head.biHeight-(ymax-yy-y)*fy;
-					sy = max(0L,(int32_t)floor(dy));
+					sy = max((int32_t)0,(int32_t)floor(dy));
 					psrc = info.pImage+sy*info.dwEffWidth;
 					if (bFlipY){
 						pdst = pbase+(desth-1-yy)*ew;
@@ -909,7 +909,7 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 					}
 					for(xx=0;xx<destw;xx++){
 						dx = (xx+xmin-x)*fx;
-						sx = max(0L,(int32_t)floor(dx));
+						sx = max((int32_t)0,(int32_t)floor(dx));
 #if CXIMAGE_SUPPORT_INTERPOLATION
 						if (bSmooth){
 							if (fx > 1 && fy > 1) { 
@@ -987,7 +987,7 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 				
 				for(yy=0;yy<desth;yy++){
 					dy = head.biHeight-(ymax-yy-y)*fy;
-					sy = max(0L,(int32_t)floor(dy));
+					sy = max((int32_t)0,(int32_t)floor(dy));
 
 					alphaoffset = sy*head.biWidth;
 					if (bFlipY){
@@ -999,7 +999,7 @@ int32_t CxImage::Draw(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t cy, REC
 
 					for(xx=0;xx<destw;xx++){
 						dx = (xx+xmin-x)*fx;
-						sx = max(0L,(int32_t)floor(dx));
+						sx = max((int32_t)0,(int32_t)floor(dx));
 
 						if (bAlpha) a=pAlpha[alphaoffset+sx]; else a=255;
 						a =(uint8_t)((a*(1+info.nAlphaMax))>>8);
@@ -1172,10 +1172,10 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 	RECT clipbox,paintbox;
 	GetClipBox(hdc,&clipbox);
 
-	paintbox.top = min(clipbox.bottom,max(clipbox.top,y));
-	paintbox.left = min(clipbox.right,max(clipbox.left,x));
-	paintbox.right = max(clipbox.left,min(clipbox.right,x+cx));
-	paintbox.bottom = max(clipbox.top,min(clipbox.bottom,y+cy));
+	paintbox.top = min((int32_t)clipbox.bottom,max((int32_t)clipbox.top,y));
+	paintbox.left = min((int32_t)clipbox.right,max((int32_t)clipbox.left,x));
+	paintbox.right = max((int32_t)clipbox.left,min((int32_t)clipbox.right,x+cx));
+	paintbox.bottom = max((int32_t)clipbox.top,min((int32_t)clipbox.bottom,y+cy));
 
 	int32_t destw = paintbox.right - paintbox.left;
 	int32_t desth = paintbox.bottom - paintbox.top;
@@ -1220,12 +1220,12 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 
 				for(yy=0;yy<desth;yy++){
 					dy = head.biHeight-(ymax-yy-y)*fy;
-					sy = max(0L,(int32_t)floor(dy));
+					sy = max((int32_t)0,(int32_t)floor(dy));
 					psrc = info.pImage+sy*info.dwEffWidth;
 					pdst = pbase+yy*ew;
 					for(xx=0;xx<destw;xx++){
 						dx = (xx+xmin-x)*fx;
-						sx = max(0L,(int32_t)floor(dx));
+						sx = max((int32_t)0,(int32_t)floor(dx));
 #if CXIMAGE_SUPPORT_INTERPOLATION
 						if (bSmooth){
 							if (fx > 1 && fy > 1) { 
@@ -1302,7 +1302,7 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 				
 				for(yy=0;yy<desth;yy++){
 					dy = head.biHeight-(ymax-yy-y)*fy;
-					sy = max(0L,(int32_t)floor(dy));
+					sy = max((int32_t)0,(int32_t)floor(dy));
 
 					alphaoffset = sy*head.biWidth;
 					pdst = pbase + yy*ew;
@@ -1310,7 +1310,7 @@ HBITMAP CxImage::Draw2HBITMAP(HDC hdc, int32_t x, int32_t y, int32_t cx, int32_t
 
 					for(xx=0;xx<destw;xx++){
 						dx = (xx+xmin-x)*fx;
-						sx = max(0L,(int32_t)floor(dx));
+						sx = max((int32_t)0,(int32_t)floor(dx));
 
 						if (bAlpha) a=pAlpha[alphaoffset+sx]; else a=255;
 						a =(uint8_t)((a*(1+info.nAlphaMax))>>8);
@@ -1869,7 +1869,7 @@ void CxImage::InitTextInfo( CXTEXTINFO *txt )
     txt->b_outline = 0;     // default: no outline (OUTLINE NOT IMPLEMENTED AT THIS TIME)
     txt->b_round   = 20;    // default: rounding radius is 20% of the rectangle height
     // the text 
-    _stprintf( txt->text, _T("Sample Text 01234õû")); // text use TCHAR mappings <Cesar M>
+    _stprintf( txt->text, _T("Sample Text 01234ÃµÃ»")); // text use TCHAR mappings <Cesar M>
     txt->align = DT_CENTER;
     return;
 }

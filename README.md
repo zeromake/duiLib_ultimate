@@ -38,3 +38,24 @@ duilib开源项目圈（QQ群）：1群（261675375）、2群（261851826）、3
 
 ##### **项目支持** 
 学习指导、技术支持请联系Troy（QQ：656067418）
+
+
+## zeromake 对该项目修改
+
+- [x] 编译工具迁移至 `xmake` 比起 `vs` 的编译管理真的是太好用了。
+- [x] 代码里的 `lib` 加载声明，全部迁移到 `xmake` 项目描述里。
+- [x] `xml` 资源文件加载现在可以自动识别 `bom` 头，无法识别的强制为 `utf-8`，xml 现在可以 `utf-8`、`utf16le`、`utf16be` 混用。
+- [x] 修复在非 `unicode` 模式下，`DrawTextA` 渲染 `utf-8` 文字乱码(使用 DrawTextW 替代)。
+- [x] 修复在非 `unicode` 模式下的 `utf16le` 的 `xml` 文件无法正常解析(CharNext使用的编码不正确)。
+- [x] 封装 `cximage` 到单独的目标编译，与 `duilib` 分离。
+- [x] 把 `ActiveX` 相关组件提取到单独的目标编译，与 `duilib` 分离。
+- [x] 迁移代码以支持 `mingw64` 进行编译，主要是一些 `atl`, `com` 的引用问题，还有 `com` 组件的 `GUID` 声明在 `mingw` 里没有(现在是手动补了)。
+- [x] 修复在 `mingw` 下的 `dpi` 窗口初始化会出现窗口异常，`CPaintManagerUI::SetDPI` 里的 `RECT*` 指针引用会乱掉，现在直接用 `struct` 了。
+- [x] 在加载 `xml` 布局前就会初始化 `dpi`，现在可以在 `exe` 的 `manifest` 声明 `dpi` 感知，也可以手动调用 `CPaintManagerUI::InitProcessDPIAware();` 来设置 `dpi` 感知，然后除了 `dpi` 变化事件就没有了。
+- [ ] 好多 `demo` 还没有迁移过来测试。
+- [ ] 参考 `android` 的 `ListView` 测试。
+- [ ] 控件拆出去，保持 `duilib` 核心代码精简化。
+- [ ] 参考 `krkr2` 的插件加载方式设计插件化加载。
+- [ ] xml 文件加载解析，使用第三方库替代。
+- [ ] 事件注册参考 `html` + `js`。
+- [ ] `svg` 支持。
