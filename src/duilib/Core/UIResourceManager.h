@@ -26,7 +26,7 @@ namespace DuiLib {
 
 	public:
 		BOOL LoadResource(STRINGorID xml, LPCTSTR type = NULL);
-		BOOL LoadResource(CMarkupNode Root);
+		BOOL LoadResource(IMarkupNode* Root);
 		void ResetResourceMap();
 		LPCTSTR GetImagePath(LPCTSTR lpstrId);
 		LPCTSTR GetXmlPath(LPCTSTR lpstrId);

@@ -28,8 +28,8 @@ namespace DuiLib
 		virtual BOOL IsInStaticControl(CControlUI *pControl);
 
 	protected:
-		virtual CDuiString GetSkinType() { return _T(""); }
-		virtual CDuiString GetSkinFile() = 0;
+		virtual LPCTSTR GetSkinType() { return _T(""); }
+		virtual LPCTSTR GetSkinFile() = 0;
 		virtual LPCTSTR GetWindowClassName(void) const = 0 ;
 		virtual LPCTSTR GetManagerName() noexcept { return NULL; }
 		virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam);

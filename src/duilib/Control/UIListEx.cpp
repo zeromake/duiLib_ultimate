@@ -1280,7 +1280,7 @@ Label_ForeImage:
 			iTextColor = pInfo->dwDisabledTextColor;
 		}
 		IListCallbackUI* pCallback = m_pOwner->GetTextCallback();
-		//DUIASSERT(pCallback);
+		// DUIASSERT(pCallback);
 		//if( pCallback == NULL ) return;
 
 		CListExUI * pListCtrl = (CListExUI *)m_pOwner;

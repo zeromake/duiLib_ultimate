@@ -9,20 +9,20 @@ namespace DuiLib {
 //
 //
 //
-CMarkupNode::CMarkupNode() : m_pOwner(NULL)
-{
-}
+
+CMarkupNode* EMPTY_NODE = new CMarkupNode();
+
+CMarkupNode::CMarkupNode() : m_pOwner(NULL) {}
 
 CMarkupNode::CMarkupNode(CMarkup* pOwner, int iPos) : m_pOwner(pOwner), m_iPos(iPos), m_nAttributes(0)
-{
-}
+{}
 
-CMarkupNode CMarkupNode::GetSibling()
+IMarkupNode* CMarkupNode::GetSibling()
 {
-    if( m_pOwner == NULL ) return CMarkupNode();
+    if( m_pOwner == NULL ) return EMPTY_NODE;
     ULONG iPos = m_pOwner->m_pElements[m_iPos].iNext;
-    if( iPos == 0 ) return CMarkupNode();
-    return CMarkupNode(m_pOwner, iPos);
+    if( iPos == 0 ) return EMPTY_NODE;
+    return new CMarkupNode(m_pOwner, iPos);
 }
 
 bool CMarkupNode::HasSiblings() const
@@ -32,25 +32,25 @@ bool CMarkupNode::HasSiblings() const
     return iPos > 0;
 }
 
-CMarkupNode CMarkupNode::GetChild()
+IMarkupNode* CMarkupNode::GetChild()
 {
-    if( m_pOwner == NULL ) return CMarkupNode();
+    if( m_pOwner == NULL ) return EMPTY_NODE;
     ULONG iPos = m_pOwner->m_pElements[m_iPos].iChild;
-    if( iPos == 0 ) return CMarkupNode();
-    return CMarkupNode(m_pOwner, iPos);
+    if( iPos == 0 ) return EMPTY_NODE;
+    return new CMarkupNode(m_pOwner, iPos);
 }
 
-CMarkupNode CMarkupNode::GetChild(LPCTSTR pstrName)
+IMarkupNode* CMarkupNode::GetChild(LPCTSTR pstrName)
 {
-    if( m_pOwner == NULL ) return CMarkupNode();
+    if( m_pOwner == NULL ) return EMPTY_NODE;
     ULONG iPos = m_pOwner->m_pElements[m_iPos].iChild;
     while( iPos != 0 ) {
         if( _tcsicmp(m_pOwner->m_pstrXML + m_pOwner->m_pElements[iPos].iStart, pstrName) == 0 ) {
-            return CMarkupNode(m_pOwner, iPos);
+            return new CMarkupNode(m_pOwner, iPos);
         }
         iPos = m_pOwner->m_pElements[iPos].iNext;
     }
-    return CMarkupNode();
+    return EMPTY_NODE;
 }
 
 bool CMarkupNode::HasChildren() const
@@ -59,12 +59,12 @@ bool CMarkupNode::HasChildren() const
     return m_pOwner->m_pElements[m_iPos].iChild != 0;
 }
 
-CMarkupNode CMarkupNode::GetParent()
+IMarkupNode* CMarkupNode::GetParent()
 {
-    if( m_pOwner == NULL ) return CMarkupNode();
+    if( m_pOwner == NULL ) return EMPTY_NODE;
     ULONG iPos = m_pOwner->m_pElements[m_iPos].iParent;
-    if( iPos == 0 ) return CMarkupNode();
-    return CMarkupNode(m_pOwner, iPos);
+    if( iPos == 0 ) return EMPTY_NODE;
+    return new CMarkupNode(m_pOwner, iPos);
 }
 
 bool CMarkupNode::IsValid() const
@@ -396,10 +396,10 @@ void CMarkup::GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const
     _tcsncpy(pstrSource, m_szErrorXML, cchMax);
 }
 
-CMarkupNode CMarkup::GetRoot()
+IMarkupNode* CMarkup::GetRoot()
 {
-    if( m_nElements == 0 ) return CMarkupNode();
-    return CMarkupNode(this, 1);
+    if( m_nElements == 0 ) return EMPTY_NODE;
+    return new CMarkupNode(this, 1);
 }
 
 bool CMarkup::_Parse()
@@ -470,8 +470,7 @@ bool CMarkup::_Parse(LPTSTR& pstrText, ULONG iParent)
             {
                 if( !_Parse(pstrText, iPos) ) return false;
             }
-            if( pstrText[0] == _T('<') && pstrText[1] == _T('/') ) 
-            {
+            if(pstrText[0] == _T('<') && pstrText[1] == _T('/')) {
                 *pstrDest = _T('\0');
                 *pstrText = _T('\0');
                 pstrText += 2;

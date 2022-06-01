@@ -939,31 +939,34 @@ namespace DuiLib {
 
 	void CControlUI::SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue)
 	{
-		// 样式表
-		if(m_pManager != NULL &&  _tcsicmp(pstrName, _T("style")) == 0) {
-			LPCTSTR pStyle = m_pManager->GetStyle(pstrValue);
-			if( pStyle != NULL) {
-				ApplyAttributeList(pStyle);
-				return;
-			}
-		}
-		// 属性
-		if( _tcsicmp(pstrName, _T("innerstyle")) == 0 ) {
-			ApplyAttributeList(pstrValue);
-		}
-		else if( _tcsicmp(pstrName, _T("pos")) == 0 ) {
+		if(_tcsicmp(pstrName, _T("style")) == 0) {
+            // 样式表
+            if (m_pManager != NULL) {
+                std::vector<LPCTSTR> arr = StrSplit(pstrValue, _T(","));
+                const int count = arr.size();
+                for (int ii = 0; ii < count; ii++) {
+                    LPCTSTR pstrValue = arr.at(ii);
+                    LPCTSTR pStyle = m_pManager->GetStyle(pstrValue);
+                    if(pStyle != NULL) {
+                        ApplyAttributeData(pStyle);
+                    }
+                }
+            }
+		} else if( _tcsicmp(pstrName, _T("innerstyle")) == 0 ) {
+		    // 属性
+			ApplyAttributeData(pstrValue);
+		} else if( _tcsicmp(pstrName, _T("pos")) == 0 ) {
 			RECT rcPos = { 0 };
 			LPTSTR pstr = NULL;
-			rcPos.left = _tcstol(pstrValue, &pstr, 10);  ASSERT(pstr);    
-			rcPos.top = _tcstol(pstr + 1, &pstr, 10);    ASSERT(pstr);    
-			rcPos.right = _tcstol(pstr + 1, &pstr, 10);  ASSERT(pstr);    
-			rcPos.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
+			rcPos.left = _tcstol(pstrValue, &pstr, 10); ASSERT(pstr);
+			rcPos.top = _tcstol(pstr + 1, &pstr, 10);   ASSERT(pstr);
+			rcPos.right = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);
+			rcPos.bottom = _tcstol(pstr + 1, &pstr, 10);ASSERT(pstr);
 			SIZE szXY = {rcPos.left >= 0 ? rcPos.left : rcPos.right, rcPos.top >= 0 ? rcPos.top : rcPos.bottom};
 			SetFixedXY(szXY);
 			SetFixedWidth(abs(rcPos.right - rcPos.left));
 			SetFixedHeight(abs(rcPos.bottom - rcPos.top));
-		}
-		else if( _tcsicmp(pstrName, _T("float")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("float")) == 0 ) {
 			CDuiString nValue = pstrValue;
 			// 动态计算相对比例
 			if(nValue.Find(',') < 0) {
@@ -979,8 +982,7 @@ namespace DuiLib {
 				SetFloatPercent(piFloatPercent);
 				SetFloat(true);
 			}
-		}
-		else if( _tcsicmp(pstrName, _T("floatalign")) == 0) {
+		} else if( _tcsicmp(pstrName, _T("floatalign")) == 0) {
 			UINT uAlign = GetFloatAlign();
 			// 解析文字属性
 			while( *pstrValue != _T('\0') ) {
@@ -1022,8 +1024,7 @@ namespace DuiLib {
 				}
 			}
 			SetFloatAlign(uAlign);
-		}
-		else if( _tcsicmp(pstrName, _T("padding")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("padding")) == 0 ) {
 			RECT rcPadding = { 0 };
 			LPTSTR pstr = NULL;
 			rcPadding.left = _tcstol(pstrValue, &pstr, 10);  ASSERT(pstr);    
@@ -1031,57 +1032,50 @@ namespace DuiLib {
 			rcPadding.right = _tcstol(pstr + 1, &pstr, 10);  ASSERT(pstr);    
 			rcPadding.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
 			SetPadding(rcPadding);
-		}
-		else if( _tcsicmp(pstrName, _T("gradient")) == 0 ) SetGradient(pstrValue);
-		else if( _tcsicmp(pstrName, _T("bkcolor")) == 0 || _tcsicmp(pstrName, _T("bkcolor1")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("gradient")) == 0 ) {
+            SetGradient(pstrValue);
+        } else if( _tcsicmp(pstrName, _T("bkcolor")) == 0 || _tcsicmp(pstrName, _T("bkcolor1")) == 0 ) {
 			while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetBkColor(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("bkcolor2")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("bkcolor2")) == 0 ) {
 			while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetBkColor2(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("bkcolor3")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("bkcolor3")) == 0 ) {
 			while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetBkColor3(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("forecolor")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("forecolor")) == 0 ) {
 			while( *pstrValue > _T('\0') && *pstrValue <= _T(' ') ) pstrValue = ::CharNext(pstrValue);
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetForeColor(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("bordercolor")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("bordercolor")) == 0 ) {
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetBorderColor(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("focusbordercolor")) == 0 ) {
+		} else if( _tcsicmp(pstrName, _T("focusbordercolor")) == 0 ) {
 			if( *pstrValue == _T('#')) pstrValue = ::CharNext(pstrValue);
 			LPTSTR pstr = NULL;
 			DWORD clrColor = _tcstoul(pstrValue, &pstr, 16);
 			SetFocusBorderColor(clrColor);
-		}
-		else if( _tcsicmp(pstrName, _T("colorhsl")) == 0 ) SetColorHSL(_tcsicmp(pstrValue, _T("true")) == 0);
+		} else if( _tcsicmp(pstrName, _T("colorhsl")) == 0 ) SetColorHSL(_tcsicmp(pstrValue, _T("true")) == 0);
 		else if( _tcsicmp(pstrName, _T("bordersize")) == 0 ) {
 			CDuiString nValue = pstrValue;
 			if(nValue.Find(',') < 0) {
 				SetBorderSize(_ttoi(pstrValue));
 				RECT rcPadding = {0};
 				SetBorderSize(rcPadding);
-			}
-			else {
+			} else {
 				RECT rcPadding = { 0 };
 				LPTSTR pstr = NULL;
 				rcPadding.left = _tcstol(pstrValue, &pstr, 10);  ASSERT(pstr);
@@ -1091,7 +1085,7 @@ namespace DuiLib {
 				SetBorderSize(rcPadding);
 			}
 		}
-		else if( _tcsicmp(pstrName, _T("leftbordersize")) == 0 ) SetLeftBorderSize(_ttoi(pstrValue));
+        else if( _tcsicmp(pstrName, _T("leftbordersize")) == 0 ) SetLeftBorderSize(_ttoi(pstrValue));
 		else if( _tcsicmp(pstrName, _T("topbordersize")) == 0 ) SetTopBorderSize(_ttoi(pstrValue));
 		else if( _tcsicmp(pstrName, _T("rightbordersize")) == 0 ) SetRightBorderSize(_ttoi(pstrValue));
 		else if( _tcsicmp(pstrName, _T("bottombordersize")) == 0 ) SetBottomBorderSize(_ttoi(pstrValue));
@@ -1142,11 +1136,13 @@ namespace DuiLib {
 			else if( _tcsicmp(pstrValue, _T("no")) == 0 )		SetCursor(DUI_NO);
 			else if( _tcsicmp(pstrValue, _T("hand")) == 0 )		SetCursor(DUI_HAND);
 		}
-		else if( _tcsicmp(pstrName, _T("virtualwnd")) == 0 ) SetVirtualWnd(pstrValue);
+        else if( _tcsicmp(pstrName, _T("virtualwnd")) == 0 ) SetVirtualWnd(pstrValue);
 		else {
 			AddCustomAttribute(pstrName, pstrValue);
 		}
 	}
+
+
 
 	CControlUI* CControlUI::ApplyAttributeList(LPCTSTR pstrValue)
 	{
@@ -1157,9 +1153,11 @@ namespace DuiLib {
 				return ApplyAttributeList(pStyle);
 			}
 		}
-		CDuiString sXmlData = pstrValue;
-		sXmlData.Replace(_T("&quot;"), _T("\""));
-		LPCTSTR pstrList = sXmlData.GetData();
+		return ApplyAttributeData(pstrValue);
+	}
+
+    CControlUI* CControlUI::ApplyAttributeData(LPCTSTR pstrValue) {
+		LPCTSTR pstrList = pstrValue;
 		// 解析样式属性
 		CDuiString sItem;
 		CDuiString sValue;
@@ -1185,11 +1183,9 @@ namespace DuiLib {
 			ASSERT( *pstrList == _T('\"') );
 			if( *pstrList++ != _T('\"') ) return this;
 			SetAttribute(sItem, sValue);
-			if( *pstrList != _T(' ') && *pstrList != _T(',') )
-			{
+			if( *pstrList != _T(' ') && *pstrList != _T(',') ) {
 				return this;
-			}else
-			{
+			} else {
 				++pstrList;
 			}
 		}

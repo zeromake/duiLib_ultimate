@@ -42,6 +42,8 @@
 #include <shellscalingapi.h>
 #include <string>
 #include <vector>
+#include <pugiconfig.hpp>
+#include <pugixml.hpp>
 
 #include "Utils/Utils.h"
 #include "Utils/unzip.h"

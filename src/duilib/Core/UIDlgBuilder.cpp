@@ -10,6 +10,10 @@ namespace DuiLib {
 	CControlUI* CDialogBuilder::Create(STRINGorID xml, LPCTSTR type, IDialogBuilderCallback* pCallback, 
 		CPaintManagerUI* pManager, CControlUI* pParent)
 	{
+        if (xml.m_lpstr == NULL || _tcsicmp(xml.m_lpstr, _T("")) == 0) {
+            m_xml._Failed(_T("skin file is empty"));
+            return NULL;
+        }
 		//资源ID为0-65535，两个字节；字符串指针为4个字节
 		//字符串以<开头认为是XML字符串，否则认为是XML文件
 		if(HIWORD(xml.m_lpstr) != 0 && *(xml.m_lpstr) != _T('<')) {
@@ -18,7 +22,6 @@ namespace DuiLib {
 				xml = xmlpath;
 			}
 		}
-
 		if( HIWORD(xml.m_lpstr) != 0 ) {
 			if( *(xml.m_lpstr) == _T('<') ) {
 				if( !m_xml.Load(xml.m_lpstr) ) return NULL;
@@ -26,8 +29,7 @@ namespace DuiLib {
 			else {
 				if( !m_xml.LoadFromFile(xml.m_lpstr, XMLFILE_ENCODING_AUTO) ) return NULL;
 			}
-		}
-		else {
+		} else {
 			HINSTANCE dll_instence = NULL;
 			if (m_instance)
 			{
@@ -57,8 +59,8 @@ namespace DuiLib {
 	CControlUI* CDialogBuilder::Create(IDialogBuilderCallback* pCallback, CPaintManagerUI* pManager, CControlUI* pParent)
 	{
 		m_pCallback = pCallback;
-		CMarkupNode root = m_xml.GetRoot();
-		if( !root.IsValid() ) return NULL;
+		IMarkupNode* root = m_xml.GetRoot();
+		if( !root->IsValid() ) return NULL;
 
 		if( pManager ) {
 			LPCTSTR pstrClass = NULL;
@@ -66,17 +68,20 @@ namespace DuiLib {
 			LPCTSTR pstrName = NULL;
 			LPCTSTR pstrValue = NULL;
 			LPTSTR pstr = NULL;
-			for( CMarkupNode node = root.GetChild() ; node.IsValid(); node = node.GetSibling() ) {
-				pstrClass = node.GetName();
-				if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
-					nAttributes = node.GetAttributeCount();
+			for( IMarkupNode* node = root->GetChild() ; node->IsValid(); node = node->GetSibling() ) {
+				pstrClass = node->GetName();
+                if(_tcsicmp(pstrClass, _T("Attr")) == 0) {
+                    // attr 仅用于 Style 的属性设置
+                    continue;
+                } else if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
+					nAttributes = node->GetAttributeCount();
 					LPCTSTR pImageName = NULL;
 					LPCTSTR pImageResType = NULL;
 					bool shared = false;
 					DWORD mask = 0;
 					for( int i = 0; i < nAttributes; i++ ) {
-						pstrName = node.GetAttributeName(i);
-						pstrValue = node.GetAttributeValue(i);
+						pstrName = node->GetAttributeName(i);
+						pstrValue = node->GetAttributeValue(i);
 						if( _tcsicmp(pstrName, _T("name")) == 0 ) {
 							pImageName = pstrValue;
 						}
@@ -94,10 +99,9 @@ namespace DuiLib {
 					if( pImageName ) pManager->AddImage(pImageName, pImageResType, mask, false, shared);
 				}
 				else if( _tcsicmp(pstrClass, _T("Font")) == 0 ) {
-					nAttributes = node.GetAttributeCount();
+					nAttributes = node->GetAttributeCount();
 					int id = -1;
 					LPCTSTR pFontName = NULL;
-					LPCTSTR pFontNames = NULL;
 					int size = 12;
 					bool bold = false;
 					bool underline = false;
@@ -105,16 +109,13 @@ namespace DuiLib {
 					bool defaultfont = false;
 					bool shared = false;
 					for( int i = 0; i < nAttributes; i++ ) {
-						pstrName = node.GetAttributeName(i);
-						pstrValue = node.GetAttributeValue(i);
+						pstrName = node->GetAttributeName(i);
+						pstrValue = node->GetAttributeValue(i);
 						if( _tcsicmp(pstrName, _T("id")) == 0 ) {
 							id = _tcstol(pstrValue, &pstr, 10);
 						}
 						else if( _tcsicmp(pstrName, _T("name")) == 0 ) {
 							pFontName = pstrValue;
-						}
-						else if (_tcsicmp(pstrName, _T("names")) == 0) {
-							pFontNames = pstrValue;
 						}
 						else if( _tcsicmp(pstrName, _T("size")) == 0 ) {
 							size = _tcstol(pstrValue, &pstr, 10);
@@ -136,31 +137,27 @@ namespace DuiLib {
 						}
 					}
 					if( id >= 0 ) {
-						if (pFontNames != NULL) {
-							CDuiString name = pFontNames;
-                            CDuiString sp = _T(",");
-							std::vector<CDuiString> arr= StrSplit(name, sp);
-							const int count = arr.size();
-							for (int ii = 0; ii < count; ii++) {
-								LPCTSTR fname = arr.at(ii);
-								if (pManager->AddFont(id, fname, size, bold, underline, italic, shared) != NULL) {
-									break;
-								}
-							}
-						} else {
-							pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
-						}
-						if( defaultfont ) pManager->SetDefaultFont(pFontName, size, bold, underline, italic, shared);
+                        if (pFontName != NULL) {
+                            std::vector<LPCTSTR> arr= StrSplit(pFontName, _T(","));
+                            const int count = arr.size();
+                            for (int ii = 0; ii < count; ii++) {
+                                LPCTSTR fname = arr.at(ii);
+                                if (pManager->AddFont(id, fname, size, bold, underline, italic, shared) != NULL) {
+                                    break;
+                                }
+                            }
+                        }
+                        if( defaultfont ) pManager->SetDefaultFont(pFontName, size, bold, underline, italic, shared);
 					}
 				}
 				else if( _tcsicmp(pstrClass, _T("Default")) == 0 ) {
-					nAttributes = node.GetAttributeCount();
+					nAttributes = node->GetAttributeCount();
 					LPCTSTR pControlName = NULL;
 					LPCTSTR pControlValue = NULL;
 					bool shared = false;
 					for( int i = 0; i < nAttributes; i++ ) {
-						pstrName = node.GetAttributeName(i);
-						pstrValue = node.GetAttributeValue(i);
+						pstrName = node->GetAttributeName(i);
+						pstrValue = node->GetAttributeValue(i);
 						if( _tcsicmp(pstrName, _T("name")) == 0 ) {
 							pControlName = pstrValue;
 						}
@@ -176,33 +173,73 @@ namespace DuiLib {
 					}
 				}
 				else if( _tcsicmp(pstrClass, _T("Style")) == 0 ) {
-					nAttributes = node.GetAttributeCount();
+					nAttributes = node->GetAttributeCount();
 					LPCTSTR pName = NULL;
 					LPCTSTR pStyle = NULL;
 					bool shared = false;
 					for( int i = 0; i < nAttributes; i++ ) {
-						pstrName = node.GetAttributeName(i);
-						pstrValue = node.GetAttributeValue(i);
+						pstrName = node->GetAttributeName(i);
+						pstrValue = node->GetAttributeValue(i);
 						if( _tcsicmp(pstrName, _T("name")) == 0 ) {
 							pName = pstrValue;
 						}
 						else if( _tcsicmp(pstrName, _T("value")) == 0 ) {
-							pStyle = pstrValue;
+                            CDuiString s = pstrValue;
+                            s.Replace(_T("&quot;"), _T("\""));
+							pStyle = s.GetData();
 						}
 						else if( _tcsicmp(pstrName, _T("shared")) == 0 ) {
 							shared = (_tcsicmp(pstrValue, _T("true")) == 0);
 						}
 					}
-					if( pName ) {
-						pManager->AddStyle(pName, pStyle, shared);
-					}
+                    if(node->HasChildren()) {
+                        // 支持子 item Attr 标签
+                        CDuiString attrs = _T("");
+                        for (auto child = node->GetChild(); child->IsValid(); child = child->GetSibling()) {
+                            pstrClass = child->GetName();
+                            if (_tcsicmp(pstrClass, _T("Attr")) != 0) {
+                                continue;
+                            }
+                            nAttributes = child->GetAttributeCount();
+                            LPCTSTR attrKey = NULL;
+                            LPCTSTR attrValue = NULL;
+                            for( int i = 0; i < nAttributes; i++ ) {
+                                pstrName = child->GetAttributeName(i);
+                                pstrValue = child->GetAttributeValue(i);
+                                if( _tcsicmp(pstrName, _T("key")) == 0 ) {
+                                    attrKey = pstrValue;
+                                }
+                                else if( _tcsicmp(pstrName, _T("value")) == 0 ) {
+                                    attrValue = pstrValue;
+                                }
+                            }
+                            if (attrKey != NULL && attrValue != NULL) {
+                                auto len = _tcslen(attrKey) + _tcslen(attrValue);
+                                CDuiString str;
+                                str.Format(_T("%s=\"%s\" "), attrKey, attrValue);
+                                attrs.Append(str);
+                            }
+                        }
+                        if (attrs.Compare(_T("")) != 0) {
+                            if (pStyle == NULL) {
+                                pStyle = attrs.GetData();
+                            } else {
+                                CDuiString attrStyle = pStyle;
+                                attrStyle += pStyle;
+                                pStyle = attrStyle.GetData();
+                            }
+                        }
+                    }
+                    if( pName ) {
+                        pManager->AddStyle(pName, pStyle, shared);
+                    }
 				}
 				else if (_tcsicmp(pstrClass, _T("Import")) == 0) {
-					nAttributes = node.GetAttributeCount();
+					nAttributes = node->GetAttributeCount();
 					LPCTSTR pstrPath = NULL;
 					for (int i = 0; i < nAttributes; i++) {
-						pstrName = node.GetAttributeName(i);
-						pstrValue = node.GetAttributeValue(i);
+						pstrName = node->GetAttributeName(i);
+						pstrValue = node->GetAttributeValue(i);
 						if (_tcsicmp(pstrName, _T("fontfile")) == 0) {
 							pstrPath = pstrValue;
 						}
@@ -213,13 +250,13 @@ namespace DuiLib {
 				}
 			}
 
-			pstrClass = root.GetName();
+			pstrClass = root->GetName();
 			if( _tcsicmp(pstrClass, _T("Window")) == 0 ) {
 				if( pManager->GetPaintWindow() ) {
-					int nAttributes = root.GetAttributeCount();
+					int nAttributes = root->GetAttributeCount();
 					for( int i = 0; i < nAttributes; i++ ) {
-						pstrName = root.GetAttributeName(i);
-						pstrValue = root.GetAttributeValue(i);
+						pstrName = root->GetAttributeName(i);
+						pstrValue = root->GetAttributeValue(i);
 						if( _tcsicmp(pstrName, _T("size")) == 0 ) {
 							LPTSTR pstr = NULL;
 							int cx = _tcstol(pstrValue, &pstr, 10);  ASSERT(pstr);    
@@ -360,7 +397,7 @@ namespace DuiLib {
 				}
 			}
 		}
-		return _Parse(&root, pParent, pManager);
+		return _Parse(root, pParent, pManager);
 	}
 
 	CMarkup* CDialogBuilder::GetMarkup()
@@ -378,34 +415,34 @@ namespace DuiLib {
 		return m_xml.GetLastErrorLocation(pstrSource, cchMax);
 	}
 
-	CControlUI* CDialogBuilder::_Parse(CMarkupNode* pRoot, CControlUI* pParent, CPaintManagerUI* pManager)
+	CControlUI* CDialogBuilder::_Parse(IMarkupNode* pRoot, CControlUI* pParent, CPaintManagerUI* pManager)
 	{
 		IContainerUI* pContainer = NULL;
 		CControlUI* pReturn = NULL;
-		for( CMarkupNode node = pRoot->GetChild() ; node.IsValid(); node = node.GetSibling() ) {
-			LPCTSTR pstrClass = node.GetName();
+		for(IMarkupNode* node = pRoot->GetChild() ; node->IsValid(); node = node->GetSibling() ) {
+			LPCTSTR pstrClass = node->GetName();
 			if( _tcsicmp(pstrClass, _T("Image")) == 0 || _tcsicmp(pstrClass, _T("Font")) == 0 \
-				|| _tcsicmp(pstrClass, _T("Default")) == 0 || _tcsicmp(pstrClass, _T("Style")) == 0 ) continue;
+				|| _tcsicmp(pstrClass, _T("Default")) == 0 || _tcsicmp(pstrClass, _T("Style")) == 0 \
+                || _tcsicmp(pstrClass, _T("Attr")) == 0) continue;
 
 			CControlUI* pControl = NULL;
 			if (_tcsicmp(pstrClass, _T("Import")) == 0) continue;
 			if( _tcsicmp(pstrClass, _T("Include")) == 0 ) {
-				if( !node.HasAttributes() ) continue;
+				if( !node->HasAttributes() ) continue;
 				int count = 1;
 				LPTSTR pstr = NULL;
 				TCHAR szValue[500] = { 0 };
 				SIZE_T cchLen = lengthof(szValue) - 1;
-				if ( node.GetAttributeValue(_T("count"), szValue, cchLen) )
+				if ( node->GetAttributeValue(_T("count"), szValue, cchLen) )
 					count = _tcstol(szValue, &pstr, 10);
 				cchLen = lengthof(szValue) - 1;
-				if ( !node.GetAttributeValue(_T("source"), szValue, cchLen) ) continue;
+				if ( !node->GetAttributeValue(_T("source"), szValue, cchLen) ) continue;
 				for ( int i = 0; i < count; i++ ) {
 					CDialogBuilder builder;
 					if( m_pstrtype != NULL ) { // 使用资源dll，从资源中读取
 						WORD id = (WORD)_tcstol(szValue, &pstr, 10); 
 						pControl = builder.Create((UINT)id, m_pstrtype, m_pCallback, pManager, pParent);
-					}
-					else {
+					} else {
 						pControl = builder.Create((LPCTSTR)szValue, (UINT)0, m_pCallback, pManager, pParent);
 					}
 				}
@@ -414,8 +451,8 @@ namespace DuiLib {
 			else {
 				CDuiString strClass;
 				strClass.Format(_T("C%sUI"), pstrClass);
-				pControl = dynamic_cast<CControlUI*>(CControlFactory::GetInstance()->CreateControl(strClass));
-
+                // dynamic_cast<CControlUI*>(
+				pControl = CControlFactory::GetInstance()->CreateControl(strClass);
 				// 检查插件
 				if( pControl == NULL ) {
 					CStdPtrArray* pPlugins = CPaintManagerUI::GetPlugins();
@@ -443,8 +480,8 @@ namespace DuiLib {
 			}
 
 			// Add children
-			if( node.HasChildren() ) {
-				_Parse(&node, pControl, pManager);
+			if( node->HasChildren() ) {
+				_Parse(node, pControl, pManager);
 			}
 			// Attach to parent
 			// 因为某些属性和父窗口相关，比如selected，必须先Add到父窗口
@@ -504,11 +541,11 @@ namespace DuiLib {
 				}
 			}
 			// Process attributes
-			if( node.HasAttributes() ) {
+			if( node->HasAttributes() ) {
 				// Set ordinary attributes
-				int nAttributes = node.GetAttributeCount();
+				int nAttributes = node->GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) {
-					pControl->SetAttribute(node.GetAttributeName(i), node.GetAttributeValue(i));
+					pControl->SetAttribute(node->GetAttributeName(i), node->GetAttributeValue(i));
 				}
 			}
 			if( pManager ) {

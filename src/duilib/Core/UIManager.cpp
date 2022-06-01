@@ -472,7 +472,13 @@ namespace DuiLib {
 		m_pStrResourcePath = pStrPath;
 		if( m_pStrResourcePath.IsEmpty() ) return;
 		TCHAR cEnd = m_pStrResourcePath.GetAt(m_pStrResourcePath.GetLength() - 1);
-		if( cEnd != _T('\\') && cEnd != _T('/') ) m_pStrResourcePath += _T('\\');
+		if( cEnd != _T('\\') && cEnd != _T('/') ) {
+#ifdef _WIN32
+            m_pStrResourcePath += _T('\\');
+#else
+            m_pStrResourcePath += _T('/');
+#endif
+        }
 	}
 
 	void CPaintManagerUI::SetResourceZip(LPVOID pVoid, unsigned int len, LPCTSTR password)

@@ -296,17 +296,16 @@ namespace DuiLib
 		CDialogBuilder builder;
 		CDuiString sSkinType = GetSkinType();
 		if (!sSkinType.IsEmpty()) {
-			STRINGorID xml(_ttoi(GetSkinFile().GetData()));
+			STRINGorID xml(_ttoi(GetSkinFile()));
 			pRoot = builder.Create(xml, sSkinType, this, &m_pm);
-		}
-		else {
-			pRoot = builder.Create(GetSkinFile().GetData(), (UINT)0, this, &m_pm);
+		} else {
+			pRoot = builder.Create(GetSkinFile(), (UINT)0, this, &m_pm);
 		}
 		if (pRoot == NULL) {
             TCHAR* err = new TCHAR[100]{0};
             builder.GetLastErrorMessage(err, 100);
             // load resource file fail
-			CDuiString sError = _T("资源加载失败: ");
+			CDuiString sError = _T("load resource file fail: ");
 			sError += GetSkinFile();
             sError += _T("\n");
             sError += err;

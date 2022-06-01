@@ -13,28 +13,64 @@ namespace DuiLib {
 		XMLFILE_ENCODING_ASNI = 2
 	};
 
+    class IMarkupNode {
+        public:
+            virtual bool IsValid() const = 0;
+            virtual IMarkupNode* GetParent() = 0;
+            virtual IMarkupNode* GetSibling() = 0;
+            virtual IMarkupNode* GetChild() = 0;
+            virtual IMarkupNode* GetChild(LPCTSTR pstrName) = 0;
+
+            virtual bool HasSiblings() const = 0;
+            virtual bool HasChildren() const = 0;
+            virtual LPCTSTR GetName() const = 0;
+            virtual LPCTSTR GetValue() const = 0;
+
+            virtual bool HasAttributes() = 0;
+            virtual bool HasAttribute(LPCTSTR pstrName) = 0;
+            virtual int GetAttributeCount() = 0;
+            virtual LPCTSTR GetAttributeName(int iIndex) = 0;
+            virtual LPCTSTR GetAttributeValue(int iIndex) = 0;
+            virtual LPCTSTR GetAttributeValue(LPCTSTR pstrName) = 0;
+            virtual bool GetAttributeValue(int iIndex, LPTSTR pstrValue, SIZE_T cchMax) = 0;
+            virtual bool GetAttributeValue(LPCTSTR pstrName, LPTSTR pstrValue, SIZE_T cchMax) = 0;
+    };
+
+    class IMarkup {
+        public:
+            virtual bool Load(LPCTSTR pstrXML) = 0;
+            virtual bool LoadFromMem(BYTE* pByte, DWORD dwSize, int encoding = XMLFILE_ENCODING_UTF8) = 0;
+            virtual bool LoadFromFile(LPCTSTR pstrFilename, int encoding = XMLFILE_ENCODING_AUTO) = 0;
+            virtual void Release() = 0;
+            virtual bool IsValid() const = 0;
+
+            virtual void SetPreserveWhitespace(bool bPreserve = true) = 0;
+            virtual void GetLastErrorMessage(LPTSTR pstrMessage, SIZE_T cchMax) const = 0;
+            virtual void GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const = 0;
+            virtual IMarkupNode* GetRoot() = 0;
+    };
+
 	class CMarkup;
 	class CMarkupNode;
 
-
-	class UILIB_API CMarkup
+	class UILIB_API CMarkup: public IMarkup
 	{
 		friend class CMarkupNode;
 	public:
 		CMarkup(LPCTSTR pstrXML = NULL);
 		~CMarkup();
 
-		bool Load(LPCTSTR pstrXML);
-		bool LoadFromMem(BYTE* pByte, DWORD dwSize, int encoding = XMLFILE_ENCODING_UTF8);
-		bool LoadFromFile(LPCTSTR pstrFilename, int encoding = XMLFILE_ENCODING_AUTO);
-		void Release();
-		bool IsValid() const;
+		bool Load(LPCTSTR pstrXML) override;
+		bool LoadFromMem(BYTE* pByte, DWORD dwSize, int encoding = XMLFILE_ENCODING_UTF8) override;
+		bool LoadFromFile(LPCTSTR pstrFilename, int encoding = XMLFILE_ENCODING_AUTO) override;
+		void Release() override;
+		bool IsValid() const override;
 
-		void SetPreserveWhitespace(bool bPreserve = true);
-		void GetLastErrorMessage(LPTSTR pstrMessage, SIZE_T cchMax) const;
-		void GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const;
-
-		CMarkupNode GetRoot();
+		void SetPreserveWhitespace(bool bPreserve = true) override;
+		void GetLastErrorMessage(LPTSTR pstrMessage, SIZE_T cchMax) const override;
+		void GetLastErrorLocation(LPTSTR pstrSource, SIZE_T cchMax) const override;
+		IMarkupNode* GetRoot() override;
+		bool _Failed(LPCTSTR pstrError, LPCTSTR pstrLocation = NULL);
 
 	private:
 		typedef struct tagXMLELEMENT
@@ -65,38 +101,37 @@ namespace DuiLib {
 		bool _ParseData(LPTSTR& pstrText, LPTSTR& pstrData, char cEnd);
 		void _ParseMetaChar(LPTSTR& pstrText, LPTSTR& pstrDest);
 		bool _ParseAttributes(LPTSTR& pstrText);
-		bool _Failed(LPCTSTR pstrError, LPCTSTR pstrLocation = NULL);
 	};
 
 
-	class UILIB_API CMarkupNode
+	class UILIB_API CMarkupNode: public IMarkupNode
 	{
 		friend class CMarkup;
-	private:
+	public:
 		CMarkupNode();
 		CMarkupNode(CMarkup* pOwner, int iPos);
 
 	public:
-		bool IsValid() const;
+		bool IsValid() const override;
 
-		CMarkupNode GetParent();
-		CMarkupNode GetSibling();
-		CMarkupNode GetChild();
-		CMarkupNode GetChild(LPCTSTR pstrName);
+		IMarkupNode* GetParent() override;
+		IMarkupNode* GetSibling() override;
+		IMarkupNode* GetChild() override;
+		IMarkupNode* GetChild(LPCTSTR pstrName) override;
 
-		bool HasSiblings() const;
-		bool HasChildren() const;
-		LPCTSTR GetName() const;
-		LPCTSTR GetValue() const;
+		bool HasSiblings() const override;
+		bool HasChildren() const override;
+		LPCTSTR GetName() const override;
+		LPCTSTR GetValue() const override;
 
-		bool HasAttributes();
-		bool HasAttribute(LPCTSTR pstrName);
-		int GetAttributeCount();
-		LPCTSTR GetAttributeName(int iIndex);
-		LPCTSTR GetAttributeValue(int iIndex);
-		LPCTSTR GetAttributeValue(LPCTSTR pstrName);
-		bool GetAttributeValue(int iIndex, LPTSTR pstrValue, SIZE_T cchMax);
-		bool GetAttributeValue(LPCTSTR pstrName, LPTSTR pstrValue, SIZE_T cchMax);
+		bool HasAttributes() override;
+		bool HasAttribute(LPCTSTR pstrName) override;
+		int GetAttributeCount() override;
+		LPCTSTR GetAttributeName(int iIndex) override;
+		LPCTSTR GetAttributeValue(int iIndex) override;
+		LPCTSTR GetAttributeValue(LPCTSTR pstrName) override;
+		bool GetAttributeValue(int iIndex, LPTSTR pstrValue, SIZE_T cchMax) override;
+		bool GetAttributeValue(LPCTSTR pstrName, LPTSTR pstrValue, SIZE_T cchMax) override;
 
 	private:
 		void _MapAttributes();

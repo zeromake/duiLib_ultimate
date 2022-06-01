@@ -14,6 +14,9 @@ namespace DuiLib
 		friend class CDateTimeWnd;
 
 	public:
+#ifdef __MINGW32__
+        using __super = CLabelUI;
+#endif
 		CDateTimeUI();
 		LPCTSTR GetClass() const;
 		LPVOID GetInterface(LPCTSTR pstrName);

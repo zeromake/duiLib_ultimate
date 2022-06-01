@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Window size="640,480" sizebox="4,4,4,4" caption="0,0,0,25" showshadow="true" shadowcorner="2,2,2,2" shadowsize="2" roundcorner="4,4" gdiplustext="false">
+  <Font name="Microsoft YaHei,Source Han Sans SC,sans-serif" size="22" id="2"/>
+  <Font name="Microsoft YaHei,Source Han Sans SC,sans-serif" size="14" default="true" id="1"/>
+  <VerticalLayout>
+    <HorizontalLayout height="25" bkcolor="#FFD6DBE9">
+      <Label padding="10,0,0,0" text="Schürmans€ 测试 title" font="1" />
+    </HorizontalLayout>
+    <VerticalLayout bkcolor="0xFFFFFFFF">
+      <ImageBoxEx name="imagebox_1" imagepath="ad" duration="3000" refresh="16" />
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>

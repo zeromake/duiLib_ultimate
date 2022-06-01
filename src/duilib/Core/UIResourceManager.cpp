@@ -47,9 +47,9 @@ namespace DuiLib {
 		return LoadResource(m_xml.GetRoot());
 	}
 
-	BOOL CResourceManager::LoadResource(CMarkupNode Root)
+	BOOL CResourceManager::LoadResource(IMarkupNode* Root)
 	{
-		if( !Root.IsValid() ) return FALSE;
+		if( !Root->IsValid() ) return FALSE;
 
 		LPCTSTR pstrClass = NULL;
 		int nAttributes = 0;
@@ -60,19 +60,19 @@ namespace DuiLib {
 		//加载图片资源
 		LPCTSTR pstrId = NULL;
 		LPCTSTR pstrPath = NULL;
-		for( CMarkupNode node = Root.GetChild() ; node.IsValid(); node = node.GetSibling() ) 
+		for( IMarkupNode* node = Root->GetChild() ; node->IsValid(); node = node->GetSibling() ) 
 		{
-			pstrClass = node.GetName();
-			CMarkupNode ChildNode = node.GetChild();
-			if(ChildNode.IsValid()) LoadResource(node);
-			else if ((_tcsicmp(pstrClass,_T("Image")) == 0) && node.HasAttributes())
+			pstrClass = node->GetName();
+			IMarkupNode* ChildNode = node->GetChild();
+			if(ChildNode->IsValid()) LoadResource(node);
+			else if ((_tcsicmp(pstrClass,_T("Image")) == 0) && node->HasAttributes())
 			{
 				//加载图片资源
-				nAttributes = node.GetAttributeCount();
+				nAttributes = node->GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
-					pstrName = node.GetAttributeName(i);
-					pstrValue = node.GetAttributeValue(i);
+					pstrName = node->GetAttributeName(i);
+					pstrValue = node->GetAttributeValue(i);
 
 					if( _tcsicmp(pstrName, _T("id")) == 0 ) 
 					{
@@ -88,13 +88,13 @@ namespace DuiLib {
 				if(pstrFind != NULL) continue;
 				m_mImageHashMap.Insert(pstrId, (LPVOID)new CDuiString(pstrPath));
 			}
-			else if( _tcsicmp(pstrClass,_T("Xml")) == 0 && node.HasAttributes()) {
+			else if( _tcsicmp(pstrClass,_T("Xml")) == 0 && node->HasAttributes()) {
 				//加载XML配置文件
-				nAttributes = node.GetAttributeCount();
+				nAttributes = node->GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
-					pstrName = node.GetAttributeName(i);
-					pstrValue = node.GetAttributeValue(i);
+					pstrName = node->GetAttributeName(i);
+					pstrValue = node->GetAttributeValue(i);
 
 					if( _tcsicmp(pstrName, _T("id")) == 0 ) 
 					{
@@ -168,8 +168,8 @@ namespace DuiLib {
 		else {
 			if( !xml.LoadFromFile(pstrXml, XMLFILE_ENCODING_AUTO) ) return FALSE;
 		}
-		CMarkupNode Root = xml.GetRoot();
-		if( !Root.IsValid() ) return FALSE;
+		IMarkupNode* Root = xml.GetRoot();
+		if( !Root->IsValid() ) return FALSE;
 
 		LPCTSTR pstrClass = NULL;
 		int nAttributes = 0;
@@ -180,17 +180,17 @@ namespace DuiLib {
 		//加载图片资源
 		LPCTSTR pstrId = NULL;
 		LPCTSTR pstrText = NULL;
-		for( CMarkupNode node = Root.GetChild() ; node.IsValid(); node = node.GetSibling() ) 
+		for( IMarkupNode* node = Root->GetChild() ; node->IsValid(); node = node->GetSibling() ) 
 		{
-			pstrClass = node.GetName();
-			if ((_tcsicmp(pstrClass,_T("Text")) == 0) && node.HasAttributes())
+			pstrClass = node->GetName();
+			if ((_tcsicmp(pstrClass,_T("Text")) == 0) && node->HasAttributes())
 			{
 				//加载图片资源
-				nAttributes = node.GetAttributeCount();
+				nAttributes = node->GetAttributeCount();
 				for( int i = 0; i < nAttributes; i++ ) 
 				{
-					pstrName = node.GetAttributeName(i);
-					pstrValue = node.GetAttributeValue(i);
+					pstrName = node->GetAttributeName(i);
+					pstrValue = node->GetAttributeValue(i);
 
 					if( _tcsicmp(pstrName, _T("id")) == 0 ) 
 					{

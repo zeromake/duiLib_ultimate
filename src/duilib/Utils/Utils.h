@@ -202,22 +202,20 @@ namespace DuiLib
 		TCHAR m_szBuffer[MAX_LOCAL_STRING_LEN + 1];
 	};
 
-	static std::vector<CDuiString> StrSplit(CDuiString text, CDuiString sp)
-	{
-		std::vector<CDuiString> vResults;
-		int pos = text.Find(sp, 0);
-		while (pos >= 0)
-		{
-			CDuiString t = text.Left(pos);
-			vResults.push_back(t);
-			text = text.Right(text.GetLength() - pos - sp.GetLength());
-			pos = text.Find(sp);
-		}
-		vResults.push_back(text);
-		return vResults;
-	}
-	/////////////////////////////////////////////////////////////////////////////////////
-	//
+    static std::vector<LPCTSTR> StrSplit(LPCTSTR s, LPCTSTR sp) {
+        std::vector<LPCTSTR> vResults;
+        CDuiString text = s;
+        int pos = text.Find(sp, 0);
+        size_t len =  _tcslen(sp);
+        while (pos >= 0) {
+            CDuiString t = text.Left(pos);
+            vResults.push_back(t);
+            text = text.Right(text.GetLength() - pos - len);
+            pos = text.Find(sp);
+        }
+        vResults.push_back(text);
+        return vResults;
+    }
 
 	struct TITEM
 	{
@@ -345,52 +343,6 @@ namespace DuiLib
         return a2w((char*)lpszSrc, CodePage);
 #endif
 	}
-
-	///////////////////////////////////////////////////////////////////////////////////////
-	////
-	//struct TImageInfo;
-	//class CPaintManagerUI;
-	//class UILIB_API CImageString
-	//{
-	//public:
-	//	CImageString();
-	//	CImageString(const CImageString&);
-	//	const CImageString& operator=(const CImageString&);
-	//	virtual ~CImageString();
-
-	//	const CDuiString& GetAttributeString() const;
-	//	void SetAttributeString(LPCTSTR pStrImageAttri);
-	//	void ModifyAttribute(LPCTSTR pStrModify);
-	//	bool LoadImage(CPaintManagerUI* pManager);
-	//	bool IsLoadSuccess();
-
-	//	RECT GetDest() const;
-	//	void SetDest(const RECT &rcDest);
-	//	const TImageInfo* GetImageInfo() const;
-
-	//private:
-	//	void Clone(const CImageString&);
-	//	void Clear();
-	//	void ParseAttribute(LPCTSTR pStrImageAttri);
-
-	//protected:
-	//	friend class CRenderEngine;
-	//	CDuiString	m_sImageAttribute;
-
-	//	CDuiString	m_sImage;
-	//	CDuiString	m_sResType;
-	//	TImageInfo	*m_imageInfo;
-	//	bool		m_bLoadSuccess;
-
-	//	RECT	m_rcDest;
-	//	RECT	m_rcSource;
-	//	RECT	m_rcCorner;
-	//	BYTE	m_bFade;
-	//	DWORD	m_dwMask;
-	//	bool	m_bHole;
-	//	bool	m_bTiledX;
-	//	bool	m_bTiledY;
-	//};
 }// namespace DuiLib
 
 #endif // __UTILS_H__

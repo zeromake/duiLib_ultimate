@@ -12,6 +12,9 @@ namespace DuiLib
 	class CDateTimeWnd : public CWindowWnd
 	{
 	public:
+#ifdef __MINGW32__
+        using __super = CWindowWnd;
+#endif
 		CDateTimeWnd();
 
 		void Init(CDateTimeUI* pOwner);
@@ -317,6 +320,6 @@ namespace DuiLib
 	{
 		if(lstrcmpi(pstrName, _T("showtime")) == 0) SetShowTime(lstrcmpi(pstrValue, _T("true")) == 0);
 		else if(lstrcmpi(pstrName, _T("readonly")) == 0) SetReadOny(lstrcmpi(pstrValue, _T("true")) == 0);
-		else return CLabelUI::SetAttribute(pstrName, pstrValue);
+		else return __super::SetAttribute(pstrName, pstrValue);
 	}
 }

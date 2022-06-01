@@ -181,8 +181,9 @@ namespace DuiLib {
 		bool RemoveCustomAttribute(LPCTSTR pstrName);
 		void RemoveAllCustomAttribute();
 
-		virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
-		CControlUI* ApplyAttributeList(LPCTSTR pstrList);
+        virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue);
+        CControlUI* ApplyAttributeList(LPCTSTR pstrList);
+        CControlUI* ApplyAttributeData(LPCTSTR attr);
 
 		virtual SIZE EstimateSize(SIZE szAvailable);
 		virtual bool Paint(HDC hDC, const RECT& rcPaint, CControlUI* pStopControl = NULL); // 返回要不要继续绘制

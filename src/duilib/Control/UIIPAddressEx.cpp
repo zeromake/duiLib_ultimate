@@ -375,9 +375,7 @@ namespace DuiLib
 
     void CIPAddressExUI::SetIP(LPCTSTR lpIP)
     {
-        CDuiString sIP = lpIP;
-
-        std::vector<CDuiString>vIPs = StrSplit(sIP, _T("."));
+        std::vector<LPCTSTR>vIPs = StrSplit(lpIP, _T("."));
         if (vIPs.size() == 4) {
             m_nFirst = _ttoi(vIPs[0]);
             m_nSecond = _ttoi(vIPs[1]);

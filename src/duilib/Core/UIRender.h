@@ -3,8 +3,13 @@
 
 #pragma once
 
+#include <windows.h>
+
 #ifdef USE_XIMAGE_EFFECT
 class CxImage;
+#endif
+#ifndef UILIB_API
+#define UILIB_API
 #endif
 namespace DuiLib {
 	/////////////////////////////////////////////////////////////////////////////////////
