@@ -1,8 +1,7 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 
 #ifdef _DEBUG
 #include <shlwapi.h>
-#pragma comment(lib, "shlwapi.lib")
 #endif
 
 namespace DuiLib {

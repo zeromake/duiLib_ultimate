@@ -96,6 +96,7 @@ target("duilib_ex")
     add_includedirs("./src/duilib_ex")
     add_includedirs("./3rd/cximage")
     add_includedirs("./3rd/pugixml")
+    add_includedirs("./3rd")
     add_links(
         "gdiplus", -- render core
         "comctl32", -- UIManager
@@ -109,8 +110,8 @@ target("duilib_ex")
         "advapi32", -- UIAppRegistry reg support
         "shell32", -- PaintManagerUI OnDrop support
         "winmm",
-        "msimg32"
-        -- "shlwapi",
+        "msimg32",
+        "shlwapi"
         -- "winmm",
         -- "user32"
     )
@@ -139,6 +140,7 @@ target("hello_ex")
     end
     add_includedirs("./src/duilib_ex")
     add_includedirs("./3rd/pugixml")
+    add_includedirs("./3rd")
     add_files("./demo/hello_ex/main.cpp", "./demo/hello_ex/hello.rc") --"./manifest/dpi.manifest")
     add_deps("duilib_ex")
 
@@ -150,6 +152,7 @@ target("image_box")
         add_defines("_CONSOLE")
     end
     add_includedirs("./src/duilib_ex")
+    add_includedirs("./3rd")
     add_includedirs("./3rd/pugixml")
     add_files("./demo/image_box/main.cpp", "./manifest/dpi.rc")
     add_deps("duilib_ex")
@@ -163,3 +166,15 @@ target("message")
     end
     add_links("user32")
     add_files("./demo/message/main.cpp")
+
+
+
+target("animation")
+    set_kind("binary")
+    add_options("unicode", "utf8", "application")
+    add_defines("WIN32")
+    if (not has_config("application")) then
+        add_defines("_CONSOLE")
+    end
+    add_links("user32", "gdi32")
+    add_files("./demo/animation/main.cpp", "./manifest/dpi.rc")

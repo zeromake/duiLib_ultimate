@@ -1,11 +1,8 @@
-#include "stdafx.h"
 #include "UIImageBoxEx.h"
 #include "../Render/IRender.h"
 #include "../Core/UIDefine.h"
 
-#include "mmsystem.h"
-#include "stb_image.h"
-// #pragma comment( lib,"winmm.lib" )
+#include <mmsystem.h>
 
 namespace DuiLib
 {
@@ -175,15 +172,6 @@ bool CImageBoxExUI::DoPaint(UIRender *pRender, const RECT& rcPaint, CControlUI* 
     return true;
 }
 
-void CImageBoxExUI::DoEvent(TEventUI& event)
-{
-    if( event.Type == UIEVENT_TIMER)
-    {
-        OnTimer((UINT_PTR)event.wParam);
-    }
-    CControlUI::DoEvent(event);
-}
-
 void CImageBoxExUI::SetPos(RECT rc, bool bNeedInvalidate)
 {
     CControlUI::SetPos(rc, bNeedInvalidate);
@@ -310,98 +298,103 @@ void CImageBoxExUI::SetAnimationType(AnimationType iType)
     m_iCurAnimType = iType;
 }
 
-static void CALLBACK TimerProc(HWND hWnd, UINT nMsg, UINT_PTR idEvent, DWORD dwTime)
-{
-    std::map<UINT_PTR, CControlUI *>::iterator it = g_MapTimerID_TO_CImageBoxExUI.find(idEvent);
-    if(it != g_MapTimerID_TO_CImageBoxExUI.end())
-    {
-        CImageBoxExUI *pObject = (CImageBoxExUI *)it->second;
-        pObject->OnTimer(idEvent);
-    }
-}
-
 void CImageBoxExUI::Play()
 {
     m_bPlay = TRUE;
+    auto ins = this;
     //m_pManager->SetTimer(this, DEFAULT_TIMERID, m_nTimerEscape);
-    m_idEventTimer = ::SetTimer(NULL, 0, m_nTimerEscape, TimerProc);
-    g_MapTimerID_TO_CImageBoxExUI[m_idEventTimer] = this;
+    auto composite = rxcpp::observable<>::create<int>([this](rxcpp::subscriber<int> s) {
+        for ( ;; ) {
+            if (!s.is_subscribed()) {
+                break;
+            }
+            if (OnTimer()) {
+                s.on_next(0);
+            }
+            Sleep(m_nTimerEscape);
+        }
+        s.on_completed();
+    })
+    .subscribe_on(rxcpp::observe_on_event_loop())
+    // .subscribe_on(rxcpp::observe_on_new_thread())
+    .subscribe([this](int v) {
+        Invalidate();
+    });
+    m_Composite = &composite;
 }
 
 void CImageBoxExUI::Stop()
 {
     m_bPlay = FALSE;
     //m_pManager->KillTimer(this, DEFAULT_TIMERID);
-    ::KillTimer(NULL, m_idEventTimer);
-    std::map<UINT_PTR, CControlUI *>::iterator it = g_MapTimerID_TO_CImageBoxExUI.find(m_idEventTimer);
-    if(it != g_MapTimerID_TO_CImageBoxExUI.end())
-        g_MapTimerID_TO_CImageBoxExUI.erase(it);
-    m_idEventTimer = 0;
+    if (m_Composite != nullptr) {
+        m_Composite->unsubscribe();
+        m_Composite = nullptr;
+    }
 }
 
-void CImageBoxExUI::OnTimer(UINT_PTR idEvent)
+bool CImageBoxExUI::OnTimer()
 {
-	if(m_idEventTimer != idEvent)
-		return;
-
 	UIRect rcClient = GetPos();
 	if(rcClient.IsRectEmpty())
-		return;
+		return false;
 
-	if(!IsVisible()) return;
+	if(!IsVisible()) return false;
 	
 	// Frame delay toggle.
 	if(m_bIsDelayed)
 	{
 		if(timeGetTime() - m_dwDelayStartTick > (DWORD)m_iRetention)
 			m_bIsDelayed = FALSE;
-		return;
+		return false;
 	}
+    bool flag = false;
 	switch(m_iCurAnimType)
 	{
 	case kAnimationFade:
-		AnimationRender_Alpha(timeGetTime());
+		flag = AnimationRender_Alpha(timeGetTime());
 		break;
 	case kAnimationSlideLeft:
 	case kAnimationSlideRight:
 	case kAnimationSlideTop:
 	case kAnimationSlideBottom:
-		AnimationRender_Slide(timeGetTime());
+		flag = AnimationRender_Slide(timeGetTime());
 		break;
 	case kAnimationBlindLeft:
 	case kAnimationBlindRight:
 	case kAnimationBlindTop:
 	case kAnimationBlindBottom:
-		AnimationRender_Blind(timeGetTime());
+		flag = AnimationRender_Blind(timeGetTime());
 		break;
 	case kAnimationCoverLeft:
 	case kAnimationCoverRight:
 	case kAnimationCoverTop:
 	case kAnimationCoverBottom:
-		AnimationRender_Cover(timeGetTime());
+		flag = AnimationRender_Cover(timeGetTime());
 		break;
 	}
 
 	if(!m_bIsAnimating)
 	{
-		srand(GetTickCount());
+		// srand(GetTickCount());
 		while (TRUE)
 		{
-			int type = rand()%13;
-			if(type > 0)
-			{
-				SetAnimationType(CImageBoxExUI::AnimationType(type));
-				break;
-			}
+			// int type = rand()%13 + 1;
+			int type = 1;
+            SetAnimationType(CImageBoxExUI::AnimationType(type));
+            break;
 		}
 	}
+    return flag;
 }
 
-void CImageBoxExUI::AnimationRender_Alpha(DWORD dwTick)
+bool CImageBoxExUI::AnimationRender_Alpha(DWORD dwTick)
 {
+    // printf("AnimationRender_Alpha\n");
     if(GetSize() == 0)
-        return;
+        return false;
 
+    // printf("AnimationRender_Alpha1\n");
     if (!m_bIsAnimating)
     {
         m_bIsAnimating = TRUE;
@@ -413,10 +406,31 @@ void CImageBoxExUI::AnimationRender_Alpha(DWORD dwTick)
     // DEST
     HDC hOffScreenDC = m_pOffScreenHDC->dc;
     ::SetStretchBltMode(hOffScreenDC, COLORONCOLOR);
+    // HDC pNextImageDC = pNextImage->GetDC();
+    // ::StretchBlt(hOffScreenDC, 0, 0, rcClient.Width(), rcClient.Height(), pNextImageDC, 0, 0, pNextImage->GetWidth(), pNextImage->GetHeight(), SRCCOPY);
+    // pNextImage->ReleaseDC();
     pNextImage->Draw(hOffScreenDC, 0, 0, rcClient.Width(), rcClient.Height());
     // SRC
     double delta = (double)(m_dwAnimStartTick + m_iDuration - min(dwTick, m_dwAnimStartTick + m_iDuration)) / (double)m_iDuration;
     int iAlpha = GetLinearInterpolation(0, 255, delta);
+    // HDC pCurImageDC = pCurImage->GetDC();
+    // BLENDFUNCTION blend;
+    // blend.SourceConstantAlpha = iAlpha;
+    // blend.BlendOp = AC_SRC_OVER;
+    // blend.BlendFlags = 0;
+    // ::AlphaBlend(
+    //     hOffScreenDC,
+    //     0,
+    //     0,
+    //     rcClient.Width(),
+    //     rcClient.Height(),
+    //     pCurImageDC,
+    //     0,
+    //     0,
+    //     pCurImage->GetWidth(),
+    //     pCurImage->GetHeight(),
+    //     blend);
+    // pCurImage->ReleaseDC();
     pCurImage->AlphaBlend(hOffScreenDC, 0, 0, rcClient.Width(), rcClient.Height(),
         0, 0, pCurImage->GetWidth(), pCurImage->GetHeight(), iAlpha);
     // Current frame animation ends.
@@ -428,13 +442,13 @@ void CImageBoxExUI::AnimationRender_Alpha(DWORD dwTick)
         m_bIsAnimating = FALSE;
         m_bIsDelayed = TRUE;
     }
-    Invalidate();
-}    
+    return true;
+}
 
-void CImageBoxExUI::AnimationRender_Slide(DWORD dwTick)
+bool CImageBoxExUI::AnimationRender_Slide(DWORD dwTick)
 {
     if(GetSize() == 0)
-        return;
+        return false;
 
     if (!m_bIsAnimating)
     {
@@ -512,14 +526,14 @@ void CImageBoxExUI::AnimationRender_Slide(DWORD dwTick)
         }
     }
     ::RestoreDC(hOffScreenDC, iMode);
-    Invalidate();
+    return true;
 }
 
 
-void CImageBoxExUI::AnimationRender_Blind(DWORD dwTick)
+bool CImageBoxExUI::AnimationRender_Blind(DWORD dwTick)
 {
     if(GetSize() == 0)
-        return;
+        return false;
 
     if (!m_bIsAnimating)
     {
@@ -622,13 +636,13 @@ void CImageBoxExUI::AnimationRender_Blind(DWORD dwTick)
     }
     imageFit->Destroy();
     imageFit->Release();
-    Invalidate();
+    return true;
 }
 
-void CImageBoxExUI::AnimationRender_Cover(DWORD dwTick)
+bool CImageBoxExUI::AnimationRender_Cover(DWORD dwTick)
 {
     if(GetSize() == 0)
-        return;
+        return false;
 
     if (!m_bIsAnimating)
     {
@@ -702,7 +716,7 @@ void CImageBoxExUI::AnimationRender_Cover(DWORD dwTick)
             m_bIsDelayed = TRUE;
         }
     }
-    Invalidate();
+    return true;
 }
 
 int CImageBoxExUI::GetLinearInterpolation(int x1, int x2, double delta)

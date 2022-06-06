@@ -1,4 +1,4 @@
-// StdAfx.h : include file for standard system include files,
+// stdafx.h : include file for standard system include files,
 //  or project specific include files that are used frequently, but
 //      are changed infrequently
 //
@@ -60,7 +60,7 @@
 #endif
 #define MOUSEEVENTF_FROMTOUCH 0xFF515700
 
-#include "UIlib.h"
+#include "uilib.h"
 
 #include <olectl.h>
 

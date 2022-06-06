@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "IRender.h"
 #include "UIRender_gdi.h"
 #include "UIRender_gdiplus.h"
@@ -624,6 +624,7 @@ namespace DuiLib {
         }
         return m_hDC;
     }
+
     void UIImage::ReleaseDC() const throw()
     {
         HBITMAP hBitmap;
@@ -637,6 +638,7 @@ namespace DuiLib {
             m_hDC = NULL;
         }
     }
+
     bool UIImage::Draw(
             HDC hDestDC,
             int xDest,

@@ -4,7 +4,6 @@
 #pragma once
 #ifdef _USEIMM
 #include <imm.h>
-#pragma comment(lib, "imm32.lib")
 #endif
 
 #ifndef LY_PER_INCH

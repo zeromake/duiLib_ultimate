@@ -1,5 +1,4 @@
-#include "StdAfx.h"
-#pragma comment( lib, "ws2_32.lib" )
+#include "stdafx.h"
 
 DWORD GetLocalIpAddress()   
 {   

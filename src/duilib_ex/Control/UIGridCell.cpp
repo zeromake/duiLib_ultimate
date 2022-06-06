@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIGrid.h"
 #include "UIGridCell.h"
 #include "UIGridRowUI.h"

@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIDateTime.h"
 
 //#include <atlbase.h>

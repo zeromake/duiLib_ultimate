@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include "rxcpp/rx.hpp"
+
 namespace DuiLib
 {
 /** Count of blind piece */
@@ -49,10 +51,10 @@ public:
 
 	virtual void DoInit() override;
 	virtual bool DoPaint(UIRender *pRender, const RECT& rcPaint, CControlUI* pStopControl);
-	virtual void DoEvent(TEventUI& event) override;	
 	virtual void SetPos(RECT rc, bool bNeedInvalidate = true) override;
 	virtual void Move(SIZE szOffset, bool bNeedInvalidate = true) override;
 	virtual void SetAttribute(LPCTSTR pstrName, LPCTSTR pstrValue) override;
+
 	
 	void LoadImageList();
 	
@@ -101,28 +103,27 @@ protected:
 	 * Perform alpha animation. 
 	 * @param dwTick - Current system time tick.
 	 */
-	void	AnimationRender_Alpha(DWORD dwTick);
+	bool	AnimationRender_Alpha(DWORD dwTick);
 
 	/** 
 	 * Perform slide animation.
 	 * @param dwTick - Current system time tick.
 	 */
-	void    AnimationRender_Slide(DWORD dwTick);
+	bool    AnimationRender_Slide(DWORD dwTick);
 
 	/** 
 	 * Perform blind animation.
 	 * @param dwTick - Current system time tick.
 	 */
-	void    AnimationRender_Blind(DWORD dwTick);
+	bool    AnimationRender_Blind(DWORD dwTick);
 
 	/** 
 	 * Perform cover animation.
 	 * @param dwTick - Current system time tick.
 	 */
-	void    AnimationRender_Cover(DWORD dwTick);
-
+	bool    AnimationRender_Cover(DWORD dwTick);
 public:
-	void OnTimer(UINT_PTR idEvent);
+	bool OnTimer();
 protected:
 	CDuiString m_strImagePath;
 	int m_nTimerEscape;
@@ -145,7 +146,7 @@ private:
 	AnimationType	m_iCurAnimType;
 
 	/** Off screen bitmap */
-	HDCImage*             m_pOffScreenHDC;
+	HDCImage*   m_pOffScreenHDC;
 
 	/** Starting tick of current animation */
 	DWORD			m_dwAnimStartTick;
@@ -161,6 +162,9 @@ private:
 
 	/** Play toggle */
 	BOOL			m_bPlay;
+
+
+    rxcpp::composite_subscription* m_Composite;
 };
 
 

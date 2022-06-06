@@ -47,8 +47,8 @@
 //
 
 
-#include "StdAfx.h"
-#include "UIlib.h"
+#include "stdafx.h"
+#include "uilib.h"
 
 BOOL APIENTRY DllMain(HANDLE hModule, DWORD  dwReason, LPVOID /*lpReserved*/)
 {

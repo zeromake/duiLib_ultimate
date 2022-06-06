@@ -6,8 +6,8 @@
     <HorizontalLayout height="25" bkcolor="#FFD6DBE9">
       <Label padding="10,0,0,0" text="Schürmans€ title" font="1" />
     </HorizontalLayout>
-    <HorizontalLayout bkimage="file='../image_box/ad/0.jpg'">
-      <Text text="Schürmans€测试" textcolor="#ffffffff" font="2"/>
+    <HorizontalLayout bkcolor="#FF4D6082">
+      <Text text="Schürmans€测试" padding="15,15,15,15" textcolor="#ffffffff" font="2"/>
     </HorizontalLayout>
   </VerticalLayout>
 </Window>

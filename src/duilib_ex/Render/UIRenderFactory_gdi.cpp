@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIRenderFactory_gdi.h"
 
 #include "UIRender_gdi.h"

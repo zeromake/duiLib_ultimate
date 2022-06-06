@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIComboEx.h"
 #include "UIComboEditWnd.h"
 

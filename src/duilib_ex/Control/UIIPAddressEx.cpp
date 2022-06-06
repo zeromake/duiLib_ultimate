@@ -1,8 +1,6 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include <string>
 #include <Shlwapi.h>
-#pragma comment(lib, "ws2_32.lib")
-#pragma comment(lib, "shlwapi.lib")
 
 namespace DuiLib
 {

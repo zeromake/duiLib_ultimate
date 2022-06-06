@@ -105,7 +105,7 @@
 #include "Control/UIIPAddress.h"
 #include "Control/UIIPAddressEx.h"
 
-#include "Control/UIActiveX.h"
+// #include "Control/UIActiveX.h"
 
 #include "Control/UIMenu.h"
 #include "Control/UIGroupBox.h"

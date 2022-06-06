@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIDateTimeEx.h"
 #include "UIDateTimeExWnd.h"
 

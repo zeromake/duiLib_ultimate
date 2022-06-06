@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "UIRender_gdi.h"
 
 namespace DuiLib {
