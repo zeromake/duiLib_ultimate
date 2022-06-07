@@ -37,7 +37,7 @@ public:
 int uimain(HINSTANCE hInstance, TCHAR* argv[], int argc) {
     ::CoInitialize(NULL);
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(_T("D:\\project\\DuiLib\\skin\\hello\\"));//CPaintManagerUI::GetInstancePath() + _T("D:\\project\\DuiLib\\skin\\hello\\"));
+    CPaintManagerUI::SetResourcePath(_T("D:\\project\\duiLib_ultimate\\skin\\hello\\"));//CPaintManagerUI::GetInstancePath() + _T("D:\\project\\DuiLib\\skin\\hello\\"));
     std::unique_ptr<CFrameWnd> pFrame(new CFrameWnd(argv[1]));
     pFrame->Create(NULL, _T("Hello Demo Window1"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
     pFrame->ShowWindow();
@@ -66,7 +66,6 @@ int APIENTRY _tWinMain(
     LPTSTR lpCmdLine,
     int nCmdShow) {
     int argc = 0;
-    CDuiString s = lpCmdLine;
     auto args = StrSplit(lpCmdLine, _T(" "));
     int argc = args.size();
     TCHAR** argv = new TCHAR*[argc];
