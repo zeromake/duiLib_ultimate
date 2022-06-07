@@ -1,11 +1,12 @@
 #include "UIFlash.h"
 #include "UIActiveX.h"
 
+using namespace DuiLib;
+
 UILIB_API void RegisterControlAx() {
-    auto controlFactory = DuiLib::CControlFactory::GetInstance();
+    auto controlFactory = CControlFactory::GetInstance();
     // ActiveX
-	controlFactory->INNER_REGISTER_DUICONTROL(DuiLib::CActiveXUI);
+	controlFactory->INNER_REGISTER_DUICONTROL(CActiveXUI);
     // Flash
-    controlFactory->INNER_REGISTER_DUICONTROL(DuiLib::CFlashUI);
-    
+    controlFactory->INNER_REGISTER_DUICONTROL(CFlashUI);
 }

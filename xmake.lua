@@ -1,6 +1,6 @@
 add_rules("mode.debug", "mode.release")
 
-local isMingw = false
+local isMingw = true
 
 option("unicode")
     set_default(false)

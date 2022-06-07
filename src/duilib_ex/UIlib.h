@@ -31,6 +31,7 @@
 #include <windows.h>
 #include <windowsx.h>
 #include <commctrl.h>
+#include <stdio.h>
 #include <stddef.h>
 #include <richedit.h>
 #include <tchar.h>

@@ -1,0 +1,4 @@
+https://gcc-mcf.lhmouse.com/ 11.2.1
+https://winlibs.com/ 11.2.0
+https://nuwen.net/mingw.html 11.2.0
+https://sourceforge.net/projects/mingw-w64/ 8.1.0
