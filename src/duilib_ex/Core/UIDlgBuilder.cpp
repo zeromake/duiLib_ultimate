@@ -82,7 +82,7 @@ namespace DuiLib {
 					if( !ImageName.IsEmpty() ) 
 						pManager->AddImage(ImageName.GetData(), pImageResType, mask, false, shared);
 				}
-				else if( _tcsicmp(pstrClass, _T("Font")) == 0 ) 
+				else if( _tcsicmp(pstrClass, _T("Font")) == 0 )
 				{
 					int id				= node.attribute(_T("id")).as_int(-1);
 					LPCTSTR pFontName	= node.attribute(_T("name")).as_string();
@@ -92,11 +92,28 @@ namespace DuiLib {
 					bool italic			= node.attribute(_T("italic")).as_bool();
 					bool defaultfont	= node.attribute(_T("default")).as_bool();
 					bool shared			= node.attribute(_T("shared")).as_bool();
-
 					if( id >= 0 )  {
-						pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
-						if( defaultfont ) {
-                            pManager->SetDefaultFont(pFontName, pManager->GetDPIObj()->Scale(size), bold, underline, italic, shared);
+                        auto arr = StrSplit(pFontName, _T(","));
+                        if (arr.size() > 1) {
+                            for (int index =0; index < arr.size(); index++) {
+                                if (pManager->AddFont(id, arr[index], size, bold, underline, italic, shared) != NULL) {
+                                    if( defaultfont ) {
+                                        pManager->SetDefaultFont(
+                                            arr[index],
+                                            pManager->GetDPIObj()->Scale(size),
+                                            bold,
+                                            underline,
+                                            italic,
+                                            shared);
+                                    }
+                                    break;
+                                }
+                            }
+                        } else {
+                            pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
+                            if( defaultfont ) {
+                                pManager->SetDefaultFont(pFontName, pManager->GetDPIObj()->Scale(size), bold, underline, italic, shared);
+                            }
                         }
 					}
 				}

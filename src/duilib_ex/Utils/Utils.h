@@ -853,6 +853,21 @@ namespace DuiLib
         return a2w((char*)lpszSrc, CodePage);
 #endif
 	}
+
+    static std::vector<LPCTSTR> StrSplit(LPCTSTR s, LPCTSTR sp) {
+        std::vector<LPCTSTR> vResults;
+        CDuiString text = s;
+        int pos = text.Find(sp, 0);
+        size_t len = _tcslen(sp);
+        while (pos >= 0) {
+            auto t = text.Left(pos);
+            vResults.push_back(t);
+            text = text.Right(text.GetLength() - pos - len);
+            pos = text.Find(sp);
+        }
+        vResults.push_back(text);
+        return vResults;
+    }
 }// namespace DuiLib
 
 #endif // __UTILS_H__

@@ -1,6 +1,6 @@
 add_rules("mode.debug", "mode.release")
 
-local isMingw = true
+local isMingw = false
 
 option("unicode")
     set_default(false)
@@ -143,6 +143,9 @@ target("hello_ex")
     add_includedirs("./3rd")
     add_files("./demo/hello_ex/main.cpp", "./demo/hello_ex/hello.rc") --"./manifest/dpi.manifest")
     add_deps("duilib_ex")
+    if (isMingw) then
+        add_ldflags("-static", {force = true})
+    end
 
 target("image_box")
     set_kind("binary")
