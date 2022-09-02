@@ -1,6 +1,8 @@
 add_rules("mode.debug", "mode.release")
 
-local isMingw = false
+local isMingw = true
+
+set_languages("c++2a")
 
 option("unicode")
     set_default(false)
@@ -87,7 +89,6 @@ target("duilib")
     add_deps("cximage")
 
 target("duilib_ex")
-    set_languages("c++20")
     set_kind("static")
     add_options("unicode", "utf8")
     add_defines("WIN32", "UILIB_EXPORTS", "PUGIXML_HEADER_ONLY")

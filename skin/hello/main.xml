@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<Window size="640,480" sizebox="4,4,4,4" caption="0,0,0,25" showshadow="true" shadowcorner="2,2,2,2" shadowsize="2" roundcorner="4,4" gdiplustext="false">
-  <Font name="Microsoft YaHei,Source Han Sans SC,sans-serif" size="14" default="true" id="1"/>
+<Window size="640,480" sizebox="4,4,4,4" caption="0,0,0,35" showshadow="true" shadowcorner="2,2,2,2" shadowsize="2" roundcorner="4,4" gdiplustext="false">
+  <Font name="Microsoft YaHei,Source Han Sans SC,sans-serif" size="14" id="1"/> 
   <Font name="Microsoft YaHei,Source Han Sans SC,sans-serif" size="22" id="2"/>
+  <Default name="Button" bordercolor="#FFFFFFFF" bordersize="1"/>
   <VerticalLayout>
-    <HorizontalLayout height="25" bkcolor="#FFD6DBE9">
-      <Label padding="10,0,0,0" text="Schürmans€ title" />
+    <HorizontalLayout height="35" bkcolor="#FFD6DBE9">
+      <HorizontalLayout>
+        <Label padding="10,5,0,5" text="Schürmans€ title"/>
+      </HorizontalLayout>
+      <VerticalLayout/>
+      <HorizontalLayout childalign="right" vcenter="right">
+        <Button normalimage="url(path:M0 0 M0 5 H10 M10 10)" text="最小"/>
+        <Button normalimage="url(path:M0 0 H10 V10 H0 Z)" text="最大"/>
+        <Button normalimage="url(path:M0 0 L10 10 M10 0 L0 10)" text="关闭"/>
+      </HorizontalLayout>
     </HorizontalLayout>
-    <HorizontalLayout bkcolor="#FF4D6082">
+    <HorizontalLayout bkcolor="#FF4D6082" menu="true">
       <Text text="Schürmans€测试" padding="15,15,15,15" textcolor="#ffffffff" font="2"/>
     </HorizontalLayout>
   </VerticalLayout>

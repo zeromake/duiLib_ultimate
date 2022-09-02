@@ -108,11 +108,17 @@ namespace DuiLib {
 	{
 		int cxFixed = 0;
 		int cyFixed = 0;
+
+        int childPadding = GetManager()->GetDPIObj()->ScaleBack(this->GetChildPadding());
+        int last = GetCount() -1;
 		for( int it = 0; it < GetCount(); it++ ) {
 			CControlUI* pControl = static_cast<CControlUI*>(GetItemAt(it));
 			if( !pControl->IsVisible() ) continue;
 			SIZE sz = pControl->EstimateSize(szAvailable);
 			cyFixed += sz.cy;
+            if (it < last) {
+                cyFixed += childPadding;
+            }
 			if( cxFixed < sz.cx )
 				cxFixed = sz.cx;
 		}

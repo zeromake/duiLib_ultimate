@@ -606,13 +606,13 @@ INT类型(最小值，最大值)：
 		<Attribute name="itemrselected" default="false" type="BOOL" comment="是否支持右键选择)" />
 	</List>
 	<ListHeader parent="HorizontalLayout" notifies="setfocus killfocus timer windowinit(root)" comment="列表头">
-		<Attribute name="name" default="" type="STRING" comment="控件名字，如(testbtn)" />		
+		<Attribute name="name" default="" type="STRING" comment="控件名字，如(testbtn)" />
 		<Attribute name="width" default="0" type="INT" comment="控件预设的宽度，如(100)" />
 		<Attribute name="height" default="0" type="INT" comment="控件预设的高度，如(30)" />
-		<Attribute name="scaleheader" default="false" type="BOOL" comment="每个表头的宽度是否按照百分比来设置" />
+		<Attribute name="scaleheader" default="false" type="BOOL" comment="每个表头的宽度是否按照百分比来设置"/>
 	</ListHeader>
 	<ListHeaderItem parent="Control" notifies="setfocus killfocus timer headerclick windowinit(root)" comment="列表头的项">
-		<Attribute name="name" default="" type="STRING" comment="控件名字，如(testbtn)" />		
+		<Attribute name="name" default="" type="STRING" comment="控件名字，如(testbtn)" />
 		<Attribute name="width" default="0" type="INT" comment="控件预设的宽度，如(100)" />
 		<Attribute name="height" default="0" type="INT" comment="控件预设的高度，如(30)" />
 		<Attribute name="dragable" default="true" type="BOOL" comment="是否可拖动改变大小,如(true)" />

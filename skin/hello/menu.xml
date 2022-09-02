@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window roundcorner="4,4">
+  <Font id="1" name="微软雅黑" size="16" bold="false" />
+  <!-- Menu样式 -->
+  <Menu bkcolor="#FFFFFFFF" childpadding="20" itemfont="1" itemtextpadding="0,10,0,10" itemalign="center">
+    <MenuElement name="test" width="50" text="测试ITME"/>
+    <MenuElement name="test1" width="50" text="测试ITME1"/>
+    <MenuElement name="test2" width="50" text="测试ITME2"/>
+    <MenuElement name="test3" width="50" text="测试ITME3"/>
+    <MenuElement name="test4" width="50" text="测试ITME4"/>
+  </Menu>
+</Window>

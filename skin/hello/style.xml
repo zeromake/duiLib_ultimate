@@ -8,7 +8,7 @@
   </Style>
   <VerticalLayout>
     <HorizontalLayout height="25" bkcolor="#FFD6DBE9">
-      <Label padding="10,0,0,0" text="Schürmans€ title" />
+      <Label padding="10,0,0,0" text="Schürmans€ title"/>
     </HorizontalLayout>
     <HorizontalLayout bkcolor="#FF4D6082">
       <Text text="Schürmans€测试" textcolor="#ffffffff" style="text"/>

@@ -27,19 +27,30 @@ public:
         bHandled = false;
         return 0;
     };
-	void Notify(TNotifyUI& msg){
+
+    void __InitWindow(){}
+
+    void Notify(TNotifyUI& msg){
+        if (msg.sType == DUI_MSGTYPE_MENU) {
+            POINT point = msg.ptMouse;
+            ClientToScreen(m_hWnd, &point);
+            m_pMenu = CMenuWnd::CreateMenu(NULL, _T("menu.xml"), point, &m_pm, &m_MenuInfos);
+            m_pMenu->ResizeMenu();
+        }
         WindowImplBase::Notify(msg);
     };
  private:
     LPCTSTR m_skinFile;
+    CMenuWnd* m_pMenu;
+    CStdStringPtrMap m_MenuInfos;
 };
 
 int uimain(HINSTANCE hInstance, TCHAR* argv[], int argc) {
     ::CoInitialize(NULL);
     CPaintManagerUI::SetInstance(hInstance);
-    CPaintManagerUI::SetResourcePath(_T("D:\\project\\duiLib_ultimate\\skin\\hello\\"));//CPaintManagerUI::GetInstancePath() + _T("D:\\project\\DuiLib\\skin\\hello\\"));
+    CPaintManagerUI::SetResourcePath(_T("D:\\project\\DuiLib\\skin\\hello\\"));//CPaintManagerUI::GetInstancePath() + _T("D:\\project\\DuiLib\\skin\\hello\\"));
     std::unique_ptr<CFrameWnd> pFrame(new CFrameWnd(argv[1]));
-    pFrame->Create(NULL, _T("Hello Demo Window1"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
+    pFrame->Create(NULL, _T("Hello Demo Window1"), UI_WNDSTYLE_FRAME, UI_WNDSTYLE_EX_FRAME);
     pFrame->ShowWindow();
     pFrame->CenterWindow();
     CPaintManagerUI::MessageLoop();
