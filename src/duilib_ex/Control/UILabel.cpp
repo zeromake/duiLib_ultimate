@@ -79,7 +79,9 @@ namespace DuiLib
 		if (IsAutoCalcWidth() || IsAutoCalcHeight()) 
 		{
 			RECT rcText = {0, 0, szAvailable.cx, szAvailable.cy};
-			GetManager()->Render()->DrawText(rcText, m_rcTextPadding, GetText(), m_dwTextColor, m_iFont, DT_CALCRECT | m_uTextStyle);
+            if (GetTextN() > 0) {
+                GetManager()->Render()->DrawText(rcText, m_rcTextPadding, GetText(), m_dwTextColor, m_iFont, DT_CALCRECT | m_uTextStyle);
+            }
 
 			if(IsAutoCalcWidth())
 				m_cxyFixed.cx = rcText.right - rcText.left;
@@ -124,7 +126,7 @@ namespace DuiLib
 		CDuiString sText = GetText();
 		if(sText.IsEmpty()) return;
 
-		RECT rcText = m_rcItem;
+		RECT rcText = GetClientInlinePos();
 		DWORD dwColor = 0;
 		int iFont = -1;
 

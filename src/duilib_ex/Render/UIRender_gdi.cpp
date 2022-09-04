@@ -168,7 +168,7 @@ namespace DuiLib {
 		m_defBrush->CreateFromHBrush((HBRUSH)::GetStockObject(NULL_BRUSH));
 
 		m_defFont = MakeRefPtr<UIFont>(UIGlobal::CreateFont());
-		m_defFont->CreateDefaultFont();
+		m_defFont->CreateDefaultFont(m_pManager);
 
 		m_defPen = MakeRefPtr<UIPen>(UIGlobal::CreatePen());
 		m_defPen->CreatePen(PS_SOLID, 1, RGB(0,0,0));
@@ -1117,7 +1117,9 @@ namespace DuiLib {
 		{
 			::SetBkMode(hDC, TRANSPARENT);
 			::SetTextColor(hDC, RGB(GetBValue(dwTextColor), GetGValue(dwTextColor), GetRValue(dwTextColor)));
-			CStdRefPtr<UIObject> pOldFont = SelectObject(pManager->GetFont(iFont));
+            auto f = pManager->GetFont(iFont);
+			CStdRefPtr<UIObject> pOldFont = SelectObject(f);
+            // _tprintf(_T("font: %s; size: %d; %s\n"), f->GetFontName().GetData(), f->GetSize(), pstrText);
 			::DrawTextW(hDC, a2w(pstrText), -1, &rc, uStyle);
 			SelectObject(pOldFont);
 		}

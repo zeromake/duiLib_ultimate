@@ -134,7 +134,7 @@ namespace DuiLib {
 			m_SharedResInfo.m_dwDefaultSelectedBkColor = 0xFFBAE4FF;
 
 			m_SharedResInfo.m_DefaultFontInfo = MakeRefPtr<UIFont>(UIGlobal::CreateFont());
-			m_SharedResInfo.m_DefaultFontInfo->CreateDefaultFont();		
+		    m_SharedResInfo.m_DefaultFontInfo->CreateDefaultFont(this);
 		}
 
 		m_ResInfo.m_dwDefaultDisabledColor = m_SharedResInfo.m_dwDefaultDisabledColor;
@@ -143,7 +143,7 @@ namespace DuiLib {
 		m_ResInfo.m_dwDefaultLinkHoverFontColor = m_SharedResInfo.m_dwDefaultLinkHoverFontColor;
 		m_ResInfo.m_dwDefaultSelectedBkColor = m_SharedResInfo.m_dwDefaultSelectedBkColor;
 		m_ResInfo.m_DefaultFontInfo = MakeRefPtr<UIFont>(UIGlobal::CreateFont());
-		//m_ResInfo.m_DefaultFontInfo->CreateDefaultFont();		
+		//m_ResInfo.m_DefaultFontInfo->CreateDefaultFont(this);
 
 
 		if( m_hUpdateRectPen == NULL ) {
@@ -2786,7 +2786,6 @@ namespace DuiLib {
 			//如果有定义svg的宽度、高度、填充色，把他们一起放进来作为关键字。
 			sImageName.Format(_T("%s-%d-%d-%08X"), pDrawInfo->sImageName.GetData(), pDrawInfo->width, pDrawInfo->height, pDrawInfo->fillcolor);		
 		}
-
 		const UIImage* data = GetImage(sImageName);
 		if( !data ) {
 			if( AddImageX(pDrawInfo, false, instance) ) {
@@ -2821,10 +2820,8 @@ namespace DuiLib {
 		data->dwMask = pDrawInfo->dwMask;
 
 		if( m_bUseHSL ) data->AdjustHslImage(true, m_H, m_S, m_L);
-		if (data)
-		{
-			if (bShared || m_bForceUseSharedRes)
-			{
+		if (data) {
+			if (bShared || m_bForceUseSharedRes) {
 				UIImage* pOldImageInfo = static_cast<UIImage*>(m_SharedResInfo.m_ImageHash.Find(sImageName));
 				if (pOldImageInfo)
 				{
@@ -2836,18 +2833,14 @@ namespace DuiLib {
 				{
 					data->Release(); 
 				}
-			}
-			else
-			{
+			} else {
 				UIImage* pOldImageInfo = static_cast<UIImage*>(m_ResInfo.m_ImageHash.Find(sImageName));
-				if (pOldImageInfo)
-				{
+				if (pOldImageInfo) {
 					pOldImageInfo->Release(); 
 					m_ResInfo.m_ImageHash.Remove(sImageName);
 				}
 
-				if( !m_ResInfo.m_ImageHash.Insert(sImageName, data) ) 
-				{
+				if(!m_ResInfo.m_ImageHash.Insert(sImageName, data)) {
 					data->Release(); 
 				}
 			}

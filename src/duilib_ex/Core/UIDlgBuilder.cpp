@@ -72,8 +72,10 @@ namespace DuiLib {
 			for( CXmlNodeUI node = root.first_child() ; node; node = node.next_sibling() ) 
 			{
 				pstrClass = node.name();
-				if( _tcsicmp(pstrClass, _T("Image")) == 0 ) 
-				{
+                if(_tcsicmp(pstrClass, _T("Attr")) == 0) {
+                    // attr 仅用于 Style 的属性设置
+                    continue;
+                } else if( _tcsicmp(pstrClass, _T("Image")) == 0 ) {
 					CDuiString ImageName	= node.attribute(_T("name")).as_string();
 					LPCTSTR pImageResType	= node.attribute(_T("restype")).as_string();
 					bool shared				= node.attribute(_T("shared")).as_bool();
@@ -93,14 +95,24 @@ namespace DuiLib {
 					bool defaultfont	= node.attribute(_T("default")).as_bool();
 					bool shared			= node.attribute(_T("shared")).as_bool();
 					if( id >= 0 )  {
-                        auto arr = StrSplit(pFontName, _T(","));
+#ifdef _UNICODE
+                        const static std::wstring sp = L",";
+                        std::wstring n = (TCHAR*)pFontName;
+                        std::vector<std::wstring> arr;
+#else
+                        const static std::string sp = ",";
+                        std::string n = (TCHAR*)pFontName;
+                        std::vector<std::string> arr;
+#endif
+                        splitString(n, arr, sp);
                         if (arr.size() > 1) {
                             for (int index =0; index < arr.size(); index++) {
-                                if (pManager->AddFont(id, arr[index], size, bold, underline, italic, shared) != NULL) {
+                                LPCTSTR f = (LPCTSTR)arr[index].c_str();
+                                if (pManager->AddFont(id, f, size, bold, underline, italic, shared) != NULL) {
                                     if( defaultfont ) {
                                         pManager->SetDefaultFont(
-                                            arr[index],
-                                            pManager->GetDPIObj()->Scale(size),
+                                            f,
+                                            size,
                                             bold,
                                             underline,
                                             italic,
@@ -111,8 +123,8 @@ namespace DuiLib {
                             }
                         } else {
                             pManager->AddFont(id, pFontName, size, bold, underline, italic, shared);
-                            if( defaultfont ) {
-                                pManager->SetDefaultFont(pFontName, pManager->GetDPIObj()->Scale(size), bold, underline, italic, shared);
+                            if(defaultfont) {
+                                pManager->SetDefaultFont(pFontName, size, bold, underline, italic, shared);
                             }
                         }
 					}
@@ -132,10 +144,34 @@ namespace DuiLib {
 					CDuiString pName	= node.attribute(_T("name")).as_string();
 					LPCTSTR pStyle	= node.attribute(_T("value")).as_string();
 					bool shared		= node.attribute(_T("shared")).as_bool();
+                    CDuiString attrs = _T("");
 
-					if( !pName.IsEmpty() ) {
-						pManager->AddStyle(pName.GetData(), pStyle, shared);
-					}
+                    if(!node.first_child().empty()) {
+                        // 支持子 item Attr 标签
+                        for (auto child = node.first_child(); !child.empty(); child = child.next_sibling()) {
+                            pstrClass = child.name();
+                            if (_tcsicmp(pstrClass, _T("Attr")) != 0) {
+                                continue;
+                            }
+                            LPCTSTR attrKey = child.attribute(_T("key")).as_string();
+                            LPCTSTR attrValue = child.attribute(_T("value")).as_string();
+                            if (attrKey != NULL && attrValue != NULL) {
+                                auto len = _tcslen(attrKey) + _tcslen(attrValue);
+                                CDuiString str;
+                                str.Format(_T("%s=\"%s\" "), attrKey, attrValue);
+                                attrs.Append(str);
+                            }
+                        }
+                        if (attrs.Compare(_T("")) != 0) {
+                            if (pStyle != NULL) {
+                                attrs += pStyle;
+                            }
+                            pStyle = attrs.GetData();
+                        }
+                    }
+                    if(pName) {
+                        pManager->AddStyle(pName, pStyle, shared);
+                    }
 				}
 				else if (_tcsicmp(pstrClass, _T("Import")) == 0) {
 					CDuiString strPath = node.attribute(_T("fontfile")).as_string();
@@ -457,9 +493,14 @@ namespace DuiLib {
 			if( pManager ) 
 			{
 				pControl->SetManager(pManager, NULL, false);
+#ifndef NDEBUG
+				LPCTSTR attrs = pManager->GetDefaultAttributeList(_T("*"));
+				if(attrs) {
+					pControl->ApplyAttributeList(attrs);
+				}
+#endif
 				LPCTSTR pDefaultAttributes = pManager->GetDefaultAttributeList(pstrClass);
-				if( pDefaultAttributes ) 
-				{
+				if(pDefaultAttributes) {
 					pControl->ApplyAttributeList(pDefaultAttributes);
 				}
 			}

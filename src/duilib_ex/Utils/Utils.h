@@ -5,6 +5,7 @@
 #include "OAIdl.h"
 #include <vector>
 #include <map>
+#include <iostream>
 
 #include "DuiString.h"
 namespace DuiLib
@@ -854,19 +855,22 @@ namespace DuiLib
 #endif
 	}
 
-    static std::vector<LPCTSTR> StrSplit(LPCTSTR s, LPCTSTR sp) {
-        std::vector<LPCTSTR> vResults;
-        CDuiString text = s;
-        int pos = text.Find(sp, 0);
-        size_t len = _tcslen(sp);
-        while (pos >= 0) {
-            auto t = text.Left(pos);
-            vResults.push_back(t);
-            text = text.Right(text.GetLength() - pos - len);
-            pos = text.Find(sp);
+    template <typename T> static void splitString(const T& s, std::vector<T>& tokens, const T& delimiters) {
+        size_t lastPos = s.find_first_not_of(delimiters, 0);
+        size_t pos = s.find_first_of(delimiters, lastPos);
+        while (T::npos != pos || T::npos != lastPos) {
+            tokens.push_back(s.substr(lastPos, pos - lastPos));
+            lastPos = s.find_first_not_of(delimiters, pos);
+            pos = s.find_first_of(delimiters, lastPos);
         }
-        vResults.push_back(text);
-        return vResults;
+    }
+
+    template <typename T, typename F> static T dec2hex(unsigned long i) {
+        F ioss;
+        T s_temp;
+        ioss << std::hex << i;
+        ioss >> s_temp;
+        return s_temp;
     }
 }// namespace DuiLib
 

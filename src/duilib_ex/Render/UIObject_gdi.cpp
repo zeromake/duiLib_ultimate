@@ -482,12 +482,11 @@ namespace DuiLib {
 		LPBYTE pImage = NULL;
 		float dpi = 96.0f;
 		float scale = 1.0f;
-		if(pManager)
-		{
+		if (pManager) {
 			scale = (pManager->GetDPIObj()->GetScale() * 1.0)/100;
 		}
 		//SVG
-		NSVGimage* svg = nsvgParse((LPSTR)(LPVOID)buffer, "px", (float)dpi);
+		NSVGimage* svg = nsvgParse((LPSTR)(LPVOID)buffer, "px", (float)dpi * scale);
 		if (svg == NULL) 
 		{
 			return NULL;
@@ -514,25 +513,15 @@ namespace DuiLib {
 		}
 
 		//如果指定长宽，则使用当前的长宽比例，否则使用dpi适配
-		if(hope_width > 0 && hope_height > 0)
-		{
+		if(hope_width > 0 && hope_height > 0) {
 			out_width = hope_width;
-			scale = hope_width * 1.0 / svg->width;
+			scale = hope_width * 1.0 / svg->width * scale;
 			out_height = svg->height * scale;
-			if (svg->height * scale > out_height)
-			{
-				scale = out_height * 1.0 / svg->height;
-				out_width = svg->width * scale;
-			}
-		}
-		else
-		{
-			if(pManager)
-			{
-				out_width = pManager->GetDPIObj()->Scale(out_width);
-				out_height = pManager->GetDPIObj()->Scale(out_height);
-			}
-		}
+			out_width = svg->width * scale;
+		} else if(pManager) {
+            out_width = pManager->GetDPIObj()->Scale(out_width);
+            out_height = pManager->GetDPIObj()->Scale(out_height);
+        }
 
 		NSVGrasterizer* rast = nsvgCreateRasterizer();
 		if (rast == NULL)
@@ -644,16 +633,29 @@ namespace DuiLib {
 	BOOL UIImage_gdi::LoadImage(const TDrawInfo *pDrawInfo, CPaintManagerUI* pManager, HINSTANCE instance)
 	{
 		//是不是资源ID号
-		if( _ttoi(pDrawInfo->sResType) != 0 ) 
-		{
+        if (pDrawInfo->sResType == IMAGE_URL_RES_TYPE) {
+            CDuiString svgSource = _T("<?xml version=\"1.0\" encoding=\"utf-8\"?><svg viewBox=\"0 0 10 10\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"");
+            std::string _pathSource = (char *)pDrawInfo->sImageName.GetData();
+            _pathSource = _pathSource.substr(16, _pathSource.length() - 16);
+            CDuiString pathSource = CDuiString((LPCTSTR)_pathSource.c_str());
+            svgSource.Append(pathSource);
+            svgSource.Append(_T("\" stroke=\"#"));
+#ifdef UNICODE
+            CDuiString stroke = (TCHAR*)dec2hex<std::wstring, std::wstringstream>(pDrawInfo->strokeColor).c_str();
+#else
+            CDuiString stroke = (TCHAR*)dec2hex<std::string, std::stringstream>(pDrawInfo->strokeColor).c_str();
+#endif
+            svgSource.Append(stroke);
+            svgSource.Append(_T("\" stroke-width=\""));
+            svgSource.Append((TCHAR*)std::to_string(pDrawInfo->strokeWidth).c_str());
+            svgSource.Append(_T("\"/></svg>"));
+            return LoadImageFromMemory((LPBYTE)svgSource.GetData(), svgSource.GetLength(), pDrawInfo->dwMask, pDrawInfo->width, pDrawInfo->height, pDrawInfo->fillcolor, pManager);
+        } else if( _ttoi(pDrawInfo->sResType) != 0 ) {
 			CUIFile f;
 			if(!f.LoadFile(pDrawInfo->sImageName.GetData(), pDrawInfo->sResType, instance)) 
 				return FALSE;
-
 			return LoadImageFromMemory(f.GetData(), f.GetSize(), pDrawInfo->dwMask, pDrawInfo->width, pDrawInfo->height, pDrawInfo->fillcolor, pManager);
-		}
-		else
-		{
+		} else {
 			//从Res.xml文件中读取，做资源替换。
 			CDuiString sStrPath = CResourceManager::GetInstance()->GetImagePath(pDrawInfo->sImageName);
 			if(sStrPath.IsEmpty())

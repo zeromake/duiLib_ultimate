@@ -931,6 +931,7 @@ namespace DuiLib
 		if( !::IntersectRect(&rcTemp, &rcPaint, &m_rcItem) ) return true;
 
 		UIClip clip;
+
 		clip.GenerateClip(pRender, rcTemp);
 		CControlUI::DoPaint(pRender, rcPaint, pStopControl);
 

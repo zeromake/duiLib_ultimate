@@ -550,9 +550,12 @@ namespace DuiLib {
 		Invalidate();
 	}
 
+
+
 	bool CControlUI::DrawImage(UIRender *pRender, LPCTSTR pStrImage, LPCTSTR pStrModify)
 	{
-		return pRender->DrawImageString(m_rcItem, m_rcPaint, pStrImage, pStrModify, m_instance);
+        RECT rc = GetClientInlinePos();
+		return pRender->DrawImageString(rc, m_rcPaint, pStrImage, pStrModify, m_instance);
 	}
 
 	const RECT& CControlUI::GetPos() const
@@ -578,6 +581,20 @@ namespace DuiLib {
 	{
 		return m_rcItem;
 	}
+
+    
+
+	RECT CControlUI::GetClientInlinePos() const 
+	{
+        RECT rc;
+        RECT rcInlinePadding = GetInlinePadding();
+        rc.top = m_rcItem.top + rcInlinePadding.top;
+        rc.bottom = m_rcItem.bottom - rcInlinePadding.bottom;
+        rc.left = m_rcItem.left + rcInlinePadding.left;
+        rc.right = m_rcItem.right - rcInlinePadding.right;
+		return rc;
+	}
+
 	void CControlUI::SetPos(RECT rc, bool bNeedInvalidate)
 	{
 		if( rc.right < rc.left ) rc.right = rc.left;
@@ -658,6 +675,17 @@ namespace DuiLib {
 		m_rcPadding = rcPadding;
 		NeedParentUpdate();
 	}
+
+	void CControlUI::SetInlinePadding(RECT rcPadding)
+	{
+		m_rcInlinePadding = rcPadding;
+		NeedParentUpdate();
+	}
+
+    RECT CControlUI::GetInlinePadding() const {
+		if(m_pManager != NULL) return m_pManager->GetDPIObj()->Scale(m_rcInlinePadding);
+		return m_rcInlinePadding;
+    }
 
 	SIZE CControlUI::GetFixedXY() const
 	{
@@ -1536,6 +1564,15 @@ namespace DuiLib {
 			rcPadding.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
 			SetPadding(rcPadding);
 		}
+		else if( _tcsicmp(pstrName, _T("inline-padding")) == 0 ) {
+			RECT rcPadding = { 0 };
+			LPTSTR pstr = NULL;
+			rcPadding.left = _tcstol(pstrValue, &pstr, 10);  ASSERT(pstr);    
+			rcPadding.top = _tcstol(pstr + 1, &pstr, 10);    ASSERT(pstr);    
+			rcPadding.right = _tcstol(pstr + 1, &pstr, 10);  ASSERT(pstr);    
+			rcPadding.bottom = _tcstol(pstr + 1, &pstr, 10); ASSERT(pstr);    
+			SetInlinePadding(rcPadding);
+		}
 		else if( _tcsicmp(pstrName, _T("gradient")) == 0 ) 
 		{
 			bool bVer = (_tcsicmp(_T("hor"), pstrValue) != 0);
@@ -1873,7 +1910,7 @@ namespace DuiLib {
 
 	bool CControlUI::DoPaint(UIRender *pRender, const RECT& rcPaint, CControlUI* pStopControl)
 	{
-		// 绘制循序：背景颜色->背景图->状态图->文本->边框
+		// 绘制循序：背景颜色->背景图->状态图->前景色->文本->边框
 		SIZE cxyBorderRound;
 		RECT rcBorderSize;
 		if (m_pManager) {
@@ -1937,10 +1974,10 @@ namespace DuiLib {
 			dwColor = GetBkColor();
 
 		if(dwColor == 0) return;
-		pRender->DrawBackColor(m_rcItem, GetBorderRound(), 
-			GetAdjustColor(dwColor), 
-			GetAdjustColor(GetBkColor2()), 
-			GetAdjustColor(GetBkColor3()), 
+        pRender->DrawBackColor(m_rcItem, GetBorderRound(),
+			GetAdjustColor(dwColor),
+			GetAdjustColor(GetBkColor2()),
+			GetAdjustColor(GetBkColor3()),
 			GetGradient());
 	}
 
@@ -1997,7 +2034,7 @@ namespace DuiLib {
 	{
 		if(m_dwForeColor == 0) 
 			return;
-		pRender->DrawColor(m_rcItem, GetBorderRound(), GetAdjustColor(m_dwForeColor));
+		pRender->DrawColor(GetClientInlinePos(), GetBorderRound(), GetAdjustColor(m_dwForeColor));
 	}
 	
 	void CControlUI::PaintForeImage(UIRender *pRender)

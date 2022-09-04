@@ -1,6 +1,6 @@
 add_rules("mode.debug", "mode.release")
 
-local isMingw = true
+local isMingw = false
 
 set_languages("c++2a")
 

@@ -132,15 +132,24 @@ namespace DuiLib {
 					else if( sItem == _T("width") ) {
 						width = _ttoi(sValue);
 						width = paintManager->GetDPIObj()->Scale(width);
-					}
-					else if( sItem == _T("height") ) {
+					} else if( sItem == _T("height") ) {
 						height = _ttoi(sValue);
 						height = paintManager->GetDPIObj()->Scale(height);
-					}
-					else if( sItem == _T("fillcolor") ) {
+					} else if( sItem == _T("fillcolor") ) {
 						if( sValue[0] == _T('#')) fillcolor = _tcstoul(sValue.GetData() + 1, &pstr, 16);
 						else fillcolor = _tcstoul(sValue.GetData(), &pstr, 16);
-					}
+					} else if( sItem == _T("stroke-color") ) {
+						if( sValue[0] == _T('#')) strokeColor = _tcstoul(sValue.GetData() + 1, &pstr, 16);
+						else strokeColor = _tcstoul(sValue.GetData(), &pstr, 16);
+					} else if( sItem == _T("stroke-width") ) {
+						strokeWidth = _ttoi(sValue);
+						strokeWidth = paintManager->GetDPIObj()->Scale(strokeWidth);
+					} else if (sItem == _T("viewBox")) {
+                        viewBox = sValue;
+                    } else if (sItem == _T("url")) {
+                        sResType = IMAGE_URL_RES_TYPE;
+                        sImageName = sValue;
+                    }
 				}
 				if( *pStrImage++ != _T(' ') ) break;
 			}
@@ -186,12 +195,15 @@ namespace DuiLib {
 		width = 0;
 		height = 0;
 		fillcolor = 0;
+        strokeColor = 0;
+        strokeWidth = 1;
+        viewBox = _T("0,0,10,10");
 	}
 
 	//////////////////////////////////////////////////////////////////////////
 	//
 	//
-	BOOL UIFont::CreateDefaultFont()
+	BOOL UIFont::CreateDefaultFont(CPaintManagerUI *pManager)
 	{
 		DeleteObject();
 
@@ -204,7 +216,7 @@ namespace DuiLib {
 		bUnderline = (lf.lfUnderline == TRUE);
 		bItalic = (lf.lfItalic == TRUE);
 
-		return _buildFont(NULL);
+		return _buildFont(pManager);
 	}
 
 	BOOL UIFont::CreateFont(CPaintManagerUI *pManager, int id, LPCTSTR sFontName, int iSize, bool bBold, bool bUnderline, bool bItalic, bool bDefault, bool bShared)
@@ -285,7 +297,7 @@ namespace DuiLib {
 	void UIClip::GenerateClip(UIRender *pRender, RECT rc)
 	{
 		RECT rcClip = { 0 };
-		::GetClipBox(pRender->GetDC(), &rcClip);
+        ::GetClipBox(pRender->GetDC(), &rcClip);
 		m_hOldRgn = ::CreateRectRgnIndirect(&rcClip);
 		m_hRgn = ::CreateRectRgnIndirect(&rc);
 		::ExtSelectClipRgn(pRender->GetDC(), m_hRgn, RGN_AND);
@@ -524,7 +536,7 @@ namespace DuiLib {
 		//调整source
 
 		const UIImage* data = pManager->GetImageExX(pDrawInfo, instance);
-		if( !data ) return false;    
+		if( !data ) return false;
 
 		RECT rcSource = pDrawInfo->rcSource;
 		if( rcSource.left == 0 && rcSource.right == 0 && rcSource.top == 0 && rcSource.bottom == 0 ) 
@@ -546,7 +558,14 @@ namespace DuiLib {
 	bool UIRender::DrawImageString(const RECT& rcItem, const RECT& rcPaint, LPCTSTR pStrImage, LPCTSTR pStrModify, HINSTANCE instance)
 	{
 		if ( !GetManager() ) return false;
-
+        CDuiString imageStr = pStrImage;
+        if (imageStr.Find(_T("width")) == -1) {
+            imageStr.AppendFormat(_T(" width='%d'"), m_pManager->GetDPIObj()->ScaleBack(rcItem.right - rcItem.left));
+        }
+        if (imageStr.Find(_T("height")) == -1) {
+            imageStr.AppendFormat(_T(" height='%d'"), m_pManager->GetDPIObj()->ScaleBack(rcItem.bottom - rcItem.top));
+        }
+        pStrImage = imageStr.GetData();
 		//根据这两参数pStrImage, pStrModify，找到之前已经解析好的pDrawInfo, 找不到就新建一个。
 		const TDrawInfo* pDrawInfo = m_pManager->GetDrawInfo(pStrImage, pStrModify);
 		return DrawImageInfo(rcItem, rcPaint, pDrawInfo, instance);

@@ -36,6 +36,7 @@ namespace DuiLib {
         bool IsRectNull() const throw();
     };
     class CPaintManagerUI;
+    const static CDuiString IMAGE_URL_RES_TYPE = _T("IMAGE_URL");
 	typedef struct UILIB_API tagTDrawInfo
 	{
 		tagTDrawInfo();
@@ -63,6 +64,9 @@ namespace DuiLib {
 		int width;				//SVG的宽度
 		int height;				//SVG的高度
 		DWORD fillcolor;		//SVG的填充颜色
+        DWORD strokeColor;
+        int strokeWidth;
+        CDuiString viewBox;
 	} TDrawInfo;
 
 	/////////////////////////////////////////////////////////////////////////////////////
@@ -116,7 +120,7 @@ namespace DuiLib {
 		virtual HFONT GetHFont(CPaintManagerUI *pManager) = 0;
 
 		//构造默认字体
-		BOOL CreateDefaultFont();
+		BOOL CreateDefaultFont(CPaintManagerUI *pManager);
 
 		//从参数构造字体
 		BOOL CreateFont(CPaintManagerUI *pManager, int id, LPCTSTR sFontName, int iSize, 

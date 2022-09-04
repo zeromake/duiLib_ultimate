@@ -293,15 +293,15 @@ namespace DuiLib
 		styleValue &= ~WS_CAPTION;
 		::SetWindowLong(*this, GWL_STYLE, styleValue | WS_CLIPSIBLINGS | WS_CLIPCHILDREN);
 
-		// 关联UI管理器
-		m_pm.Init(m_hWnd, GetManagerName());
-		// 注册PreMessage回调
-		m_pm.AddPreMessageFilter(this);
         // 初始化 dpi
         auto scaleDpi = CDPI::GetMainMonitorDPI();
         if (scaleDpi > 96) {
             m_pm.GetDPIObj()->SetScale(scaleDpi);
         }
+		// 关联UI管理器
+		m_pm.Init(m_hWnd, GetManagerName());
+		// 注册PreMessage回调
+		m_pm.AddPreMessageFilter(this);
 		// 创建主窗口
 		CControlUI* pRoot=NULL;
 		CDialogBuilder builder;
