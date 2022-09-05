@@ -139,6 +139,7 @@ target("hello_ex")
     set_kind("binary")
     add_options("unicode", "utf8", "application")
     add_defines("WIN32", "UILIB_EXPORTS")
+    add_defines("SKIN_DIR=".."\""..string.gsub(path.absolute(path.join(os.scriptdir(), "skin/hello")), "\\", "\\\\").."\"")
     if (not has_config("application")) then
         add_defines("_CONSOLE")
     end

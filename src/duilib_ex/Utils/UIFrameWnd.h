@@ -10,7 +10,7 @@ class UILIB_API CUIFrameWnd : public WindowImplBase, public CUIFrmBase
 {
 public:
 #ifdef __MINGW32__
-        using __super = WindowImplBase;
+    using __super = WindowImplBase;
 #endif
 	CUIFrameWnd(void);
 	virtual ~CUIFrameWnd(void);
@@ -24,7 +24,7 @@ public:
 	void AttachVirtualForm(CUIForm *pForm);
 	void DetachVirtualForm(CUIForm *pForm);
 
-	void ShowFullScreen(); //È«ÆÁÏÔÊ¾
+	void ShowFullScreen(); // 全屏显示
 public:
 	virtual void InitWindow(){}
 	virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam);
