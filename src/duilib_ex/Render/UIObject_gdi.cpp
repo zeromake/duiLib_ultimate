@@ -635,21 +635,16 @@ namespace DuiLib {
 		//是不是资源ID号
         if (pDrawInfo->sResType == IMAGE_URL_RES_TYPE) {
             CDuiString svgSource = _T("<?xml version=\"1.0\" encoding=\"utf-8\"?><svg viewBox=\"0 0 10 10\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"");
-            std::string _pathSource = (char *)pDrawInfo->sImageName.GetData();
-            _pathSource = _pathSource.substr(16, _pathSource.length() - 16);
+            _tstring _pathSource = (TCHAR*)pDrawInfo->sImageName.GetData();
+            _pathSource = _pathSource.substr(_pathSource.find_first_of(_T(','))+1);
             CDuiString pathSource = CDuiString((LPCTSTR)_pathSource.c_str());
             svgSource.Append(pathSource);
-            svgSource.Append(_T("\" stroke=\"#"));
-#ifdef UNICODE
-            CDuiString stroke = (TCHAR*)dec2hex<std::wstring, std::wstringstream>(pDrawInfo->strokeColor).c_str();
-#else
-            CDuiString stroke = (TCHAR*)dec2hex<std::string, std::stringstream>(pDrawInfo->strokeColor).c_str();
-#endif
-            svgSource.Append(stroke);
-            svgSource.Append(_T("\" stroke-width=\""));
-            svgSource.Append((TCHAR*)std::to_string(pDrawInfo->strokeWidth).c_str());
+            DWORD strokeColor = pDrawInfo->strokeColor;
+            svgSource.AppendFormat(_T("\" stroke=\"#%06x"), strokeColor);
+            svgSource.AppendFormat(_T("\" stroke-width=\"%d"), pDrawInfo->strokeWidth);
             svgSource.Append(_T("\"/></svg>"));
-            return LoadImageFromMemory((LPBYTE)svgSource.GetData(), svgSource.GetLength(), pDrawInfo->dwMask, pDrawInfo->width, pDrawInfo->height, pDrawInfo->fillcolor, pManager);
+            char* source = w2a(svgSource.GetData());
+            return LoadImageFromMemory((LPBYTE)source, strlen(source), pDrawInfo->dwMask, pDrawInfo->width, pDrawInfo->height, pDrawInfo->fillcolor, pManager);
         } else if( _ttoi(pDrawInfo->sResType) != 0 ) {
 			CUIFile f;
 			if(!f.LoadFile(pDrawInfo->sImageName.GetData(), pDrawInfo->sResType, instance)) 

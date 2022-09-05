@@ -929,6 +929,14 @@ namespace DuiLib {
 		m_bMenuUsed = bMenuUsed;
 	}
 
+    CDuiString CControlUI::GetContextInlineMenu() const {
+        return m_bInlineMenu;
+    }
+
+	void CControlUI::SetContextInlineMenu(CDuiString bInlineMenu){
+        m_bInlineMenu = bInlineMenu;
+    }
+
 	CDuiString CControlUI::GetUserData()
 	{
 		return m_sUserData;
@@ -1171,7 +1179,12 @@ namespace DuiLib {
 		}
 		if( event.Type == UIEVENT_CONTEXTMENU )
 		{
-			if( IsContextMenuUsed() ) {
+            if (!GetContextInlineMenu().IsEmpty()) {
+                POINT point = event.ptMouse;
+                ClientToScreen(GetManager()->GetPaintWindow(), &point);
+                auto menu = CMenuWnd::CreateMenu(NULL, GetContextInlineMenu().GetData(), point, GetManager(), &menuInfo);
+            }
+			if(IsContextMenuUsed()) {
 				m_pManager->SendNotify(this, DUI_MSGTYPE_MENU, event.wParam, event.lParam);
 				return;
 			}
@@ -1702,6 +1715,7 @@ namespace DuiLib {
 		else if( _tcsicmp(pstrName, _T("float")) == 0 ) SetFloat(_tcsicmp(pstrValue, _T("true")) == 0);
 		else if( _tcsicmp(pstrName, _T("shortcut")) == 0 ) SetShortcut(pstrValue[0]);
 		else if( _tcsicmp(pstrName, _T("menu")) == 0 ) SetContextMenuUsed(_tcsicmp(pstrValue, _T("true")) == 0);
+		else if( _tcsicmp(pstrName, _T("inline-menu")) == 0 ) SetContextInlineMenu(pstrValue);
 		else if( _tcsicmp(pstrName, _T("cursor")) == 0 && pstrValue) {
 			if( _tcsicmp(pstrValue, _T("arrow")) == 0 )			SetCursor(DUI_ARROW);
 			else if( _tcsicmp(pstrValue, _T("ibeam")) == 0 )	SetCursor(DUI_IBEAM);

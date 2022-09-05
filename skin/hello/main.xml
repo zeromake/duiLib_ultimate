@@ -3,27 +3,27 @@
   <Font name="宋体,Microsoft YaHei,Source Han Sans SC,sans-serif" size="14" id="1" default="true"/> 
   <Font name="宋体,Microsoft YaHei,Source Han Sans SC,sans-serif" size="22" id="2"/>
   <Style name="icon-button">
-    <Attr key="inline-padding" value="15,10,15,10"/>
+    <Attr key="inline-padding" value="12,7,12,7"/>
     <Attr key="hotbkcolor" value="#ffcfcfcf"/>
   </Style>
   <Style name="debug-border">
     <Attr key="bordersize" value="1"/>
     <Attr key="bordercolor" value="#ffe81123"/>
   </Style>
-  <Default name="*" value="debug-border"></Default>
+  <!-- <Default name="*" value="debug-border"></Default> -->
   <VerticalLayout name="window">
-    <HorizontalLayout name="toobar" height="35" bkcolor="#FFD6DBE9">
+    <HorizontalLayout name="toobar" height="25" bkcolor="#FFD6DBE9">
       <HorizontalLayout name="window-title">
         <Label inline-padding="10,5,0,5" text="Schürmans€ title"/>
       </HorizontalLayout>
       <VerticalLayout/>
-      <HorizontalLayout name="window-button" width="135">
+      <HorizontalLayout name="window-button" width="105">
         <Button style="icon-button" normalimage="url='data:image/svg+xml;path,M0 0 M0 5 H10 M10 10'"/>
         <Button style="icon-button" normalimage="url='data:image/svg+xml;path,M0 0 H10 V10 H0 Z'"/>
         <Button style="icon-button" normalimage="url='data:image/svg+xml;path,M0 0 L10 10 M10 0 L0 10'" hotbkcolor="#ffe81123"/>
       </HorizontalLayout>
     </HorizontalLayout>
-    <HorizontalLayout name="context" bkcolor="#FF4D6082" menu="true">
+    <HorizontalLayout name="context" bkcolor="#FF4D6082" inline-menu="menu.xml">
       <Text text="Schürmans€测试" padding="15,15,15,15" textcolor="#ffffffff" font="2"/>
     </HorizontalLayout>
   </VerticalLayout>

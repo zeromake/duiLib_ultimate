@@ -21,6 +21,14 @@
 #endif
 #define UILIB_COMDAT __declspec(selectany)
 
+namespace DuiLib
+{
+#ifdef UNICODE
+#define _tstring std::wstring
+#else
+#define _tstring std::string
+#endif
+}
 
 #pragma warning(disable:4505)
 #pragma warning(disable:4251)

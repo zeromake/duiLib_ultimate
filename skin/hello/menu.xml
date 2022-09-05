@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window showshadow="true" shadowcorner="4,4,4,4" shadowsize="4" roundcorner="10,10">
+<Window showshadow="true" shadowcorner="0,0,4,4" shadowsize="4" roundcorner="10,10">
   <Font id="1" name="微软雅黑" size="16" bold="false" />
   <Style name="menu-item">
     <Attr key="inline-padding" value="0,10,0,10"/>

@@ -1,6 +1,9 @@
 add_rules("mode.debug", "mode.release")
 
 local isMingw = false
+if is_plat("mingw") then
+    isMingw = true
+end
 
 set_languages("c++2a")
 

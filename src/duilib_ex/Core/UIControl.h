@@ -366,6 +366,8 @@ namespace DuiLib {
 		// 响应菜单消息，DUI_MSGTYPE_MENU
 		virtual bool IsContextMenuUsed() const;
 		virtual void SetContextMenuUsed(bool bMenuUsed);
+		virtual CDuiString GetContextInlineMenu() const;
+		virtual void SetContextInlineMenu(CDuiString bInlineMenu);
 
 		//用户自定义数据
 		virtual CDuiString GetUserData(); 
@@ -486,6 +488,7 @@ namespace DuiLib {
 		CDuiString m_sName;				//控件名字
 		bool m_bUpdateNeeded;			//控件是否需要刷新
 		bool m_bMenuUsed;				//是否响应菜单事件，DUI_MSGTYPE_MENU
+		CDuiString m_bInlineMenu;				//是否响应菜单事件，DUI_MSGTYPE_MENU
 		RECT m_rcItem;					//控件的位置和大小，实际显示时。
 		RECT m_rcPadding;				// 外边距
         RECT m_rcInlinePadding;         // 内边距
@@ -610,6 +613,7 @@ namespace DuiLib {
 	    HINSTANCE m_instance;
 
 		CStdStringPtrMap m_mCustomAttrHash;	//自定义属性列表
+        CStdStringPtrMap menuInfo;
 
 	public:
 		virtual void SetPaneVisible(bool bVisible = true);

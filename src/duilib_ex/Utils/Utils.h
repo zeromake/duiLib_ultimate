@@ -824,9 +824,9 @@ namespace DuiLib
     static char* w2a(LPCTSTR lpszSrc, UINT   CodePage = CP_DEFAULT)
 	{
 #ifdef UNICODE
-        return (char*)lpszSrc;
+        return w2a((wchar_t*)lpszSrc, CodePage);
 #else
-        return w2a((char*)lpszSrc, CodePage);
+        return (char*)lpszSrc;
 #endif
 	}
 

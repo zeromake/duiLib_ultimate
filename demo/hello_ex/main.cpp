@@ -31,12 +31,12 @@ public:
     void __InitWindow(){}
 
     void Notify(TNotifyUI& msg){
-        if (msg.sType == DUI_MSGTYPE_MENU) {
-            POINT point = msg.ptMouse;
-            ClientToScreen(m_hWnd, &point);
-            m_pMenu = CMenuWnd::CreateMenu(NULL, _T("menu.xml"), point, &m_pm, &m_MenuInfos);
-            m_pMenu->ResizeMenu();
-        }
+        // if (msg.sType == DUI_MSGTYPE_MENU) {
+        //     POINT point = msg.ptMouse;
+        //     ClientToScreen(m_hWnd, &point);
+        //     m_pMenu = CMenuWnd::CreateMenu(NULL, _T("menu.xml"), point, &m_pm, &m_MenuInfos);
+        //     m_pMenu->ResizeMenu();
+        // }
         WindowImplBase::Notify(msg);
     };
  private:
@@ -66,7 +66,6 @@ int wmain(int argc, TCHAR* argv[]) {
 #else
 int main(int argc, TCHAR* argv[]) {
 #endif
-    printf("argc: %d\n", argc);
     auto hInstance = GetModuleHandle(NULL);
     return uimain(hInstance, argv, argc);
 }
@@ -77,11 +76,12 @@ int APIENTRY _tWinMain(
     LPTSTR lpCmdLine,
     int nCmdShow) {
     int argc = 0;
-    auto args = StrSplit(lpCmdLine, _T(" "));
-    int argc = args.size();
-    TCHAR** argv = new TCHAR*[argc];
+    std::vector<_tstring> args;
+    splitString<_tstring>((TCHAR*)lpCmdLine, args, _T(" "));
+    argc = args.size();
+    TCHAR** argv = new TCHAR*[argc+1];
     for (int i = 0; i < argc; i++) {
-        argv[i] = (TCHAR*)args.at(i);
+        argv[i+1] = (TCHAR*)args.at(i).c_str();
     }
     return uimain(hInstance, argv, argc);
 }
