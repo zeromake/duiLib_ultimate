@@ -42,12 +42,10 @@ public:
             } else if (msg.pSender->GetName() == _T("window-close")) {
                 Close(IDCANCEL);
             }
-            _tprintf(_T("click: %s\n"), msg.pSender->GetName().GetData());
         } else if(msg.sType == DUI_MSGTYPE_WINDOWSIZE) {
             bool isWindowMax = ::IsZoomed(*this);
             if (isWindowMax != windowMax) {
                 windowMax = isWindowMax;
-                _tprintf(_T("window change: %d\n"), windowMax);
                 if (windowMax) {
                     CControlUI* pControl = static_cast<CControlUI*>(m_pm.FindControl(_T("window-max")));
                     if( pControl ) pControl->SetVisible(false);
@@ -77,7 +75,7 @@ public:
 int uimain(HINSTANCE hInstance, TCHAR* argv[], int argc) {
     ::CoInitialize(NULL);
     CPaintManagerUI::SetInstance(hInstance);
-    TCHAR *skinDir = _T(SKIN_DIR);
+    TCHAR *skinDir = (TCHAR*)_T(SKIN_DIR);
     _tprintf(_T("skin: %s\n"), skinDir);
     CPaintManagerUI::SetResourcePath(skinDir);//CPaintManagerUI::GetInstancePath() + _T("D:\\project\\DuiLib\\skin\\hello\\"));
     std::unique_ptr<CFrameWnd> pFrame(new CFrameWnd(argv[1]));

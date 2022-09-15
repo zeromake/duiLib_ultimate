@@ -8,7 +8,7 @@ namespace DuiLib {
         return m_store.find(key) != m_store.end();
     }
 
-    const AttributeValue& Attribute::load(const std::string &key) const {
+    const AttributeValue& Attribute::get(const std::string &key) const {
         return m_store.find(key)->second;
     }
 
@@ -19,7 +19,7 @@ namespace DuiLib {
         }
     }
 
-    void Attribute::store(const std::string &key, const AttributeValue& value) {
+    void Attribute::add(const std::string &key, const AttributeValue& value) {
         m_store.insert({key, value});
     }
 

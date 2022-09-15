@@ -29,8 +29,8 @@ namespace DuiLib {
         Attribute();
         ~Attribute();
         bool has(const std::string &key);
-        const AttributeValue& load(const std::string &key) const;
-        void store(const std::string &key, const AttributeValue& value);
+        const AttributeValue& get(const std::string &key) const;
+        void add(const std::string &key, const AttributeValue& value);
         void del(const std::string &key);
         template <typename T> T asAny(const std::string &key, T defaultValue);
         template <typename T> std::shared_ptr<T> asPtr(const std::string &key);

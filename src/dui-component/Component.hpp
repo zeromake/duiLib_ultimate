@@ -6,19 +6,13 @@
 
 namespace DuiLib {
     class VControl;
-    
     class Component {
     private:
         CPaintManagerUI* m_manager;
     public:
         Component(CPaintManagerUI* pManager);
         virtual ~Component();
-        virtual std::vector<VControl> render() {
-            return;
-        };
-        static std::shared_ptr<Component> CreateComponent(CPaintManagerUI* pManager) {
-            return std::make_shared<Component>(new Component(pManager));
-        };
+        virtual std::vector<VControl> render() = 0;
     };
     Component::Component(CPaintManagerUI* pManager): m_manager(pManager) {}
     Component::~Component(){}
